@@ -30,6 +30,11 @@ https://openrouteservice.org/
 ## Api Pollution
 
 - Indique la qualité de l'air des villes grâce à:
-		-> Indice allant de 0 (bon) à 300 (Dangereux)
-		-> Code couleur 
+		- Indice allant de 0 (bon) à 300 (Dangereux)
+		- Code couleur 
 - Site: https://aqicn.org/api/fr/
+
+ ## Api Carte
+  
+  - Site web: https://www.openstreetmap.org/about
+  - https://operations.osmfoundation.org/policies/api/
