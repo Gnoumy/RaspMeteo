@@ -15,7 +15,13 @@ http://www.openpoimap.org
 https://openchargemap.org
 
 
+## STOCK INDEX
+## Company List (NASDAQ, NYSE, & AMEX) 
+https://www.nasdaq.com/screening/company-list.aspx
+https://www.nseindia.com
+http://eoddata.com
 
-
+## Here you can find a lot of useful data
+https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
 
 
