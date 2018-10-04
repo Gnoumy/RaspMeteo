@@ -14,6 +14,7 @@ http://www.openpoimap.org
 
 https://openchargemap.org
 
+## Liste des routes 
 
 ## STOCK INDEX
 ## Company List (NASDAQ, NYSE, & AMEX) 
@@ -24,4 +25,11 @@ http://eoddata.com
 ## Here you can find a lot of useful data
 https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
 
+https://openrouteservice.org/
 
+## Api Pollution
+
+- Indique la qualité de l'air des villes grâce à:
+		-> Indice allant de 0 (bon) à 300 (Dangereux)
+		-> Code couleur 
+- Site: https://aqicn.org/api/fr/
