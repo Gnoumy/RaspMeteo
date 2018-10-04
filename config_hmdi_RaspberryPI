@@ -1,0 +1,5 @@
+Pour faire fonctionner la sortie video de la Raspberry Pi il faut rajouter:
+
+hdmi_force_hotplug=1
+
+à la fin du fichier config.txt
