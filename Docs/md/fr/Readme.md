@@ -6,5 +6,10 @@
 - Donne la région, le code languE, la longitude la latitude , le nom et la population de la ville
 - Site : https://www.maxmind.com/fr/free-world-cities-database
 
+## Liste des POI 
+
+http://www.openpoimap.org
+
+
 
 
