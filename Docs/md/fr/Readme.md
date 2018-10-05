@@ -36,14 +36,6 @@ International Stock Indexes
 France CAC40
 
 
-
-
-
-## Here you can find a lot of useful data bases
-https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
-For example, click "National Climatic Data Center", you can reach website https://www.ncdc.noaa.gov/, then go to https://www.ncdc.noaa.gov/crn/, where you can download the climate data from a series observations.subhourly,hourly, daliy,monthly, including Daily air temperature, precipitation, global solar radiation, relative humidity, surface infrared temperature, soil moisture and soil temperature data. 
-
-
 ## Api Pollution
 
 - Participant: Julien
