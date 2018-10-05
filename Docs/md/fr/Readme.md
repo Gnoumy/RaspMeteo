@@ -52,13 +52,6 @@ For example, click "National Climatic Data Center", you can reach website https:
   - Code couleur
 - Site: https://aqicn.org/api/fr/
 
-
-##Romain Api meteo, alerte meteo, pollution, UV
-https://openweathermap.org/api
-*Entree: ville, code-pays/pays, date
-*Sortie: Json,XML ou HTML celon les version d'API utilise
-
-
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
   - sortie: récupère un format JSON
@@ -67,12 +60,33 @@ https://openweathermap.org/api
   - Monde: Environ 9000 villes
   - France: ne contient pas toutes les villes
 
+## Romain Api meteo, alerte meteo, pollution, UV
+- Participan: Romain
+- Indique la temperaure, précipitation, pollution, UV, vent
+- Site : https://openweathermap.org/api
 
- ## Api Carte
-  
-  - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
-  - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
-  - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
+- API
+  - Entree: ville, code-pays/pays, date
+  - Sortie: Json,XML ou HTML celon les version d'API utilisé
+- Portée:
+  - Monde : Environ 37 000 villes
+
+## Api Carte OpenStreeMap
+- Participant: Miguel
+- Ils existent deux possibilités:	
+  * Utiliser la API de OpenStreetMap: https://www.openstreetmap.org/about
+    - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
+    - entrée: indiquer un bbox contennant latitude min et max, ainsi que longitude min et max de la zone à récuperer
+    - sortie: fichier XML avec extension *.osm* qu'il faudra traiter (*rendering*)
+  * Utiliser le **plugin osm** offert par Qt en utilisant QML sur QT:
+    - entrée: latitude et longitude de l'endroit à faire apparaitre en utilsant un objet **QtPositioning**
+    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran 	
+    - E.g.: https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html	
+
+## Api Carte Google
+- Participant: Miguel	
+- Service payant: https://cloud.google.com/maps-platform/
+
 
 ##Ludovic Api trafic aerien en temps reel
 https://opensky-network.org/
@@ -88,3 +102,11 @@ https://opensky-network.org/
  - Site: //api.sncf.com/v1
 
 
+## API Mairie
+- Participant: Kimcheng
+- Permet d'avoir les informations sur la ville/mairie le plus proche
+- Site: http://www.geobytes.com/get-nearby-cities-api/
+- API
+  - entrée: Le nom de la ville où se trouve l'utilisateur
+  - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
+- Portée: le monde
