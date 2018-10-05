@@ -153,3 +153,18 @@ https://opensky-network.org/
 - Portée:
   - Monde: 130073 stations de recharge sur 64113 endroits.
 
+## Api EauFrance
+
+- Participant: ...
+- Description: Connaitre la qualité des cours d'eau
+- Site: http://hubeau.eaufrance.fr/page/api-qualite-cours-deau-tuto
+
+- API
+  - Entrée: URL, exemple http://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?libelle_commune=Longuyon&pretty
+  - Sortie: Format JSON, on obtient beaucoup d'informations
+   - le nom du cours d'eau
+   - les coordonnées (latitude, longitude, code commune, département, etc)
+   - la dureté de l'eau, la contenance en Nitrates, etc
+
+
+
