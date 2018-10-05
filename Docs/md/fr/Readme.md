@@ -23,6 +23,8 @@ https://www.nasdaq.com/screening/company-list.aspx
 https://www.nseindia.com
 http://eoddata.com
 https://ec.europa.eu/eurostat/data/database
+https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+
 
 ## Here you can find a lot of useful data bases
 https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
