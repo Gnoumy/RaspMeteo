@@ -51,8 +51,10 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 ##Api trafic aerien en temps reel
 https://opensky-network.org/
 
-##Api meteo, alerte meteo, pollution, UV
+##Romain Api meteo, alerte meteo, pollution, UV
 https://openweathermap.org/api
+*Entre: ville, code-pays/pays, date
+*sotie: Json,XML ou HTML celon les version d'API utilise
 
 ## API POI
 
