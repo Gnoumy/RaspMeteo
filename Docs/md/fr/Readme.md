@@ -53,4 +53,7 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
  - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
  - https://developers.google.com/places/web-service/search
 	
+## API Sncf
+
+ - Site: //api.sncf.com/v1
 
