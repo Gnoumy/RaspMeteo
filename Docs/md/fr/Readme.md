@@ -60,6 +60,14 @@ Liste des zones ayant un nombre élevé de faits divers
 - Portée:
   - Monde : Environ 37 000 villes
 
+-Donnees meteo journaliere en fonction de la latitude et longitude:
+  -http://api.openweathermap.org/data/2.5/weather?lat=40&lon=3&appid=3543ac0c00624ed3bb653359621e5344 :
+    - http://api.openweathermap.org/data/2.5 => prefix de l'adresse API
+	 - /weather? => type d'API utilisé sur OPENWEATHERMAP
+	 - lat=40&long3 => coodonnees lattitude et longitude permettant la geolocalisation 
+	 - &appid=3543ac0c00624ed3bb653359621e5344 => clef API permmettant l'utilisation de l'API OPENWEATHERMAP
+
+
 ## Api Carte OpenStreeMap
 - Participant: Miguel
 - Ils existent deux possibilités:	
