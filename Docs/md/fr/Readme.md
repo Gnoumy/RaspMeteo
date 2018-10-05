@@ -41,13 +41,6 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - Code couleur
 - Site: https://aqicn.org/api/fr/
 
-
-##Romain Api meteo, alerte meteo, pollution, UV
-https://openweathermap.org/api
-*Entree: ville, code-pays/pays, date
-*Sortie: Json,XML ou HTML celon les version d'API utilise
-
-
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
   - sortie: récupère un format JSON
@@ -56,8 +49,18 @@ https://openweathermap.org/api
   - Monde: Environ 9000 villes
   - France: ne contient pas toutes les villes
 
+## Romain Api meteo, alerte meteo, pollution, UV
+- Participan: Romain
+- Indique la temperaure, précipitation, pollution, UV, vent
+- Site : https://openweathermap.org/api
 
- ## Api Carte
+- API
+  - Entree: ville, code-pays/pays, date
+  - Sortie: Json,XML ou HTML celon les version d'API utilisé
+- Portée:
+  - Monde : Environ 37 000 villes
+
+## Api Carte
   
   - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
   - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
