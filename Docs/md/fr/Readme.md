@@ -59,4 +59,7 @@ https://openweathermap.org/api
  - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
  - https://developers.google.com/places/web-service/search
 	
+## API Sncf
+
+ - Site: //api.sncf.com/v1
 
