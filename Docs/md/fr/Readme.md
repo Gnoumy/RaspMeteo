@@ -175,3 +175,30 @@ https://opensky-network.org/
 
 
 
+
+## Api OpenChargeMap
+
+- Participant: Ludovic
+- The OpenSky Network is a community-based receiver network which continuously collects air traffic surveillance data.
+        All State Vectors
+        Own State Vectors	// ne nous concerne pas je crois
+        Flights in Time Interval
+        Flights by Aircraft
+        Arrivals by Airport
+        Departures by Airport
+        Track by Aircraft
+	(le seul qui depend de la position est All State Vectors)
+- Liste de param pour All States Vectors (pour les autres, il faut heureDebut heureFin) :
+  - lamin 	float 	lower bound for the latitude in decimal degrees
+  - lomin 	float 	lower bound for the longitude in decimal degrees
+  - lamax 	float 	upper bound for the latitude in decimal degrees
+  - lomax 	float 	upper bound for the longitude in decimal degrees
+- On recupere des infos comme la geo-altitude, la vitesse, le booleen on_ground, etc...
+- Site: https://opensky-network.org/apidoc/rest.html
+
+- API exemple (tous les avions pres de Orly) :
+  - entrée: indique une URL https://opensky-network.org/api/states/all?lamin=48.717&lomin=2.359&lamax=48.735&lomax=2.371
+  - sortie: récupère un format JSON
+  - Doc : https://opensky-network.org/apidoc/rest.html
+- Portée:
+  - Monde: 6000 aircrafts currently tracked, 360 000 Messages/s,  341 000 aircrafts seen 
