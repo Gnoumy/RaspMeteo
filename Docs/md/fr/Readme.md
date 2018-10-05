@@ -25,6 +25,8 @@ https://www.nasdaq.com/screening/company-list.aspx
 https://www.nseindia.com
 http://eoddata.com
 https://ec.europa.eu/eurostat/data/database
+https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+
 
 ## Here you can find a lot of useful data bases
 https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
@@ -52,4 +54,9 @@ https://opensky-network.org/
 ##Api meteo, alerte meteo, pollution, UV
 https://openweathermap.org/api
 
+## API POI
+
+ - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
+ - https://developers.google.com/places/web-service/search
+	
 
