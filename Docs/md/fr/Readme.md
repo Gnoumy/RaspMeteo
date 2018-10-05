@@ -19,13 +19,19 @@ https://openchargemap.org
 https://openrouteservice.org/
 
 
-## STOCK INDEX
-## Company List (NASDAQ, NYSE, & AMEX) 
-https://www.nasdaq.com/screening/company-list.aspx
-https://www.nseindia.com
-http://eoddata.com
-https://ec.europa.eu/eurostat/data/database
-https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+##Api STOCK INDEX
+Participant:Li
+International Stock Index, including: open, close, high and low index
+website: https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+API
+entree: name of stock index(cac40, Euro Stoxx 50, Dow Jones etc), timeperiod, frequance(daily? weekly? monthly?)
+sortie: file format csv
+Portee:
+International Stock Indexes
+France CAC40
+
+
+
 
 
 ## Here you can find a lot of useful data bases
@@ -40,6 +46,7 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - Indice allant de 0 (bon) à 300 (Dangereux)
   - Code couleur
 - Site: https://aqicn.org/api/fr/
+
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
   - sortie: récupère un format JSON
@@ -48,19 +55,26 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - Monde: Environ 9000 villes
   - France: ne contient pas toutes les villes
 
- ## Api Carte
+## Romain Api meteo, alerte meteo, pollution, UV
+- Participan: Romain
+- Indique la temperaure, précipitation, pollution, UV, vent
+- Site : https://openweathermap.org/api
+
+- API
+  - Entree: ville, code-pays/pays, date
+  - Sortie: Json,XML ou HTML celon les version d'API utilisé
+- Portée:
+  - Monde : Environ 37 000 villes
+
+## Api Carte
   
   - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
   - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
   - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
 
-##Api trafic aerien en temps reel
+##Ludovic Api trafic aerien en temps reel
 https://opensky-network.org/
-
-##Romain Api meteo, alerte meteo, pollution, UV
-https://openweathermap.org/api
-*Entre: ville, code-pays/pays, date
-*sotie: Json,XML ou HTML celon les version d'API utilise
+*sortie: Json
 
 ## API POI
 
