@@ -120,7 +120,7 @@ https://opensky-network.org/
 - Permet d'avoir les informations sur la ville le plus proche
 - Site: http://www.geobytes.com/get-nearby-cities-api/
 - API
-  - entrée: Le nom de la ville où se trouve l'utilisateur
+  - entrée: Le nom de la ville où se trouve l'utilisateur ou la longitude et la latitude
   - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
 - Portée: le monde
 
