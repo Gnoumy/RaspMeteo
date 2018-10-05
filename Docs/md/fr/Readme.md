@@ -19,13 +19,19 @@ https://openchargemap.org
 https://openrouteservice.org/
 
 
-## STOCK INDEX
-## Company List (NASDAQ, NYSE, & AMEX) 
-https://www.nasdaq.com/screening/company-list.aspx
-https://www.nseindia.com
-http://eoddata.com
-https://ec.europa.eu/eurostat/data/database
-https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+##Api STOCK INDEX
+Participant:Li
+International Stock Index, including: open, close, high and low index
+website: https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+API
+entree: name of stock index(cac40, Euro Stoxx 50, Dow Jones etc), timeperiod, frequance(daily? weekly? monthly?)
+sortie: file format csv
+Portee:
+International Stock Indexes
+France CAC40
+
+
+
 
 
 ## Here you can find a lot of useful data bases
