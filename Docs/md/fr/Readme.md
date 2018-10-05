@@ -75,6 +75,14 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 - Portée:
   - Monde : Environ 37 000 villes
 
+- Donnees meteo journaliere en fonction de la latitude et longitude:
+  - http://api.openweathermap.org/data/2.5/weather?lat=40&lon=3&appid=3543ac0c00624ed3bb653359621e5344 :
+    - http://api.openweathermap.org/data/2.5 => prefix de l'adresse API
+	 - /weather? => type d'API utilisé sur OPENWEATHERMAP
+	 - lat=40&long3 => coodonnees lattitude et longitude permettant la geolocalisation 
+	 - &appid=3543ac0c00624ed3bb653359621e5344 => clef API permmettant l'utilisation de l'API OPENWEATHERMAP
+
+
 ## Api Carte OpenStreeMap
 - Participant: Miguel
 - Ils existent deux possibilités:	
@@ -115,3 +123,33 @@ https://opensky-network.org/
   - entrée: Le nom de la ville où se trouve l'utilisateur
   - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
 - Portée: le monde
+
+## Api Space Track
+- Participant: ...
+- Description : Permet de localiser les satellites en temps réel
+- Site: https://www.space-track.org/documentation#api
+- API 
+  - Pré-requis: obligation d'avoir un compte, pas plus de 20 requêtes par minute.
+  - Entrée: URL, exemple: https://www.space-track.org/basicspacedata/query/class/boxscore/format/json
+  - Sortie: plusieur formats disponibles (xml, json, html, csv, tle, 3le, kvn, stream)
+- Portée: Monde
+
+## Api OpenChargeMap
+
+- Participant: Ludovic
+- Open Charge Map le registre public mondial d'emplacements de recharge pour véhicules électriques
+- Liste importantes de parametres possibles. Les plus utiles pour nous :
+  - distance : return results based on specified distance from specified latitude/longitude 
+  - distanceunit : Miles or KM
+  - latitude reference for distance calculation
+  - longitude reference for distance calculation
+- On recupere des infos comme le nom, l'adresse, le contact (site internet, tel, mail)
+- Site: https://openchargemap.org/site/develop/api
+
+- API exemple :
+  - entrée: indique une URL https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.85&longitude=2.33&&distance=1&distanceunit=KM
+  - sortie: récupère un format JSON (xml, kml aussi mais ils recommandent JSON) 
+  - Doc : https://openchargemap.org/site/develop/api
+- Portée:
+  - Monde: 130073 stations de recharge sur 64113 endroits.
+
