@@ -66,11 +66,21 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 - Portée:
   - Monde : Environ 37 000 villes
 
-## Api Carte
-  
-  - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
-  - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
-  - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
+## Api Carte OpenStreeMap
+- Participant: Miguel
+- Ils existent deux possibilités:	
+  * Utiliser la API de OpenStreetMaphttps://www.openstreetmap.org/about
+    - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
+    - entrée: indiquer un bbox contennant latitude min et max, ainsi que longitude min et max de la zone à récuperer
+    - sortie: fichier XML avec extension *.osm* qu'il faudra traiter (*rendering*)
+  * Utiliser le **plugin osm** offert par Qt en utilisant QML sur QT:
+    - entrée: latitude et longitude de l'endroit à faire apparaitre en utilsant un objet **QtPositioning**
+    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran 	
+
+## Api Carte Google
+- Participant: Miguel	
+- Service payant: https://cloud.google.com/maps-platform/
+
 
 ##Ludovic Api trafic aerien en temps reel
 https://opensky-network.org/
