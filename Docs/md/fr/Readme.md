@@ -19,21 +19,18 @@ https://openchargemap.org
 https://openrouteservice.org/
 
 
-##Api STOCK INDEX
+## Api la liste des accidents vols, agression autour de une adresse 
 Participant:Li
 
-International Stock Index, including: open, close, high and low index
-website: https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+Cherchez la liste des accidents, vols, agressions autour de cette adresse ou clicker sur la carte. Voir les quartiers dangereux, la sécurité autour des colléges et musées
 
 API
 
-entree: name of stock index(cac40, Euro Stoxx 50, Dow Jones etc), timeperiod, frequance(daily? weekly? monthly?)
+entree: clicker sur la carte ou donner une addresse
 
-sortie: file format csv
+sortie:		
+Liste des zones ayant un nombre élevé de faits divers 
 
-Portee:
-International Stock Indexes
-France CAC40
 
 
 ## Api Pollution
@@ -114,4 +111,22 @@ https://opensky-network.org/
   - Sortie: plusieur formats disponibles (xml, json, html, csv, tle, 3le, kvn, stream)
 - Portée: Monde
 
+## Api OpenChargeMap
+
+- Participant: Ludovic
+- Open Charge Map le registre public mondial d'emplacements de recharge pour véhicules électriques
+- Liste importantes de parametres possibles. Les plus utiles pour nous :
+  - distance : return results based on specified distance from specified latitude/longitude 
+  - distanceunit : Miles or KM
+  - latitude reference for distance calculation
+  - longitude reference for distance calculation
+- On recupere des infos comme le nom, l'adresse, le contact (site internet, tel, mail)
+- Site: https://openchargemap.org/site/develop/api
+
+- API exemple :
+  - entrée: indique une URL https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.85&longitude=2.33&&distance=1&distanceunit=KM
+  - sortie: récupère un format JSON (xml, kml aussi mais ils recommandent JSON) 
+  - Doc : https://openchargemap.org/site/develop/api
+- Portée:
+  - Monde: 130073 stations de recharge sur 64113 endroits.
 
