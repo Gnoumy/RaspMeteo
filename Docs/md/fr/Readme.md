@@ -71,3 +71,12 @@ https://openweathermap.org/api
 
  - Site: //api.sncf.com/v1
 
+
+## API Mairie
+- Participant: Kimcheng
+- Permet d'avoir les informations sur la ville/mairie le plus proche
+- Site: http://www.geobytes.com/get-nearby-cities-api/
+- API
+  - entrée: Le nom de la ville où se trouve l'utilisateur
+  - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
+- Portée: le monde
