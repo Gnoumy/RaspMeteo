@@ -40,6 +40,10 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 		-> Code couleur 
 - Site: https://aqicn.org/api/fr/
 
+##Romain Api meteo, alerte meteo, pollution, UV
+https://openweathermap.org/api
+*Entree: ville, code-pays/pays, date
+*Sortie: Json,XML ou HTML celon les version d'API utilise
 
 
  ## Api Carte
@@ -48,13 +52,9 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
   - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
 
-##Api trafic aerien en temps reel
+##Ludovic Api trafic aerien en temps reel
 https://opensky-network.org/
-
-##Romain Api meteo, alerte meteo, pollution, UV
-https://openweathermap.org/api
-*Entre: ville, code-pays/pays, date
-*sotie: Json,XML ou HTML celon les version d'API utilise
+*sortie: Json
 
 ## API POI
 
@@ -64,4 +64,5 @@ https://openweathermap.org/api
 ## API Sncf
 
  - Site: //api.sncf.com/v1
+
 
