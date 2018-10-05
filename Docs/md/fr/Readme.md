@@ -103,3 +103,15 @@ https://opensky-network.org/
   - entrée: Le nom de la ville où se trouve l'utilisateur
   - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
 - Portée: le monde
+
+## Api Space Track
+- Participant: ...
+- Description : Permet de localiser les satellites en temps réel
+- Site: https://www.space-track.org/documentation#api
+- API 
+  - Pré-requis: obligation d'avoir un compte, pas plus de 20 requêtes par minute.
+  - Entrée: URL, exemple: https://www.space-track.org/basicspacedata/query/class/boxscore/format/json
+  - Sortie: plusieur formats disponibles (xml, json, html, csv, tle, 3le, kvn, stream)
+- Portée: Monde
+
+
