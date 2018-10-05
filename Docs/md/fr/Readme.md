@@ -45,5 +45,11 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
   - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
   - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
-	
+
+##Api trafic aerien en temps reel
+https://opensky-network.org/
+
+##Api meteo, alerte meteo, pollution, UV
+https://openweathermap.org/api
+
 
