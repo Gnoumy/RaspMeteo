@@ -102,9 +102,10 @@ https://opensky-network.org/
  - Site: //api.sncf.com/v1
 
 
-## API Mairie
+## API ville la plus proche
+ 
 - Participant: Kimcheng
-- Permet d'avoir les informations sur la ville/mairie le plus proche
+- Permet d'avoir les informations sur la ville le plus proche
 - Site: http://www.geobytes.com/get-nearby-cities-api/
 - API
   - entrée: Le nom de la ville où se trouve l'utilisateur
