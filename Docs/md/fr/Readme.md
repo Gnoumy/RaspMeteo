@@ -24,14 +24,29 @@ Participant:Li
 
 Cherchez la liste des accidents, vols, agressions autour de cette adresse ou clicker sur la carte. Voir les quartiers dangereux, la sécurité autour des colléges et musées
 
+Site: http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH92.html?Address=XX492%20ANTONY
+
 API
 
-entree: clicker sur la carte ou donner une addresse
+entree: donner une addresse, departement, ville, rue etc.
 
 sortie:		
 Liste des zones ayant un nombre élevé de faits divers 
 
+## Api Système d'information géographique de la politique de la ville
 
+Participant:Li
+
+Site: https://sig.ville.gouv.fr/
+
+API
+
+entree: donner une addresse, code postal, nom de la ville, nom de la voie et numero dans la voie.
+
+sortie: 
+Si l'adresse est identifiée comme étant située dans un quartier, l’utilisateur obtient une réponse positive.
+Si l'adresse est identifiée comme étant située hors quartier, l’utilisateur obtient une réponse négative. 
+Si la recherche est sans résultat, un message en informe l’utilisateur.
 
 ## Api Pollution
 
