@@ -37,5 +37,7 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 
  ## Api Carte
   
-  - Site web: https://www.openstreetmap.org/about
-  - https://operations.osmfoundation.org/policies/api/
+  - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
+  - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
+  - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
+	
