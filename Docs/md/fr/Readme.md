@@ -45,5 +45,10 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
   - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
   - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
   - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
+
+## API POI
+
+ - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
+ - https://developers.google.com/places/web-service/search
 	
 
