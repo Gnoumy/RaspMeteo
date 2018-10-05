@@ -35,3 +35,13 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 		-> Indice allant de 0 (bon) à 300 (Dangereux)
 		-> Code couleur 
 - Site: https://aqicn.org/api/fr/
+
+
+
+ ## Api Carte
+  
+  - Site web OPENSTREETMAP: https://www.openstreetmap.org/about
+  - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
+  - Site web GOOGLE (payant): https://cloud.google.com/maps-platform/
+	
+
