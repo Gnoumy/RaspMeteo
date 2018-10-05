@@ -22,8 +22,9 @@ https://openrouteservice.org/
 https://www.nasdaq.com/screening/company-list.aspx
 https://www.nseindia.com
 http://eoddata.com
+https://ec.europa.eu/eurostat/data/database
 
-## Here you can find a lot of useful data
+## Here you can find a lot of useful data bases
 https://stats.stackexchange.com/questions/7/locating-freely-available-data-samples/ 
 
 
@@ -31,11 +32,6 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 ## Api Pollution
 
 - Indique la qualité de l'air des villes grâce à:
-		- Indice allant de 0 (bon) à 300 (Dangereux)
-		- Code couleur 
+		-> Indice allant de 0 (bon) à 300 (Dangereux)
+		-> Code couleur 
 - Site: https://aqicn.org/api/fr/
-
- ## Api Carte
-  
-  - Site web: https://www.openstreetmap.org/about
-  - https://operations.osmfoundation.org/policies/api/
