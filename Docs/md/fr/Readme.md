@@ -35,15 +35,26 @@ https://stats.stackexchange.com/questions/7/locating-freely-available-data-sampl
 
 ## Api Pollution
 
+- Participant: Julien
 - Indique la qualité de l'air des villes grâce à:
-		-> Indice allant de 0 (bon) à 300 (Dangereux)
-		-> Code couleur 
+  - Indice allant de 0 (bon) à 300 (Dangereux)
+  - Code couleur
 - Site: https://aqicn.org/api/fr/
+
 
 ##Romain Api meteo, alerte meteo, pollution, UV
 https://openweathermap.org/api
 *Entree: ville, code-pays/pays, date
 *Sortie: Json,XML ou HTML celon les version d'API utilise
+
+
+- API
+  - entrée: indique une URL http://aqicn.org/city/paris/
+  - sortie: récupère un format JSON
+  - Doc : http://aqicn.org/json-api/doc/
+- Portée:
+  - Monde: Environ 9000 villes
+  - France: ne contient pas toutes les villes
 
 
  ## Api Carte
