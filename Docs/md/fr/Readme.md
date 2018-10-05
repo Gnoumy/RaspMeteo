@@ -19,21 +19,18 @@ https://openchargemap.org
 https://openrouteservice.org/
 
 
-##Api STOCK INDEX
+## Api la liste des accidents vols, agression autour de une adresse 
 Participant:Li
 
-International Stock Index, including: open, close, high and low index
-website: https://fr.finance.yahoo.com/quote/%5EFCHI?p=^FCHI
+Cherchez la liste des accidents, vols, agressions autour de cette adresse ou clicker sur la carte. Voir les quartiers dangereux, la sécurité autour des colléges et musées
 
 API
 
-entree: name of stock index(cac40, Euro Stoxx 50, Dow Jones etc), timeperiod, frequance(daily? weekly? monthly?)
+entree: clicker sur la carte ou donner une addresse
 
-sortie: file format csv
+sortie:		
+Liste des zones ayant un nombre élevé de faits divers 
 
-Portee:
-International Stock Indexes
-France CAC40
 
 
 ## Api Pollution
