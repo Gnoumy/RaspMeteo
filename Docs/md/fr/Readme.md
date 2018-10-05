@@ -111,7 +111,14 @@ https://opensky-network.org/
 	
 ## API Sncf
 
- - Site: //api.sncf.com/v1
+ - Participant: Cheikh 
+ - données de transport de plusieurs réseaux dans le monde (Île-de-France, Sa Francisco, Berlin, Nantes, NYC, Pays-Bas, etc.)
+ - Cet API propose plusieurs services :
+    - calcul des itinéraires
+    - exploration des données
+    - prochains départs
+    - fiches horaires
+ - Site: http://navitia.io/
 
 
 ## API ville la plus proche
