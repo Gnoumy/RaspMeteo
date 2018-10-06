@@ -104,10 +104,57 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 https://opensky-network.org/
 *sortie: Json
 
-## API POI
+## API des Points d'interets
   - Participant: Marco
- - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
- - https://developers.google.com/places/web-service/search
+
+## API Places de googlemaps
+- API payante qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
+- site https://developers.google.com/places/web-service/search
+- API non retenue a cause du prix de ce service: 200$/mois
+
+
+## API OpenPOIs
+- API open source qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
+- site http://openpoi.ogcnetwork.net/api.php
+- request base url: http://openpois.net/poiquery.php?
+- zone géographique mondiale
+ENTREE
+- unique id of the POI
+- label du POI
+- latitude, longitude, radius
+- option de recherche :date de creation du POI/nombre maximum de POI
+
+SORTIE
+options de format: text/html, geojson, application/json or application/xml
+
+API OpenPOIs implemente  l' API OGC Web Feature Service (WFS)
+- WFS implémente l' API open source Mapserver's (https://mapserver.org/ogc/wfs_server.html) 
+- WFS reconnait que certains champs de la POI son ID,  label & coordonnées géographiques.
+
+Fontionnement de la base de données 
+- Les requetes à la base de données sont réalisées par bounding box ou par nom  au standard de l'API WFS de OGC
+- Chaque POI possède un RESTful URI permanent.
+Les réponses des requetes sont retournées au format XML ou JSON en conformité W3C POIWG specification 
+
+
+## API POI implémentée sur API OpenstreetMap (OSM)
+
+- Voir la description de l'API OSM dans le fichier README
+
+- Construction des POI sur la map OSM
+The ideal way, however, is to download the OpenStreetMap data dump and filter it according to your needs. 
+The data dump is called planet.osm. 
+You can either download the whole world (really huge), or just an extract covering one country or state.
+Once you've downloaded it, a Java program called Osmosis will extract the data for you,
+ and either loading the result into a database, or outputting it as a file.
+
+- les principales méthodes utilisées sont consultable à l'addresse:
+https://help.openstreetmap.org/questions/4065/getting-specific-poi-data-and-keeping-them-up-to-date
+https://medium.com/ibm-watson-data-lab/easy-access-to-all-points-of-interest-data-acc6569e45b2
+
+Les outils pour la production et le traitement des données selon des critères de recherche des POI :
+OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
+
 	
 ## API Sncf
 
