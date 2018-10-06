@@ -149,8 +149,8 @@ Once you've downloaded it, a Java program called Osmosis will extract the data f
  and either loading the result into a database, or outputting it as a file.
 
 - les principales méthodes utilisées sont consultable à l'addresse:
-https://help.openstreetmap.org/questions/4065/getting-specific-poi-data-and-keeping-them-up-to-date
-https://medium.com/ibm-watson-data-lab/easy-access-to-all-points-of-interest-data-acc6569e45b2
+- https://help.openstreetmap.org/questions/4065/getting-specific-poi-data-and-keeping-them-up-to-date
+- https://medium.com/ibm-watson-data-lab/easy-access-to-all-points-of-interest-data-acc6569e45b2
 
 Les outils pour la production et le traitement des données selon des critères de recherche des POI :
 OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
