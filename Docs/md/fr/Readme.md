@@ -83,21 +83,38 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 	 - &appid=3543ac0c00624ed3bb653359621e5344 => clef API permmettant l'utilisation de l'API OPENWEATHERMAP
 
 
-## Api Carte OpenStreeMap
+## Api Carte [OpenStreeMap](https://www.openstreetmap.org)
 - Participant: Miguel
-- Ils existent deux possibilités:	
-  * Utiliser la API de [OpenStreetMap] (https://www.openstreetmap.org/about)
+- Ils existent deux possibilités:
+  * Utiliser la API de [OpenStreetMap](https://www.openstreetmap.org/about)
     - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
     - entrée: indiquer un paramètre *bbox* contennant latitude min et max, ainsi que longitude min et max de la zone à récuperer
     - sortie: fichier XML avec extension *.osm* qu'il faudra traiter afin d'obtenir une image (*rendering*)
   * Utiliser le **plugin osm** offert par Qt en utilisant QML sur QT:
     - entrée: latitude et longitude de l'endroit à faire apparaitre en utilsant un objet **QtPositioning**
-    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran 	
-    - E.g.: [Minimal Map (QML)](https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html)	
+    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran
+    - E.g.: [Minimal Map (QML)](https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html)
 
 ## Api Carte Google
-- Participant: Miguel	
+- Participant: Miguel
 - Service payant: https://cloud.google.com/maps-platform/
+
+## API Carte [OpenRouteServices](https://openrouteservice.org/)
+- Participant: Miguel
+- Plusieurs services disponibles:
+  * Directions:
+    - Fournit différents profils: vélos, marche, rando, car, truck
+  * Isochrones:
+    - Aide à simuler les distances qui seront parcourues dans un temps donné.
+  * POIs (*points of interest*)
+    - Permet de trouver des points d'intêret (*POIs*) dans une zone donnée.
+  * Autres à explorer: Matrix, Geocoding, Openmapsurfer
+
+- API: requêtes via *http GET*
+  * entrée: coordonnées du type *bbox* comme sur API OpenStreetMap (voir ci-dessus)
+  * sortie: fichier json 
+  * E.g [Get Direction](https://api.openrouteservice.org/directions?api_key=your-api-key&coordinates=8.34234%2C48.23424%7C8.34423%2C48.26424&profile=driving-car) 
+  * Authentification obligatoire en envoyant une clé d'utilisateur (*paramètre api-key*) obtenue en s'inscrivant sur le site
 
 
 ##Ludovic Api trafic aerien en temps reel
