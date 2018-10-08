@@ -132,7 +132,8 @@ https://opensky-network.org/
 - Portée: le monde
 
 ## Api Space Track
-- Participant: ...
+
+- Participant: Julien 
 - Description : Permet de localiser les satellites en temps réel
 - Site: https://www.space-track.org/documentation#api
 - API 
@@ -153,10 +154,11 @@ https://opensky-network.org/
 - On recupere des infos comme le nom, l'adresse, le contact (site internet, tel, mail)
 - Site: https://openchargemap.org/site/develop/api
 
-- API exemple :
+- API exemple : 
   - entrée: indique une URL https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.85&longitude=2.33&&distance=1&distanceunit=KM
   - sortie: récupère un format JSON (xml, kml aussi mais ils recommandent JSON) 
   - Doc : https://openchargemap.org/site/develop/api
 - Portée:
   - Monde: 130073 stations de recharge sur 64113 endroits.
+- Difficulté : *
 
