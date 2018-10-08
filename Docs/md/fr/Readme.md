@@ -183,6 +183,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
     - prochains départs
     - fiches horaires
  - Site: http://navitia.io/
+ - Sortie: format JSON
 
 
 ## API ville la plus proche
