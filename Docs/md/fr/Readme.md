@@ -83,31 +83,95 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 	 - &appid=3543ac0c00624ed3bb653359621e5344 => clef API permmettant l'utilisation de l'API OPENWEATHERMAP
 
 
-## Api Carte OpenStreeMap
+## Api Carte [OpenStreeMap](https://www.openstreetmap.org)
 - Participant: Miguel
-- Ils existent deux possibilités:	
-  * Utiliser la API de [OpenStreetMap] (https://www.openstreetmap.org/about)
+- Ils existent deux possibilités:
+  * Utiliser la API de [OpenStreetMap](https://www.openstreetmap.org/about)
     - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
     - entrée: indiquer un paramètre *bbox* contennant latitude min et max, ainsi que longitude min et max de la zone à récuperer
     - sortie: fichier XML avec extension *.osm* qu'il faudra traiter afin d'obtenir une image (*rendering*)
   * Utiliser le **plugin osm** offert par Qt en utilisant QML sur QT:
     - entrée: latitude et longitude de l'endroit à faire apparaitre en utilsant un objet **QtPositioning**
-    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran 	
-    - E.g.: [Minimal Map (QML)](https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html)	
+    - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran
+    - E.g.: [Minimal Map (QML)](https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html)
 
 ## Api Carte Google
-- Participant: Miguel	
+- Participant: Miguel
 - Service payant: https://cloud.google.com/maps-platform/
+
+## API Carte [OpenRouteServices](https://openrouteservice.org/)
+- Participant: Miguel
+- Plusieurs services disponibles:
+  * Directions:
+    - Fournit différents profils: vélos, marche, rando, car, truck
+  * Isochrones:
+    - Aide à simuler les distances qui seront parcourues dans un temps donné.
+  * POIs (*points of interest*)
+    - Permet de trouver des points d'intêret (*POIs*) dans une zone donnée.
+  * Autres à explorer: Matrix, Geocoding, Openmapsurfer
+
+- API: requêtes via *http GET*
+  * entrée: coordonnées du type *bbox* comme sur API OpenStreetMap (voir ci-dessus)
+  * sortie: fichier json 
+  * E.g [Get Direction](https://api.openrouteservice.org/directions?api_key=your-api-key&coordinates=8.34234%2C48.23424%7C8.34423%2C48.26424&profile=driving-car) 
+  * Authentification obligatoire en envoyant une clé d'utilisateur (*paramètre api-key*) obtenue en s'inscrivant sur le site
 
 
 ##Ludovic Api trafic aerien en temps reel
 https://opensky-network.org/
 *sortie: Json
 
-## API POI
+## API des Points d'interets
+  - Participant: Marco
 
- - https://public.opendatasoft.com/explore/dataset/points-dinterets-openstreetmap-en-france/api/
- - https://developers.google.com/places/web-service/search
+## API Places de googlemaps
+- API payante qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
+- site https://developers.google.com/places/web-service/search
+- API non retenue a cause du prix de ce service: 200$/mois
+
+
+## API OpenPOIs
+- API open source qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
+- site http://openpoi.ogcnetwork.net/api.php
+- request base url: http://openpois.net/poiquery.php?
+- zone géographique mondiale
+ENTREE
+- unique id of the POI
+- label du POI
+- latitude, longitude, radius
+- option de recherche :date de creation du POI/nombre maximum de POI
+
+SORTIE
+options de format: text/html, geojson, application/json or application/xml
+
+API OpenPOIs implemente  l' API OGC Web Feature Service (WFS)
+- WFS implémente l' API open source Mapserver's (https://mapserver.org/ogc/wfs_server.html) 
+- WFS reconnait que certains champs de la POI son ID,  label & coordonnées géographiques.
+
+Fontionnement de la base de données 
+- Les requetes à la base de données sont réalisées par bounding box ou par nom  au standard de l'API WFS de OGC
+- Chaque POI possède un RESTful URI permanent.
+Les réponses des requetes sont retournées au format XML ou JSON en conformité W3C POIWG specification 
+
+
+## API POI implémentée sur API OpenstreetMap (OSM)
+
+- Voir la description de l'API OSM dans le fichier README
+
+- Construction des POI sur la map OSM
+The ideal way, however, is to download the OpenStreetMap data dump and filter it according to your needs. 
+The data dump is called planet.osm. 
+You can either download the whole world (really huge), or just an extract covering one country or state.
+Once you've downloaded it, a Java program called Osmosis will extract the data for you,
+ and either loading the result into a database, or outputting it as a file.
+
+- les principales méthodes utilisées sont consultable à l'addresse:
+- https://help.openstreetmap.org/questions/4065/getting-specific-poi-data-and-keeping-them-up-to-date
+- https://medium.com/ibm-watson-data-lab/easy-access-to-all-points-of-interest-data-acc6569e45b2
+
+Les outils pour la production et le traitement des données selon des critères de recherche des POI :
+OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
+
 	
 ## API Sncf
 
@@ -162,3 +226,45 @@ https://opensky-network.org/
   - Monde: 130073 stations de recharge sur 64113 endroits.
 - Difficulté : *
 
+## Api EauFrance
+
+- Participant: ...
+- Description: Connaitre la qualité des cours d'eau
+- Site: http://hubeau.eaufrance.fr/page/api-qualite-cours-deau-tuto
+
+- API
+  - Entrée: URL, exemple http://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?libelle_commune=Longuyon&pretty
+  - Sortie: Format JSON, on obtient beaucoup d'informations
+   - le nom du cours d'eau
+   - les coordonnées (latitude, longitude, code commune, département, etc)
+   - la dureté de l'eau, la contenance en Nitrates, etc
+
+
+
+
+## Api OpenChargeMap
+
+- Participant: Ludovic
+- The OpenSky Network is a community-based receiver network which continuously collects air traffic surveillance data.
+        All State Vectors
+        Own State Vectors	// ne nous concerne pas je crois
+        Flights in Time Interval
+        Flights by Aircraft
+        Arrivals by Airport
+        Departures by Airport
+        Track by Aircraft
+	(le seul qui depend de la position est All State Vectors)
+- Liste de param pour All States Vectors (pour les autres, il faut heureDebut heureFin) :
+  - lamin 	float 	lower bound for the latitude in decimal degrees
+  - lomin 	float 	lower bound for the longitude in decimal degrees
+  - lamax 	float 	upper bound for the latitude in decimal degrees
+  - lomax 	float 	upper bound for the longitude in decimal degrees
+- On recupere des infos comme la geo-altitude, la vitesse, le booleen on_ground, etc...
+- Site: https://opensky-network.org/apidoc/rest.html
+
+- API exemple (tous les avions pres de Orly) :
+  - entrée: indique une URL https://opensky-network.org/api/states/all?lamin=48.717&lomin=2.359&lamax=48.735&lomax=2.371
+  - sortie: récupère un format JSON
+  - Doc : https://opensky-network.org/apidoc/rest.html
+- Portée:
+  - Monde: 6000 aircrafts currently tracked, 360 000 Messages/s,  341 000 aircrafts seen 
