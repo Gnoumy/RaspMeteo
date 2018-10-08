@@ -24,6 +24,7 @@ https://openrouteservice.org/
   - Indice allant de 0 (bon) à 300 (Dangereux)
   - Code couleur
 - Site: https://aqicn.org/api/fr/
+- Token : 82740759ffaf747ed45aad29febf758fffd33758
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
   - sortie: récupère un format JSON
@@ -150,6 +151,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
     - prochains départs
     - fiches horaires
  - Site: http://navitia.io/
+ - Sortie: format JSON
 
 
 ## API ville la plus proche
@@ -172,7 +174,12 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 - API 
   - Pré-requis: obligation d'avoir un compte, pas plus de 20 requêtes par minute.
   - Entrée: URL, exemple: https://www.space-track.org/basicspacedata/query/class/boxscore/format/json
+    - Construction de la requête: https://www.space-track.org/#queryBuilder
   - Sortie: plusieur formats disponibles (xml, json, html, csv, tle, 3le, kvn, stream)
+    - Nom du satellite
+    - Pays 
+    - Apogée, Périgée, Inclinaison, période de révolution
+    - Date de lancement
 - Portée: Monde
 
 ## Api OpenChargeMap
