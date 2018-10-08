@@ -5,57 +5,25 @@
 - Base de données des villes contenant plus d'un million de villes par le monde
 - Donne la région, le code languE, la longitude la latitude , le nom et la population de la ville
 - Site : https://www.maxmind.com/fr/free-world-cities-database
+- Inutile car pris en charge par l'API Geobyte
 
 ## Liste des POI 
 
 http://www.openpoimap.org
-
-## Liste des points de recharge pour véhicule électrique 
-
-https://openchargemap.org
 
 ## Liste des routes 
 
 https://openrouteservice.org/
 
 
-## Api la liste des accidents vols, agression autour de une adresse 
-Participant:Li
-
-Cherchez la liste des accidents, vols, agressions autour de cette adresse ou clicker sur la carte. Voir les quartiers dangereux, la sécurité autour des colléges et musées
-
-Site: http://ddata.over-blog.com/xxxyyy/1/26/64/19/Paris/site02-Geo-VH92.html?Address=XX492%20ANTONY
-
-API
-
-entree: donner une addresse, departement, ville, rue etc.
-
-sortie:		
-Liste des zones ayant un nombre élevé de faits divers 
-
-## Api Système d'information géographique de la politique de la ville
-
-Participant:Li
-
-Site: https://sig.ville.gouv.fr/
-
-API
-
-entree: donner une addresse, code postal, nom de la ville, nom de la voie et numero dans la voie.
-
-sortie: 
-Si l'adresse est identifiée comme étant située dans un quartier, l’utilisateur obtient une réponse positive.
-Si l'adresse est identifiée comme étant située hors quartier, l’utilisateur obtient une réponse négative. 
-Si la recherche est sans résultat, un message en informe l’utilisateur.
-
 ## Api Pollution
 
 - Participant: Julien
+- Realisation : Julien 
 - Indique la qualité de l'air des villes grâce à:
   - Indice allant de 0 (bon) à 300 (Dangereux)
   - Code couleur
 - Site: https://aqicn.org/api/fr/
-
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
   - sortie: récupère un format JSON
@@ -65,6 +33,7 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
   - France: ne contient pas toutes les villes
 
 ## Romain Api meteo, alerte meteo, pollution, UV
+
 - Participan: Romain
 - Indique la temperaure, précipitation, pollution, UV, vent
 - Site : https://openweathermap.org/api
@@ -84,7 +53,9 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 
 
 ## Api Carte [OpenStreeMap](https://www.openstreetmap.org)
+
 - Participant: Miguel
+- Réalisation : Miguel 
 - Ils existent deux possibilités:
   * Utiliser la API de [OpenStreetMap](https://www.openstreetmap.org/about)
     - API v.06: https://wiki.openstreetmap.org/wiki/API_v0.6
@@ -95,12 +66,10 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
     - sortie: on obtient le plan en utilisant un objet **QQmlApplicationEngine** pour le charger sur l'écran
     - E.g.: [Minimal Map (QML)](https://doc-snapshots.qt.io/qt5-5.9/qtlocation-minimal-map-example.html)
 
-## Api Carte Google
-- Participant: Miguel
-- Service payant: https://cloud.google.com/maps-platform/
-
 ## API Carte [OpenRouteServices](https://openrouteservice.org/)
+
 - Participant: Miguel
+- Réalisation : non attribué
 - Plusieurs services disponibles:
   * Directions:
     - Fournit différents profils: vélos, marche, rando, car, truck
@@ -109,7 +78,6 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
   * POIs (*points of interest*)
     - Permet de trouver des points d'intêret (*POIs*) dans une zone donnée.
   * Autres à explorer: Matrix, Geocoding, Openmapsurfer
-
 - API: requêtes via *http GET*
   * entrée: coordonnées du type *bbox* comme sur API OpenStreetMap (voir ci-dessus)
   * sortie: fichier json 
@@ -118,16 +86,14 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
 
 
 ##Ludovic Api trafic aerien en temps reel
+- Participation : Ludovic
+- Réalisation : marco 
 https://opensky-network.org/
 *sortie: Json
 
 ## API des Points d'interets
   - Participant: Marco
-
-## API Places de googlemaps
-- API payante qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
-- site https://developers.google.com/places/web-service/search
-- API non retenue a cause du prix de ce service: 200$/mois
+  - Réalisation : Ludovic
 
 
 ## API OpenPOIs
@@ -176,6 +142,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 ## API Sncf
 
  - Participant: Cheikh 
+ - Réalisation : Cheikh
  - données de transport de plusieurs réseaux dans le monde (Île-de-France, Sa Francisco, Berlin, Nantes, NYC, Pays-Bas, etc.)
  - Cet API propose plusieurs services :
     - calcul des itinéraires
@@ -188,6 +155,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 ## API ville la plus proche
  
 - Participant: Kimcheng
+- Réalisation : Kimcheng
 - Permet d'avoir les informations sur la ville le plus proche
 - Site: http://www.geobytes.com/get-nearby-cities-api/
 - API
@@ -198,6 +166,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 ## Api Space Track
 
 - Participant: Julien 
+- Réalisation : Li
 - Description : Permet de localiser les satellites en temps réel
 - Site: https://www.space-track.org/documentation#api
 - API 
@@ -209,6 +178,7 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 ## Api OpenChargeMap
 
 - Participant: Ludovic
+- Réalisation : Khadim
 - Open Charge Map le registre public mondial d'emplacements de recharge pour véhicules électriques
 - Liste importantes de parametres possibles. Les plus utiles pour nous :
   - distance : return results based on specified distance from specified latitude/longitude 
@@ -217,7 +187,6 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
   - longitude reference for distance calculation
 - On recupere des infos comme le nom, l'adresse, le contact (site internet, tel, mail)
 - Site: https://openchargemap.org/site/develop/api
-
 - API exemple : 
   - entrée: indique une URL https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.85&longitude=2.33&&distance=1&distanceunit=KM
   - sortie: récupère un format JSON (xml, kml aussi mais ils recommandent JSON) 
@@ -240,31 +209,3 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
    - la dureté de l'eau, la contenance en Nitrates, etc
 
 
-
-
-## Api OpenChargeMap
-
-- Participant: Ludovic
-- The OpenSky Network is a community-based receiver network which continuously collects air traffic surveillance data.
-        All State Vectors
-        Own State Vectors	// ne nous concerne pas je crois
-        Flights in Time Interval
-        Flights by Aircraft
-        Arrivals by Airport
-        Departures by Airport
-        Track by Aircraft
-	(le seul qui depend de la position est All State Vectors)
-- Liste de param pour All States Vectors (pour les autres, il faut heureDebut heureFin) :
-  - lamin 	float 	lower bound for the latitude in decimal degrees
-  - lomin 	float 	lower bound for the longitude in decimal degrees
-  - lamax 	float 	upper bound for the latitude in decimal degrees
-  - lomax 	float 	upper bound for the longitude in decimal degrees
-- On recupere des infos comme la geo-altitude, la vitesse, le booleen on_ground, etc...
-- Site: https://opensky-network.org/apidoc/rest.html
-
-- API exemple (tous les avions pres de Orly) :
-  - entrée: indique une URL https://opensky-network.org/api/states/all?lamin=48.717&lomin=2.359&lamax=48.735&lomax=2.371
-  - sortie: récupère un format JSON
-  - Doc : https://opensky-network.org/apidoc/rest.html
-- Portée:
-  - Monde: 6000 aircrafts currently tracked, 360 000 Messages/s,  341 000 aircrafts seen 
