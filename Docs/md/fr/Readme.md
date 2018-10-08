@@ -1,19 +1,4 @@
-# Liste des resources trouvées 
-
-## Liste des villes 
-
-- Base de données des villes contenant plus d'un million de villes par le monde
-- Donne la région, le code languE, la longitude la latitude , le nom et la population de la ville
-- Site : https://www.maxmind.com/fr/free-world-cities-database
-- Inutile car pris en charge par l'API Geobyte
-
-## Liste des POI 
-
-http://www.openpoimap.org
-
-## Liste des routes 
-
-https://openrouteservice.org/
+# Liste des Widgets à développer
 
 
 ## Api Pollution
@@ -87,6 +72,7 @@ https://openrouteservice.org/
 
 
 ##Ludovic Api trafic aerien en temps reel
+
 - Participation : Ludovic
 - Réalisation : marco 
 https://opensky-network.org/
@@ -98,6 +84,8 @@ https://opensky-network.org/
 
 
 ## API OpenPOIs
+- Participants : marco 
+- Réalisation : Ludovic
 - API open source qui permet d'avoir les informations sur les  Point of interest en fonction de la zone geographique
 - site http://openpoi.ogcnetwork.net/api.php
 - request base url: http://openpois.net/poiquery.php?
@@ -107,35 +95,24 @@ ENTREE
 - label du POI
 - latitude, longitude, radius
 - option de recherche :date de creation du POI/nombre maximum de POI
-
 SORTIE
 options de format: text/html, geojson, application/json or application/xml
-
 API OpenPOIs implemente  l' API OGC Web Feature Service (WFS)
 - WFS implémente l' API open source Mapserver's (https://mapserver.org/ogc/wfs_server.html) 
 - WFS reconnait que certains champs de la POI son ID,  label & coordonnées géographiques.
-
 Fontionnement de la base de données 
 - Les requetes à la base de données sont réalisées par bounding box ou par nom  au standard de l'API WFS de OGC
 - Chaque POI possède un RESTful URI permanent.
 Les réponses des requetes sont retournées au format XML ou JSON en conformité W3C POIWG specification 
-
-
-## API POI implémentée sur API OpenstreetMap (OSM)
-
-- Voir la description de l'API OSM dans le fichier README
-
 - Construction des POI sur la map OSM
 The ideal way, however, is to download the OpenStreetMap data dump and filter it according to your needs. 
 The data dump is called planet.osm. 
 You can either download the whole world (really huge), or just an extract covering one country or state.
 Once you've downloaded it, a Java program called Osmosis will extract the data for you,
  and either loading the result into a database, or outputting it as a file.
-
 - les principales méthodes utilisées sont consultable à l'addresse:
 - https://help.openstreetmap.org/questions/4065/getting-specific-poi-data-and-keeping-them-up-to-date
 - https://medium.com/ibm-watson-data-lab/easy-access-to-all-points-of-interest-data-acc6569e45b2
-
 Les outils pour la production et le traitement des données selon des critères de recherche des POI :
 OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 
@@ -207,7 +184,6 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 - Participant: ...
 - Description: Connaitre la qualité des cours d'eau
 - Site: http://hubeau.eaufrance.fr/page/api-qualite-cours-deau-tuto
-
 - API
   - Entrée: URL, exemple http://hubeau.eaufrance.fr/api/v1/qualite_rivieres/station_pc?libelle_commune=Longuyon&pretty
   - Sortie: Format JSON, on obtient beaucoup d'informations
@@ -215,4 +191,20 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
    - les coordonnées (latitude, longitude, code commune, département, etc)
    - la dureté de l'eau, la contenance en Nitrates, etc
 
+# Autres resources 
+
+## Liste des villes 
+
+- Base de données des villes contenant plus d'un million de villes par le monde
+- Donne la région, le code languE, la longitude la latitude , le nom et la population de la ville
+- Site : https://www.maxmind.com/fr/free-world-cities-database
+- Inutile car pris en charge par l'API Geobyte
+
+## Liste des POI 
+
+http://www.openpoimap.org
+
+## Liste des routes 
+
+https://openrouteservice.org/
 
