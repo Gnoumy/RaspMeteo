@@ -138,9 +138,23 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
 - Permet d'avoir les informations sur la ville le plus proche
 - Site: http://www.geobytes.com/get-nearby-cities-api/
 - API
-  - entrée: Le nom de la ville où se trouve l'utilisateur ou la longitude et la latitude
-  - sortie: Le nom de la ville la plus proche, le pays, le chemin pour y aller et la distance entre la position actuelle et la ville
-- Portée: le monde
+  -Entrées: voir la documentation pour avoir plus de détails
+    - location code. Examples: USNYNYOR or New York, NY, United States or USNYNYOR 
+    - limit. Le nombre de réponse. Par défault il est à 10km.
+    - radius. cherche uniquement les villes qui se trouvent dans la limite indiqué par radius
+    - minradius. chercher uniquement les villes qui se trouvent à distance au delà de minradius
+    - latitude et longitude. cherche les villes à proximité de la position donnée en latitude et longitude
+
+
+  -Sorties: contiennent (voir la documentation pour avoir plus de détails)
+    - Le nom de la ville à proximité
+    - Le code de la région/état
+    - Le nom du pays 
+    - La direction
+    - km
+    - Latitude
+    - Longitude
+    - Portée: le monde
 
 ## Api Space Track
 
