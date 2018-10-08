@@ -55,6 +55,7 @@ Si la recherche est sans résultat, un message en informe l’utilisateur.
   - Indice allant de 0 (bon) à 300 (Dangereux)
   - Code couleur
 - Site: https://aqicn.org/api/fr/
+- Token : 82740759ffaf747ed45aad29febf758fffd33758
 
 - API
   - entrée: indique une URL http://aqicn.org/city/paris/
