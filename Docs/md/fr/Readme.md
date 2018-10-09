@@ -156,21 +156,19 @@ OpenDatasoft:https://public.opendatasoft.com/explore/?sort=modified
     - Longitude
     - Portée: le monde
 
-## Api Space Track
+## Api Satellite tracking 
 
 - Participant: Julien 
 - Réalisation : Li
 - Description : Permet de localiser les satellites en temps réel
-- Site: https://www.space-track.org/documentation#api
+- Site: https://www.n2yo.com/api/#positions
 - API 
-  - Pré-requis: obligation d'avoir un compte, pas plus de 20 requêtes par minute.
-  - Entrée: URL, exemple: https://www.space-track.org/basicspacedata/query/class/boxscore/format/json
-    - Construction de la requête: https://www.space-track.org/#queryBuilder
-  - Sortie: plusieur formats disponibles (xml, json, html, csv, tle, 3le, kvn, stream)
-    - Nom du satellite
-    - Pays 
-    - Apogée, Périgée, Inclinaison, période de révolution
-    - Date de lancement
+  - Pré-requis: obligation d'avoir un compte, pas plus de 1000 requêtes par heure
+  - Entrée: URL, exemple:https://www.n2yo.com/rest/v1/satellite/above/48.78889/2.27078/0/90/30/&apiKey=UWRBCN-GBFDZC-W3RCP5-3WA0
+    - Construction de la requête: :https://www.n2yo.com/rest/v1/satellite/above/{observer_lat}/{observer_lng}/{observer_alt}/{search_radius}/{category_id} 
+  - Sortie: Json
+    - Numbre du satellites
+    - Nom, ID, designateur, date de lancement, latitude, longitude at altitude du satellites
 - Portée: Monde
 
 ## Api OpenChargeMap
