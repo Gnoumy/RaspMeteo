@@ -1,13 +1,14 @@
 #include "pollutionwidget.h"
 #include "ui_pollutionwidget.h"
-#include "config.h"
 #include "localstationwidget.h"
+#include "config.h"
 
 #include <QtNetwork>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QUrl>
+#include <QFont>
 #include <QJsonDocument>
 #include <QDebug>
 #include <QPainter>
@@ -22,16 +23,20 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
 
 
     /*********************  PARAMETRES WIDGET  *****************************/
-        QString background, couleur;
-        background = Config::getBgColor();
-        couleur = Config::getFontColor();
-        qDebug()<<couleur;
-        setStyleSheet("QWidget { background-color :"+ background+"; color :"+couleur+"; }");
         //api Token:  82740759ffaf747ed45aad29febf758fffd33758
-    /*********************  FIN PARAMETRES  ùùù*****************************/
+        QFont font(Config::getFontFamily(),Config::getFontSize(),QFont::Black);
+        QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize(),QFont::Black);
+        QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize(),QFont::Black);
+        this->setStyleSheet("background-color: "+Config::getBgColor());
+        this->setFont(font);
+
+        ui->label_Titre->setFont(header);
+        ui->label_MinMax->setFont(footer);
+        ui->label_Station->setFont(footer);
+
+    /*********************   FIN PARAMETRES   *****************************/
 
         QNetworkRequest request;
-    //    QUrl url("https://api.waqi.info/feed/geo:48.866667;2.333333/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Paris
         QUrl url("https://api.waqi.info/feed/geo:48.7833;2.2667/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Plessis Robinson
         request.setUrl(url);
         networkManager->get(request);
@@ -60,7 +65,7 @@ void PollutionWidget::affichageGraphique()
     pixmap.fill(QColor("transparent"));
     QPainter painter(&pixmap);
     QPen pen;
-    pen.setColor(Qt::white);
+    pen.setColor(Qt::black);
     painter.setPen(pen);
 
 //    painter.drawLine(0,0,100,100);
