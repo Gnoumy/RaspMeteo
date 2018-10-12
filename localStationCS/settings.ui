@@ -13,151 +13,196 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QSpinBox" name="fontSpinBox">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>190</y>
-     <width>50</width>
-     <height>29</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QFontComboBox" name="fontComboBox">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>60</y>
-     <width>168</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="applyPushButton">
-   <property name="geometry">
-    <rect>
-     <x>370</x>
-     <y>510</y>
-     <width>80</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Apply</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="fontLabel">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>11</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Font</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="fontColorComboBox">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>110</y>
-     <width>79</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="bgColorComboBox">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>140</y>
-     <width>79</width>
-     <height>28</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>230</y>
-     <width>161</width>
-     <height>57</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="latLabel">
-      <property name="text">
-       <string>Latitude</string>
-      </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="0">
+    <widget class="QPushButton" name="applyPushButton">
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidgetTEST">
+     <property name="currentIndex">
+      <number>4</number>
+     </property>
+     <widget class="QWidget" name="tabPosition">
+      <attribute name="title">
+       <string>Position and Distance</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLabel" name="latLabel">
+           <property name="text">
+            <string>Latitude</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="latDoubleSpinBox">
+           <property name="decimals">
+            <number>4</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="lonLabel">
+           <property name="text">
+            <string>Longitude</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="lonDoubleSpinBox">
+           <property name="decimals">
+            <number>4</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="distLabel">
+           <property name="text">
+            <string>Distance</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="distDoubleSpinBox">
+           <property name="decimals">
+            <number>4</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item>
-     <widget class="QDoubleSpinBox" name="latDoubleSpinBox">
-      <property name="decimals">
-       <number>4</number>
-      </property>
+     <widget class="QWidget" name="tabBodyFont">
+      <attribute name="title">
+       <string>Body Font</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="fontLabel">
+         <property name="text">
+          <string>Body Font</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFontComboBox" name="fontComboBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="fontColorComboBox"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QComboBox" name="bgColorComboBox"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QSpinBox" name="fontSpinBox"/>
+       </item>
+      </layout>
      </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>230</y>
-     <width>141</width>
-     <height>57</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QLabel" name="lonLabel">
-      <property name="text">
-       <string>Longitude</string>
-      </property>
+     <widget class="QWidget" name="tabHeaderFont">
+      <attribute name="title">
+       <string>Header Font</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="headerFontLabel">
+         <property name="text">
+          <string>Header Font</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFontComboBox" name="headerFontComboBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="headerFontColorComboBox"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QComboBox" name="headerBgColorComboBox"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QSpinBox" name="headerFontSpinBox"/>
+       </item>
+      </layout>
      </widget>
-    </item>
-    <item>
-     <widget class="QDoubleSpinBox" name="lonDoubleSpinBox">
-      <property name="decimals">
-       <number>4</number>
-      </property>
+     <widget class="QWidget" name="tabFooterFont">
+      <attribute name="title">
+       <string>Footer Font</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_5">
+       <item row="0" column="0">
+        <widget class="QLabel" name="footerFontLabel">
+         <property name="text">
+          <string>Footer Font</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFontComboBox" name="footerFontComboBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="footerFontColorComboBox"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QComboBox" name="footerBgColorComboBox"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QSpinBox" name="footerFontSpinBox"/>
+       </item>
+      </layout>
      </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>393</x>
-     <y>230</y>
-     <width>161</width>
-     <height>57</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
-    <item>
-     <widget class="QLabel" name="distLabel">
-      <property name="text">
-       <string>Distance</string>
-      </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Tests</string>
+      </attribute>
+      <widget class="QComboBox" name="comboBox">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>80</y>
+         <width>241</width>
+         <height>28</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
-    </item>
-    <item>
-     <widget class="QDoubleSpinBox" name="distDoubleSpinBox">
-      <property name="decimals">
-       <number>4</number>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidgetTEST</tabstop>
+  <tabstop>latDoubleSpinBox</tabstop>
+  <tabstop>lonDoubleSpinBox</tabstop>
+  <tabstop>distDoubleSpinBox</tabstop>
+  <tabstop>fontComboBox</tabstop>
+  <tabstop>fontColorComboBox</tabstop>
+  <tabstop>bgColorComboBox</tabstop>
+  <tabstop>fontSpinBox</tabstop>
+  <tabstop>headerFontComboBox</tabstop>
+  <tabstop>headerFontColorComboBox</tabstop>
+  <tabstop>headerBgColorComboBox</tabstop>
+  <tabstop>headerFontSpinBox</tabstop>
+  <tabstop>footerFontComboBox</tabstop>
+  <tabstop>footerFontColorComboBox</tabstop>
+  <tabstop>footerBgColorComboBox</tabstop>
+  <tabstop>footerFontSpinBox</tabstop>
+  <tabstop>applyPushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
