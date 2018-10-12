@@ -29,16 +29,19 @@ SOURCES += \
     localstationwidget.cpp \
     settings.cpp \
     config.cpp \
-    pollutionwidget.cpp
+    pollutionwidget.cpp \
+    formtemperature.cpp
 
 HEADERS += \
         mainwindow.h \
     localstationwidget.h \
     settings.h \
     config.h \
-    pollutionwidget.h
+    pollutionwidget.h \
+    formtemperature.h
 
 FORMS += \
         mainwindow.ui \
     settings.ui \
-    pollutionwidget.ui
+    pollutionwidget.ui \
+    formtemperature.ui
