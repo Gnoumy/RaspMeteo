@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "pollutionwidget.h"
 
 #include <QDesktopWidget>
 #include <QDebug>
@@ -43,7 +44,7 @@ void MainWindow::initDisplay()
 
     this->widgets = new LocalStationWidget*[NUMBER_OF_WIDGETS] ;
 
-    this->widgets[0] = new LocalStationWidget(this);
+    this->widgets[0] = new PollutionWidget(this);
     this->widgets[0]->setParent(this) ;
     this->widgets[0]->setCursor(Qt::CrossCursor);
     this->widgets[0]->setGeometry(QRect(50,50,500,500));
