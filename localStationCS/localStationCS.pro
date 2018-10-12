@@ -30,7 +30,8 @@ SOURCES += \
     settings.cpp \
     config.cpp \
     pollutionwidget.cpp \
-    formtemperature.cpp
+    formtemperature.cpp \
+    rechargevehiculewidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,10 +39,12 @@ HEADERS += \
     settings.h \
     config.h \
     pollutionwidget.h \
-    formtemperature.h
+    formtemperature.h \
+    rechargevehiculewidget.h
 
 FORMS += \
         mainwindow.ui \
     settings.ui \
     pollutionwidget.ui \
-    formtemperature.ui
+    formtemperature.ui \
+    rechargevehiculewidget.ui

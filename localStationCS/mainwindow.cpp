@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "config.h"
+
+
 #include "pollutionwidget.h"
+#include "rechargevehiculewidget.h"
 
 #include <QDesktopWidget>
 #include <QDebug>
@@ -19,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(openSettings())) ;
 
 
-    this->connect(this->ui->testPushButton, SIGNAL(clicked(bool)), this, SLOT(testDebugConfig())) ;
+    //this->connect(this->ui->testPushButton, SIGNAL(clicked(bool)), this, SLOT(testDebugConfig())) ;
 }
 
 MainWindow::~MainWindow()
@@ -42,31 +46,22 @@ void MainWindow::initDisplay()
               H = QDesktopWidget().availableGeometry(this).size().height()  ;
 
 
-    this->widgets = new LocalStationWidget*[NUMBER_OF_WIDGETS] ;
 
-    this->widgets[0] = new PollutionWidget(this);
-    this->widgets[0]->setParent(this) ;
-    this->widgets[0]->setCursor(Qt::CrossCursor);
-    this->widgets[0]->setGeometry(QRect(50,50,500,500));
-    this->widgets[0]->show();
+//    this->widgets = new LocalStationWidget*[NUMBER_OF_WIDGETS] ;
+
+//    this->widgets[0] = new PollutionWidget(this);
+//    this->widgets[0]->setParent(this) ;
+//    this->widgets[0]->setCursor(Qt::CrossCursor);
+//    this->widgets[0]->setGeometry(QRect(50,50,500,500));
+//    this->widgets[0]->show();
+
+//    /*-------------Recharge batterie vehicule électrique-----------*/
+//    this->widgets[1]=new RechargeVehiculeWidget(this);
+//    this->widgets[1]->setParent(this) ;
+//    this->widgets[1]->setCursor(Qt::CrossCursor);
+//    this->widgets[1]->setGeometry(QRect(50,50,500,500));
+//    this->widgets[1]->show();
 }
 
-#include <config.h>
-void MainWindow::testDebugConfig()
-{
-    qDebug() << "\nfontFamily" << Config::fontFamily ;
-    qDebug() << "fontColor" << Config::fontColor ;
-    qDebug() << "bgColor" << Config::bgColor ;
-    qDebug() << "fontSize" << Config::fontSize ;
-    qDebug() << "\nheaderFontFamily" << Config::headerFontFamily ;
-    qDebug() << "headerFontColor" << Config::headerFontColor ;
-    qDebug() << "headerBgColor" << Config::headerBgColor ;
-    qDebug() << "headerFontSize" << Config::headerFontSize ;
-    qDebug() << "\nfooterFontFamily" << Config::footerFontFamily ;
-    qDebug() << "footerFontColor" << Config::footerFontColor ;
-    qDebug() << "footerBgColor" << Config::footerBgColor ;
-    qDebug() << "footerFontSize" << Config::footerFontSize ;
-    qDebug() << "\nlatitude" << Config::latitude ;
-    qDebug() << "longitude" << Config::longitude ;
-    qDebug() << "distance" << Config::distance ;
-}
+
+

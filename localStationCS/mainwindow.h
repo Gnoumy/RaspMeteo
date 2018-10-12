@@ -20,7 +20,7 @@ public:
 
 private slots:
     void openSettings();
-    void testDebugConfig();
+
 private:
     Ui::MainWindow *ui;
     LocalStationWidget **widgets ;
