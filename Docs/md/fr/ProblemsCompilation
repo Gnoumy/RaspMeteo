@@ -5,3 +5,5 @@ J'ai rencontré un problème lorsque j'ai besoin de lier la bibliothèque openss
 Étape 1: Vérifiez vos compilateurs QT de Desktop (gcc 64) et de Raspberry, s'ils ne sont pas identiques, mettez à jour le plus bas. 
 
 Étape 2: Installez libssl1.0-dev
+
+
