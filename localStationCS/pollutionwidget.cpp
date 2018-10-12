@@ -14,6 +14,8 @@
 #include <QPainter>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QBrush>
+#include <QPen>
 
 PollutionWidget::PollutionWidget(QWidget *parent) :
     LocalStationWidget(parent),
@@ -40,9 +42,9 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         QUrl url("https://api.waqi.info/feed/geo:48.7833;2.2667/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Plessis Robinson
         request.setUrl(url);
         networkManager->get(request);
-        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
-//        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(affichageGraphique()));
-//        ui->stackedWidget->setCurrentIndex(1);
+//        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
+        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(affichageGraphique()));
+        ui->stackedWidget->setCurrentIndex(1);
 
 }
 
@@ -69,7 +71,9 @@ void PollutionWidget::affichageGraphique()
     painter.setPen(pen);
 
 //    painter.drawLine(0,0,100,100);
-    QRectF rectangle(0.0, 200.0, 400.0, 400.0);
+    QRectF rectangle(0.0, 200.0, 500.0, 500.0);
+    QBrush brush (Qt::blue, Qt::SolidPattern);
+
 //    painter.fillRect(rectangle, Qt::red);
     int startAngle = 30 * 16;
     int spanAngle = 120 * 16;
@@ -77,10 +81,13 @@ void PollutionWidget::affichageGraphique()
     painter.drawArc(rectangle, startAngle, spanAngle);
     painter.drawChord(rectangle, startAngle, spanAngle);
 
+    painter.drawText(20,330,"0");
+    painter.drawText(100,220,"75");
+    painter.drawText(240,190,"150");
+    painter.drawText(380,220,"225");
+    painter.drawText(470,330,"300");
+
     ui->label_graph->setPixmap(pixmap);
-
-
-
 
 }
 void PollutionWidget::reloadData()
