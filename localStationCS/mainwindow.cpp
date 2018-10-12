@@ -53,11 +53,19 @@ void MainWindow::initDisplay()
 #include <config.h>
 void MainWindow::testDebugConfig()
 {
-    qDebug() << "fontFamily" << Config::fontFamily ;
+    qDebug() << "\nfontFamily" << Config::fontFamily ;
     qDebug() << "fontColor" << Config::fontColor ;
     qDebug() << "bgColor" << Config::bgColor ;
     qDebug() << "fontSize" << Config::fontSize ;
-    qDebug() << "latitude" << Config::latitude ;
+    qDebug() << "\nheaderFontFamily" << Config::headerFontFamily ;
+    qDebug() << "headerFontColor" << Config::headerFontColor ;
+    qDebug() << "headerBgColor" << Config::headerBgColor ;
+    qDebug() << "headerFontSize" << Config::headerFontSize ;
+    qDebug() << "\nfooterFontFamily" << Config::footerFontFamily ;
+    qDebug() << "footerFontColor" << Config::footerFontColor ;
+    qDebug() << "footerBgColor" << Config::footerBgColor ;
+    qDebug() << "footerFontSize" << Config::footerFontSize ;
+    qDebug() << "\nlatitude" << Config::latitude ;
     qDebug() << "longitude" << Config::longitude ;
     qDebug() << "distance" << Config::distance ;
 }

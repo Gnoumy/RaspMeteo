@@ -75,3 +75,83 @@ float Config::getDistance()
 //    distance = value;
 //}
 
+QString Config::headerFontFamily("");
+QString Config::getHeaderFontFamily()
+{
+    return headerFontFamily;
+}
+//void Config::setHeaderFontFamily(const QString &value)
+//{
+//    headerFontFamily = value;
+//}
+
+QString Config::headerFontColor("");
+QString Config::getHeaderFontColor()
+{
+    return headerFontColor;
+}
+//void Config::setHeaderFontColor(const QString &value)
+//{
+//    headerFontColor = value;
+//}
+
+QString Config::headerBgColor("");
+QString Config::getHeaderBgColor()
+{
+    return headerBgColor;
+}
+//void Config::setHeaderBgColor(const QString &value)
+//{
+//    headerBgColor = value;
+//}
+
+QString Config::footerFontFamily("");
+QString Config::getFooterFontFamily()
+{
+    return footerFontFamily;
+}
+//void Config::setFooterFontFamily(const QString &value)
+//{
+//    footerFontFamily = value;
+//}
+
+QString Config::footerFontColor("");
+QString Config::getFooterFontColor()
+{
+    return footerFontColor;
+}
+//void Config::setFooterFontColor(const QString &value)
+//{
+//    footerFontColor = value;
+//}
+
+QString Config::footerBgColor("");
+QString Config::getFooterBgColor()
+{
+    return footerBgColor;
+}
+//void Config::setFooterBgColor(const QString &value)
+//{
+//    footerBgColor = value;
+//}
+
+int Config::headerFontSize(0);
+int Config::getHeaderFontSize()
+{
+    return headerFontSize;
+}
+//void Config::setHeaderFontSize(int value)
+//{
+//    headerFontSize = value;
+//}
+
+int Config::footerFontSize(0);
+int Config::getFooterFontSize()
+{
+    return footerFontSize;
+}
+//void Config::setFooterFontSize(int value)
+//{
+//    footerFontSize = value;
+//}
+
