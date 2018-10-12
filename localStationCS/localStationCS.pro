@@ -32,7 +32,8 @@ SOURCES += \
     pollutionwidget.cpp \
     formtemperature.cpp \
     rechargevehiculewidget.cpp \
-    widgetsatellite.cpp
+    widgetsatellite.cpp \
+    widgetlocalisation.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
     pollutionwidget.h \
     formtemperature.h \
     rechargevehiculewidget.h \
-    widgetsatellite.h
+    widgetsatellite.h \
+    widgetlocalisation.h
 
 FORMS += \
         mainwindow.ui \
@@ -50,4 +52,5 @@ FORMS += \
     pollutionwidget.ui \
     formtemperature.ui \
     rechargevehiculewidget.ui \
-    widgetsatellite.ui
+    widgetsatellite.ui \
+    widgetlocalisation.ui
