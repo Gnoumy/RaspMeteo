@@ -6,6 +6,13 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui(new Ui::WidgetSatellite)
 {
     ui->setupUi(this);
+    QFont font(Config::getFontFamily(),Config::getFontSize());
+    this->setStyleSheet("background-color: "+Config::bgColor);
+    ui->label->setFont(font);
+    ui->label->setStyleSheet("background-color: "+Config::bgColor);
+    ui->tableWidget->setFont(font);
+    ui->tableWidget->setStyleSheet("color: "+Config::fontColor+"; background-color: "+Config::bgColor);
+
     ui->progressBar->setValue(0);
     SetSat_categories();
     // get latitude, longitude and distance from mainwindow
