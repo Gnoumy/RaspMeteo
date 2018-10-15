@@ -30,7 +30,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->lineEdit_header->setReadOnly(true);
 
 //  ********  Parametre de la table Widget  ********
-    QFont font(Config::getFontFamily(),Config::getFontSize());
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     ui->tableWidget_temp->setFont(font);
     ui->tableWidget_temp->setRowCount(4);
     ui->tableWidget_temp->setColumnCount(4);
@@ -41,7 +41,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->tableWidget_temp->resizeColumnsToContents();
     ui->tableWidget_temp->resizeRowsToContents();
     ui->tableWidget_temp->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    ui->tableWidget_temp->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
+    ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
 
 //  ********  Importation des données lat et lon  ********
     QString lat = QString::number(Config::getLatitude(),'g',4);
