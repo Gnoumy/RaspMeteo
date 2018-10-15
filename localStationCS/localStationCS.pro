@@ -56,4 +56,8 @@ FORMS += \
     rechargevehiculewidget.ui \
     widgetsatellite.ui \
     widgetlocalisation.ui \
-    flightswidget.ui
+    flightswidget.ui\
+    widgetlocalisation.ui
+
+RESOURCES += \
+    ressources.qrc
