@@ -20,11 +20,12 @@
 #include <QTimer>
 #include <QMetaEnum>
 #include <QStringList>
-//#include <QMouseEvent>
+#include <math.h>
 #include "localstationwidget.h"
 #include "config.h"
 
-
+#define PI 3.14159265
+#define EARTH_RADIUS 6378.137
 #define N2YOKEY "/&apiKey=UWRBCN-GBFDZC-W3RCP5-3WA0"
 #define URLN2YOBASE "https://www.n2yo.com/rest/v1/satellite/above/"
 #define URLOPENELEVATIONEBASE "https://api.open-elevation.com/api/v1/lookup?locations="
@@ -44,9 +45,9 @@ public:
         Set_satname(satn);
         Set_intDesignator(desig);
         Set_launchDate(laudate);
-        Set_satalt(lat);
+        Set_satalt(alt);
         Set_satlng(lng);
-        Set_satlat(alt);
+        Set_satlat(lat);
         Set_category(catg);
     }
     int Get_satid(){return satid;}
@@ -101,6 +102,8 @@ private:
     void SatlistTrack(QNetworkReply *pReplay);
     void FillTable();
     void CleanTable();
+    double getDistance(double, double, double, double);
+    double getRad(float);
 };
 
 #endif // QWIDGETSATELLITE_H

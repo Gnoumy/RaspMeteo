@@ -24,11 +24,9 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
 //            +","+ui->label_lng->text();
     QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
                +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
-    qDebug()<<urlalt;
     request.setUrl(QUrl(urlalt));
     QNetworkReply *pReplayalt = manager->get(request);
     connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
-    QTimer * timer = new QTimer(this);
  }
 
 WidgetSatellite::~WidgetSatellite()
@@ -40,7 +38,6 @@ WidgetSatellite::~WidgetSatellite()
 void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
 {
     QByteArray bytes = pReplayalt->readAll();
-     qDebug()<<bytes;
     QJsonParseError jsonError;
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
@@ -70,18 +67,18 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
 void WidgetSatellite::Slot_SatTrack()
 {
     SatelliteList.clear();
-    CleanTable();
-    qDebug()<<"begin a new satellite list"<<SatelliteList.size();
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     this->setCursor(Qt::WaitCursor);
+    Config::setDistance(100.0f);
+    double degree=atan(Config::getDistance()/100)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
                 +QString("%1").arg(Config::getLongitude())
-                +"/"+alt+"/10/";
-        url=url+QString::number(Sat_categories.values().at(i))+N2YOKEY;
-        qDebug()<<url;
+                +"/"+alt;
+        url+="/"+QString::number(degree)+"/";
+        url+=QString::number(Sat_categories.values().at(i))+N2YOKEY;
         request.setUrl(QUrl(url));
         QNetworkReply *pReplay = manager->get(request);
         QEventLoop eventLoop;
@@ -90,7 +87,8 @@ void WidgetSatellite::Slot_SatTrack()
         eventLoop.exec();
         SatlistTrack(pReplay);
     }
-        this->setCursor(Qt::ArrowCursor);
+    this->setCursor(Qt::ArrowCursor);
+    CleanTable();
     qDebug()<<"SatelliteList has  "<<SatelliteList.size()<< "  satellites !";
     FillTable();
 }
@@ -98,7 +96,6 @@ void WidgetSatellite::Slot_SatTrack()
 void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
 {
     QByteArray bytes = pReplay->readAll();
-    qDebug()<<bytes ;
     QJsonParseError jsonError;
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
@@ -118,20 +115,44 @@ void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
             for(int i=0; i<num_Satelllite;i++)
             {
                 QVariantMap SatelliteIN=SatelliteListIN.at(i).toMap();
-                Satellite sat(SatelliteIN["satid"].toInt(),
-                              SatelliteIN["satname"].toString(),
-                        SatelliteIN["intDesignator"].toString(),
-                        SatelliteIN["launchDate"].toString(),
-                        SatelliteIN["satlat"].toFloat(),
-                        SatelliteIN["satlng"].toFloat(),
-                        SatelliteIN["satalt"].toFloat(),
-                        info["category"].toString()
-                        );
-                SatelliteList.prepend(sat);
+                if(getDistance(SatelliteIN["satlat"].toFloat(),
+                               SatelliteIN["satlng"].toFloat(),
+                               Config::getLatitude(),
+                               Config::getLongitude())<=Config::getDistance())
+                 {
+                    Satellite sat(SatelliteIN["satid"].toInt(),
+                                  SatelliteIN["satname"].toString(),
+                            SatelliteIN["intDesignator"].toString(),
+                            SatelliteIN["launchDate"].toString(),
+                            SatelliteIN["satlat"].toFloat(),
+                            SatelliteIN["satlng"].toFloat(),
+                            SatelliteIN["satalt"].toFloat(),
+                            info["category"].toString()
+                            );
+                    SatelliteList.prepend(sat);
+                }
             }
         }
       }
 
+}
+
+double WidgetSatellite::getDistance(double lat1, double lng1, double lat2, double lng2)
+{
+    double radLat1=getRad(lat1);
+    double radLng1=getRad(lng1);
+    double radLat2=getRad(lat2);
+    double radLng2=getRad(lng2);
+    double a=radLat1-radLat2;
+    double b=getRad(lat1)-getRad(lat2);
+    double s=EARTH_RADIUS*2*asin(sqrt(pow(sin(a/2),2)+cos(radLat1)*cos(radLat2)*pow(sin(b/2),2)));
+    s=round(s*10000)/10000;
+    return s;
+}
+
+double WidgetSatellite::getRad(float degree)
+{
+    return degree*PI/180.0;
 }
 
 void WidgetSatellite::FillTable()
@@ -160,6 +181,7 @@ void WidgetSatellite::FillTable()
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
  }
+
 
 void WidgetSatellite::CleanTable()
 {
