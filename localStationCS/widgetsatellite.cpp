@@ -6,6 +6,7 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui(new Ui::WidgetSatellite)
 {
     ui->setupUi(this);
+    this->setMouseTracking(true);
     QFont font(Config::getFontFamily(),Config::getFontSize());
     this->setStyleSheet("background-color: "+Config::getBgColor());
     ui->label->setFont(font);
@@ -13,7 +14,6 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui->tableWidget->setFont(font);
     ui->tableWidget->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
 
-    ui->progressBar->setValue(0);
     SetSat_categories();
     // get latitude, longitude and distance from mainwindow
     Config::setLatitude(48.78889f);
@@ -24,13 +24,10 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
 //            +","+ui->label_lng->text();
     QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
                +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
-    qDebug()<<urlalt;
     request.setUrl(QUrl(urlalt));
-    QNetworkReply *pReplayalt = manager->get(request);
-    connect ( manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
-    QTimer * timer = new QTimer(this);
-    timer->start(60000);
-    connect(timer, SIGNAL(timeout()),this,SLOT(Slot_SatTrack()));
+    manager->get(request);
+    //QNetworkReply *pReplayalt = manager->get(request);
+    connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
  }
 
 WidgetSatellite::~WidgetSatellite()
@@ -42,7 +39,6 @@ WidgetSatellite::~WidgetSatellite()
 void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
 {
     QByteArray bytes = pReplayalt->readAll();
-     qDebug()<<bytes;
     QJsonParseError jsonError;
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
@@ -65,26 +61,25 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
     }
     Slot_SatTrack();
     QTimer * timer = new QTimer(this);
-    timer->start(60000);
+    timer->start(TIME_RESTART);
     connect(timer, SIGNAL(timeout()),this,SLOT(Slot_SatTrack()));
 }
 
 void WidgetSatellite::Slot_SatTrack()
 {
     SatelliteList.clear();
-    CleanTable();
-    qDebug()<<"begin a new satellite list"<<SatelliteList.size();
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    ui->progressBar->setValue(0);
-    ui->progressBar->setRange(0,Sat_categories.size());
+    this->setCursor(Qt::WaitCursor);
+    Config::setDistance(300.0f);
+    double degree=atan(Config::getDistance()/MINI_SATALT)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
                 +QString("%1").arg(Config::getLongitude())
-                +"/"+alt+"/10/";
-        url=url+QString::number(Sat_categories.values().at(i))+N2YOKEY;
-        qDebug()<<url;
+                +"/"+alt;
+        url+="/"+QString::number(degree)+"/";
+        url+=QString::number(Sat_categories.values().at(i))+N2YOKEY;
         request.setUrl(QUrl(url));
         QNetworkReply *pReplay = manager->get(request);
         QEventLoop eventLoop;
@@ -92,8 +87,9 @@ void WidgetSatellite::Slot_SatTrack()
                          &eventLoop,&QEventLoop::quit);
         eventLoop.exec();
         SatlistTrack(pReplay);
-        ui->progressBar->setValue(i+1);
     }
+    this->setCursor(Qt::ArrowCursor);
+    CleanTable();
     qDebug()<<"SatelliteList has  "<<SatelliteList.size()<< "  satellites !";
     FillTable();
 }
@@ -101,7 +97,6 @@ void WidgetSatellite::Slot_SatTrack()
 void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
 {
     QByteArray bytes = pReplay->readAll();
-    qDebug()<<bytes ;
     QJsonParseError jsonError;
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
@@ -121,28 +116,52 @@ void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
             for(int i=0; i<num_Satelllite;i++)
             {
                 QVariantMap SatelliteIN=SatelliteListIN.at(i).toMap();
-                Satellite sat(SatelliteIN["satid"].toInt(),
-                              SatelliteIN["satname"].toString(),
-                        SatelliteIN["intDesignator"].toString(),
-                        SatelliteIN["launchDate"].toString(),
-                        SatelliteIN["satlat"].toFloat(),
-                        SatelliteIN["satlng"].toFloat(),
-                        SatelliteIN["satalt"].toFloat(),
-                        info["category"].toString()
-                        );
-                SatelliteList.prepend(sat);
+                if(getDistance(SatelliteIN["satlat"].toFloat(),
+                               SatelliteIN["satlng"].toFloat(),
+                               Config::getLatitude(),
+                               Config::getLongitude())<=Config::getDistance())
+                 {
+                    Satellite sat(SatelliteIN["satid"].toInt(),
+                                  SatelliteIN["satname"].toString(),
+                            SatelliteIN["intDesignator"].toString(),
+                            SatelliteIN["launchDate"].toString(),
+                            SatelliteIN["satlat"].toFloat(),
+                            SatelliteIN["satlng"].toFloat(),
+                            SatelliteIN["satalt"].toFloat(),
+                            info["category"].toString()
+                            );
+                    SatelliteList.prepend(sat);
+                }
             }
         }
       }
 
 }
 
+double WidgetSatellite::getDistance(double lat1, double lng1, double lat2, double lng2)
+{
+    double radLat1=getRad(lat1);
+    double radLat2=getRad(lat2);
+    double a=radLat1-radLat2;
+    double b=getRad(lng1)-getRad(lng2);
+    double s=EARTH_RADIUS*2;
+    s*=asin(sqrt(pow(sin(a/2),2)+cos(radLat1)*cos(radLat2)*pow(sin(b/2),2)));
+    s=round(s*10000)/10000;
+    return s;
+}
+
+double WidgetSatellite::getRad(float degree)
+{
+    return degree*PI/180.0;
+}
+
 void WidgetSatellite::FillTable()
 {
     QStringList col_labels;
     col_labels<<"Sat ID"<<"Sat Name"<<"International Designator"
-             <<"Launch Date"<<"Category";
-    ui->tableWidget->setColumnCount(5);
+             <<"Launch Date"<<"Category"<<"Sat Lantitude"<<"Sat Longitude"
+            <<"Sat altitude(km)";
+    ui->tableWidget->setColumnCount(8);
     ui->tableWidget->setRowCount(SatelliteList.size());
     ui->tableWidget->setHorizontalHeaderLabels(col_labels);
     for(int i=0;i<SatelliteList.size();i++)
@@ -158,11 +177,18 @@ void WidgetSatellite::FillTable()
                                  new QTableWidgetItem(sat.Get_launchDate()));
         ui->tableWidget->setItem(i,4,
                                  new QTableWidgetItem(sat.Get_category()));
+        ui->tableWidget->setItem(i,5,
+                                 new QTableWidgetItem(QString::number(sat.Get_satlat())));
+        ui->tableWidget->setItem(i,6,
+                                 new QTableWidgetItem(QString::number(sat.Get_satlng())));
+        ui->tableWidget->setItem(i,7,
+                                 new QTableWidgetItem(QString::number(sat.Get_satalt())));
     }
     ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
  }
+
 
 void WidgetSatellite::CleanTable()
 {
@@ -171,6 +197,7 @@ void WidgetSatellite::CleanTable()
         ui->tableWidget->removeRow(0);
     }
 }
+
 
 void WidgetSatellite::SetSat_categories()
 {

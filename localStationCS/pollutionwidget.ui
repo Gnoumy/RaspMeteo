@@ -17,12 +17,12 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_affichageDefaut_3">
       <layout class="QVBoxLayout" name="verticalLayout_8">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_9">
+        <layout class="QVBoxLayout" name="verticalLayout_content">
          <item>
           <widget class="QLabel" name="label_Titre">
            <property name="font">
@@ -66,7 +66,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QHBoxLayout" name="horizontalLayout_footer">
            <item>
             <widget class="QLabel" name="label_MinMax">
              <property name="text">
@@ -160,9 +160,19 @@
      <widget class="QWidget" name="page_affichageGraphique_3">
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <item>
+        <widget class="QLabel" name="label_Titre2">
+         <property name="text">
+          <string>Pollution Application</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label_graph">
          <property name="text">
-          <string>.</string>
+          <string>En attente des données...</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
