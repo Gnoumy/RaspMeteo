@@ -19,8 +19,8 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
-    setFixedSize(412, 525);
-//    this->setStyleSheet("background-color: "+Config::getBgColor());
+//    setFixedSize(412, 525);
+    this->setStyleSheet("background-color: "+Config::getTableBgColor());
 //    this->setStyleSheet("background-color: blue");
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -28,6 +28,11 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->lineEdit_header->setFont(header);
     ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
     ui->lineEdit_header->setReadOnly(true);
+
+//  ********  Parametre du lineEdit header  ********
+    ui->lineEdit_header2->setFont(header);
+    ui->lineEdit_header2->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+    ui->lineEdit_header2->setReadOnly(true);
 
 //  ********  Parametre de la table Widget  ********
     QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
@@ -84,7 +89,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     pixmap.fill(QColor("transparent"));
     QPainter painter(&pixmap);
     QPen pen;
-    pen.setColor(Config::getFontColor());
+    pen.setColor(Qt::black);
     painter.setPen(pen);
     QRectF rectangle(5.0, 20.0, 30.0, 300.0);
     QRectF rectangle_temp(6,320.0-temp_px,29,temp_px);
@@ -124,11 +129,12 @@ void FormTemperature::readRead(QNetworkReply *data)
         QBrush brush (Qt::blue, Qt::SolidPattern);
         pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
-        painter.drawEllipse(5,310,40,40);
+        painter.drawEllipse(0,310,40,40);
         pen.setColor(Qt::blue);
         painter.fillRect(rectangle_temp,brush);
+        ui->label_temp->setPixmap(pixmap);
         ui->label_temp->setFixedWidth(125);
-        ui->label_temp->setFixedHeight(500);
+        ui->label_temp->setFixedHeight(520);
     }
     else if (temp.toInt() >= 5 && temp.toInt() <=25)
     {
@@ -152,9 +158,10 @@ void FormTemperature::readRead(QNetworkReply *data)
         QBrush brush (Qt::red, Qt::SolidPattern);
         pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
-        painter.drawEllipse(5,310,40,40);
+        painter.drawEllipse(0,310,40,40);
         pen.setColor(Qt::red);
         painter.fillRect(rectangle_temp,brush);
+        ui->label_temp->setPixmap(pixmap);
         ui->label_temp->setFixedWidth(125);
         ui->label_temp->setFixedHeight(520);
     }
@@ -173,9 +180,9 @@ void FormTemperature::readRead(QNetworkReply *data)
     QRectF rectangle2(10.0, 40.0, 30.0, 300.0);
     QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
     painter2.drawRect(rectangle2);
-    QBrush brush (Qt::red, Qt::SolidPattern);
+    QBrush brush2 (Qt::red, Qt::SolidPattern);
     pen2.setColor(Qt::red);
-    painter2.fillRect(rectangle_hygro,brush);
+    painter2.fillRect(rectangle_hygro,brush2);
 
     painter2.drawText(2,15,"Hygro %");
     painter2.drawText(65,50,"100");
@@ -186,8 +193,9 @@ void FormTemperature::readRead(QNetworkReply *data)
     painter2.drawLine(60,195,45,195);
     painter2.drawLine(60,335,45,335);
 
+
     ui->label_hygro->setPixmap(pixmap2);
-    ui->label_hygro->setFixedWidth(100);
+    ui->label_hygro->setFixedWidth(125);
     ui->label_hygro->setFixedHeight(520);
 }
 FormTemperature::~FormTemperature()
