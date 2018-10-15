@@ -29,7 +29,7 @@
          <widget class="PollutionWidget" name="widget3" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget_4" native="true"/>
+         <widget class="WidgetSatellite" name="widget_4" native="true"/>
         </item>
        </layout>
       </item>
@@ -100,6 +100,12 @@
    <class>widgetlocalisation</class>
    <extends>QWidget</extends>
    <header>widgetlocalisation.h</header>
+  </customwidget>
+  <customwidget>
+   <class>WidgetSatellite</class>
+   <extends>QWidget</extends>
+   <header>widgetsatellite.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
