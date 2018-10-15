@@ -6,6 +6,7 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui(new Ui::WidgetSatellite)
 {
     ui->setupUi(this);
+    this->setMouseTracking(true);
     QFont font(Config::getFontFamily(),Config::getFontSize());
     this->setStyleSheet("background-color: "+Config::getBgColor());
     ui->label->setFont(font);
@@ -13,7 +14,6 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui->tableWidget->setFont(font);
     ui->tableWidget->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
 
-    ui->progressBar->setValue(0);
     SetSat_categories();
     // get latitude, longitude and distance from mainwindow
     Config::setLatitude(48.78889f);
@@ -27,10 +27,8 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     qDebug()<<urlalt;
     request.setUrl(QUrl(urlalt));
     QNetworkReply *pReplayalt = manager->get(request);
-    connect ( manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
+    connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
     QTimer * timer = new QTimer(this);
-    timer->start(60000);
-    connect(timer, SIGNAL(timeout()),this,SLOT(Slot_SatTrack()));
  }
 
 WidgetSatellite::~WidgetSatellite()
@@ -65,7 +63,7 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
     }
     Slot_SatTrack();
     QTimer * timer = new QTimer(this);
-    timer->start(60000);
+    timer->start(120000);
     connect(timer, SIGNAL(timeout()),this,SLOT(Slot_SatTrack()));
 }
 
@@ -76,8 +74,7 @@ void WidgetSatellite::Slot_SatTrack()
     qDebug()<<"begin a new satellite list"<<SatelliteList.size();
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    ui->progressBar->setValue(0);
-    ui->progressBar->setRange(0,Sat_categories.size());
+    this->setCursor(Qt::WaitCursor);
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
@@ -92,8 +89,8 @@ void WidgetSatellite::Slot_SatTrack()
                          &eventLoop,&QEventLoop::quit);
         eventLoop.exec();
         SatlistTrack(pReplay);
-        ui->progressBar->setValue(i+1);
     }
+        this->setCursor(Qt::ArrowCursor);
     qDebug()<<"SatelliteList has  "<<SatelliteList.size()<< "  satellites !";
     FillTable();
 }
@@ -171,6 +168,7 @@ void WidgetSatellite::CleanTable()
         ui->tableWidget->removeRow(0);
     }
 }
+
 
 void WidgetSatellite::SetSat_categories()
 {

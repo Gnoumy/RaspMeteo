@@ -20,7 +20,7 @@
 #include <QTimer>
 #include <QMetaEnum>
 #include <QStringList>
-#include <QProgressDialog>
+//#include <QMouseEvent>
 #include "localstationwidget.h"
 #include "config.h"
 
