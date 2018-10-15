@@ -29,6 +29,11 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
     ui->lineEdit_header->setReadOnly(true);
 
+//  ********  Parametre du lineEdit header  ********
+    ui->lineEdit_header2->setFont(header);
+    ui->lineEdit_header2->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+    ui->lineEdit_header2->setReadOnly(true);
+
 //  ********  Parametre de la table Widget  ********
     QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     ui->tableWidget_temp->setFont(font);
