@@ -24,14 +24,15 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     /*********************  PARAMETRES WIDGET  *****************************/
         //api Token:  82740759ffaf747ed45aad29febf758fffd33758
         QFont font(Config::getFontFamily(),Config::getFontSize());
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
         this->setStyleSheet("background-color: "+Config::getBgColor());
-        this->setStyleSheet("color:"+Config::getFontColor());
-        this->setFont(font);
+        this->setStyleSheet("color: "+Config::getFontColor());
+//        this->setFont(font);
 
 //        ui->label_Titre->setFont(header);
 //        ui->label_Titre2->setFont(header);
@@ -39,16 +40,15 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         ui->label_Titre->setStyleSheet("color: "+Config::getHeaderFontColor());
         ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor());
         ui->label_Indice->setStyleSheet("color:"+Config::getFontColor());
-//        ui->label_Titre2->setStyleSheet("background-color: "+Config::getHeaderBgColor());
+        ui->label_Titre2->setStyleSheet("background-color: "+Config::getHeaderBgColor());
 
-//        ui->label_MinMax->setFont(footer);
-//        ui->label_Station->setFont(footer);
-        ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor());
-        ui->label_Station->setStyleSheet("color:"+Config::getFooterFontColor());
+        ui->label_MinMax->setStyleSheet("color: "+Config::getFontColor());
+        ui->label_Station->setStyleSheet("color: "+Config::getFontColor());
 
-        ui->label_MinMax->setStyleSheet("background-color:"+Config::getFooterBgColor());
-        ui->label_Station->setStyleSheet("background-color:"+Config::getFooterBgColor());
+        ui->label_MinMax->setStyleSheet("background-color: "+Config::getFooterBgColor());
+        ui->label_Station->setStyleSheet("background-color: "+Config::getFooterBgColor());
     /*********************   FIN PARAMETRES   *****************************/
+
 
     /**********************   REQUETE JSON   ******************************/
         QNetworkRequest request;
@@ -59,7 +59,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         networkManager->get(request);
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(deuxiemePage(QNetworkReply *)));
-        ui->stackedWidget->setCurrentIndex(0);
+        ui->stackedWidget->setCurrentIndex(1);
     /********************   FIN REQUETE JSON   ****************************/
 }
 
@@ -78,13 +78,15 @@ void PollutionWidget::premierePage(QNetworkReply *data)
 void PollutionWidget::deuxiemePage(QNetworkReply *data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
+    ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor());
 
     //Initialisation du graphique
     QPixmap pixmap(500,500);
-    QPainter painter(&pixmap);
-//    QBrush brush (Qt::blue, Qt::SolidPattern);
-    QPen pen;
     pixmap.fill(QColor("transparent"));
+    QPainter painter(&pixmap);
+
+    QBrush brush (Qt::blue, Qt::SolidPattern);
+    QPen pen;
     pen.setColor(Config::getFontColor());
     painter.setPen(pen);
 //    painter.setBrush(brush);
@@ -112,9 +114,28 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
     //Configuration de l'aiguille
 //    int position = jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toInt()+20;
     int position = 150;
-    QLine line(250, 375, position, 400);
-    painter.drawLine(line);
+//    QLine line(250, 375, position, 400);
+//    painter.drawLine(line);
 
+    QPoint points[3]={
+        QPoint(235,370), //gauche
+        QPoint(265,370), //droite
+        QPoint(250,220), //haut
+    };
+
+    painter.setPen(pen);
+    painter.drawPolygon(points, 3);
+
+
+
+
+
+
+
+
+
+
+    painter.end();
     ui->label_graph->setPixmap(pixmap);
 }
 void PollutionWidget::reloadData()
