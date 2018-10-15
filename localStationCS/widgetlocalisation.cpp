@@ -4,6 +4,7 @@
 #include <QFont>
 
 #include <QPainter>
+#include "config.h"
 
 
 
@@ -55,6 +56,16 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     //qDebug()<<ret;
     QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
+    QFont font(Config::getFontFamily(),Config::getFontSize(),QFont::Black);//font(police, taille, couleur)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize(),QFont::Black);
+    ui->tableWidget->setFont(font);
+    ui->tableWidget->setStyleSheet("color: "+Config::getFontColor());
+    ui->tableWidget->setStyleSheet("background-color: "+Config::getBgColor());
+
+    ui->label->setFont(header);//taille de police du l'entete
+    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()); //couleur de police
+    ui->label->setStyleSheet("background-color: "+Config::getHeaderBgColor());//couleur de font
+
     //qDebug() << myJson.toObject().toVariantMap()["licence"].toMap()["lat"].toString();
     //qDebug() << myJson.array()[1].toObject().toVariantMap()["links"].toList().at(0).toMap()["href"].toString();
     //qDebug() << myJson.object().toVariantMap()["licence"].toMap()["lat"].toString();
@@ -86,29 +97,31 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     ui->tableWidget->verticalHeader()->hide();// permet de ne pas afficher les numeros de ligne
     ui->tableWidget->setShowGrid(false);// pour enlever les grilles dans un tableau
 
-    int taillePolice = 10;// Config::getFontSize();
+    int taillePolice = 13;
+
+    //Config::getFontSize();
 
     QTableWidgetItem *rue = new QTableWidgetItem(ru);
     ui->tableWidget->setItem(0, 0, rue);
-    QBrush couleurRue("#000000");
-    rue->setForeground(couleurRue);
-    QFont fontRue("Times", taillePolice, QFont::Bold, false);
-    rue->setFont(fontRue);
+    //QBrush couleurRue("#000000");
+    //rue->setForeground(couleurRue);
+    //QFont fontRue("Times", taillePolice, QFont::Bold, false);
+    //rue->setFont(fontRue);
 
     QTableWidgetItem *ville = new QTableWidgetItem(vil);
     ui->tableWidget->setItem(0, 1, ville);
-    QBrush couleurVille("#000000"); //la couleur
-    ville->setForeground(couleurVille);
-    QFont fontVille("Times", taillePolice, QFont::Bold, false);// taille de la police
-    ville->setFont(fontVille);
+    //QBrush couleurVille("#000000"); //la couleur
+    //ville->setForeground(couleurVille);
+    //QFont fontVille("Times", taillePolice, QFont::Bold, false);// taille de la police
+    //ville->setFont(fontVille);
 
 
     QTableWidgetItem *code = new QTableWidgetItem(cod);
     ui->tableWidget->setItem(0, 2, code);
-    QBrush couleurCode("#000000");
-    code->setForeground(couleurCode);
-    QFont fontCode("Times", taillePolice, QFont::Bold, false); //bold epaisseur de la police
-    code->setFont(fontCode);
+    //QBrush couleurCode("#000000");
+    //code->setForeground(couleurCode);
+    //QFont fontCode("Times", taillePolice, QFont::Bold, false); //bold epaisseur de la police
+    //code->setFont(fontCode);
 
 
 
@@ -116,17 +129,17 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
     QTableWidgetItem *state = new QTableWidgetItem(sta);
     ui->tableWidget->setItem(0, 3, state);
-    QBrush couleurState("#000000");
+    /*QBrush couleurState("#000000");
     state->setForeground(couleurState);
     QFont fontState("Times", taillePolice, QFont::Bold, false); // true veut dire si on veut mettre en italique ou pas, si on veut pas on fait false.
-    state->setFont(fontState );
+    state->setFont(fontState );*/
 
     QTableWidgetItem *latitude = new QTableWidgetItem(lat);
     ui->tableWidget->setItem(0, 4, latitude);
-    QBrush couleurLat("#000000");
+    /*QBrush couleurLat("#000000");
     latitude->setForeground(couleurLat);
     QFont fontLat("Times", taillePolice, QFont::Bold, false);
-    latitude->setFont(fontLat);
+    latitude->setFont(fontLat);*/
 
 
 
@@ -143,10 +156,10 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
     QTableWidgetItem *longitude = new QTableWidgetItem(lon);
     ui->tableWidget->setItem(0, 5, longitude);
-    QBrush couleurLon("#000000");
+    /*QBrush couleurLon("#000000");
     longitude->setForeground(couleurLon);
     QFont fontLon("Times", taillePolice, QFont::Bold, false);
-    longitude->setFont(fontLon);
+    longitude->setFont(fontLon);*/
 
 
 
@@ -159,4 +172,9 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
 
 
+}
+
+void widgetlocalisation::resizeEvent(QResizeEvent *event)
+{
+    ui->tableWidget->setColumnWidth(0,this->width());
 }

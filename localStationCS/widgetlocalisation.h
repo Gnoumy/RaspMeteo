@@ -64,6 +64,7 @@ private slots:
 private:
     Ui::widgetlocalisation *ui;
     NetworkAccessManager *manager;
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // WIDGETLOCALISATION_H
