@@ -59,8 +59,6 @@ public:
 private slots:
         void replyFinished(QNetworkReply *reply);
 
-
-
 private:
     Ui::widgetlocalisation *ui;
     NetworkAccessManager *manager;

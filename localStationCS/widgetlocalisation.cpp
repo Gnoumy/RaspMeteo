@@ -56,7 +56,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     //qDebug()<<ret;
     QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
-    QFont font(Config::getFontFamily(),Config::getFontSize(),QFont::Black);//font(police, taille, couleur)
+  /*QFont font(Config::getFontFamily(),Config::getFontSize(),QFont::Black);//font(police, taille, couleur)
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize(),QFont::Black);
     ui->tableWidget->setFont(font);
     ui->tableWidget->setStyleSheet("color: "+Config::getFontColor());
@@ -64,7 +64,18 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
     ui->label->setFont(header);//taille de police du l'entete
     ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()); //couleur de police
-    ui->label->setStyleSheet("background-color: "+Config::getHeaderBgColor());//couleur de font
+    ui->label->setStyleSheet("background-color: "+Config::getHeaderBgColor());//couleur de font*/
+
+
+    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille, couleur)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+        ui->tableWidget->setFont(font);
+        ui->tableWidget->setStyleSheet(Config::getFontColor());
+        ui->tableWidget->setStyleSheet(Config::getBgColor());
+
+        ui->label->setFont(header);//taille de police du l'entete
+        ui->label->setStyleSheet(Config::getHeaderFontColor()); //couleur de police
+        ui->label->setStyleSheet(Config::getHeaderBgColor());
 
     //qDebug() << myJson.toObject().toVariantMap()["licence"].toMap()["lat"].toString();
     //qDebug() << myJson.array()[1].toObject().toVariantMap()["links"].toList().at(0).toMap()["href"].toString();
@@ -97,7 +108,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     ui->tableWidget->verticalHeader()->hide();// permet de ne pas afficher les numeros de ligne
     ui->tableWidget->setShowGrid(false);// pour enlever les grilles dans un tableau
 
-    int taillePolice = 13;
+    //int taillePolice = 13;
 
     //Config::getFontSize();
 
@@ -147,7 +158,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
 
 
-    /*QTableWidgetItem *building = new QTableWidgetItem(build);
+   /*QTableWidgetItem *building = new QTableWidgetItem(build);
     ui->tableWidget->setItem(0, 3, building);
     QBrush couleurBuild("#000000");
     building->setForeground(couleurBuild);
