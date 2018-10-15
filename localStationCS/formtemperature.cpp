@@ -19,10 +19,11 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
-//    setFixedSize(320, 340);
-
+    setFixedSize(412, 525);
+//    this->setStyleSheet("background-color: "+Config::getBgColor());
+//    this->setStyleSheet("background-color: blue");
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-    this->setStyleSheet("background-color: "+Config::getBgColor());
+
 //  ********  Parametre du lineEdit header  ********
     ui->lineEdit_header->setFont(header);
     ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
@@ -50,10 +51,8 @@ FormTemperature::FormTemperature(QWidget *parent) :
     qnam->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=3543ac0c00624ed3bb653359621e5344")));
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
-
 void FormTemperature::readRead(QNetworkReply *data)
 {
-
 //  ********  Enregistrement des données à partir du Json  ********
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
     QString temp = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["temp"].toInt()-273);
@@ -81,42 +80,42 @@ void FormTemperature::readRead(QNetworkReply *data)
     float temp_px = ((50.0+temp_float)*300/110);
 
 //  ********  Dessin du thermometre  ********
-    QPixmap pixmap(300,500);
+    QPixmap pixmap(500,500);
     pixmap.fill(QColor("transparent"));
     QPainter painter(&pixmap);
     QPen pen;
     pen.setColor(Config::getFontColor());
     painter.setPen(pen);
-    QRectF rectangle(40.0, 20.0, 30.0, 300.0);
-    QRectF rectangle_temp(41,320.0-temp_px,29,temp_px);
+    QRectF rectangle(20.0, 20.0, 30.0, 300.0);
+    QRectF rectangle_temp(21,320.0-temp_px,29,temp_px);
     painter.drawRect(rectangle);
 
-    painter.drawLine(100,30,75,30);
-    painter.drawLine(85,55,75,55);
-    painter.drawLine(85,80,75,80);
-    painter.drawLine(85,105,75,105);
-    painter.drawLine(85,130,75,130);
-    painter.drawLine(85,155,75,155);
-    painter.drawLine(100,180,75,180);
-    painter.drawLine(85,205,75,205);
-    painter.drawLine(85,230,75,230);
-    painter.drawLine(85,255,75,255);
-    painter.drawLine(85,280,75,280);
-    painter.drawLine(100,305,75,305);
+    painter.drawLine(80,30,55,30);
+    painter.drawLine(65,55,55,55);
+    painter.drawLine(65,80,55,80);
+    painter.drawLine(65,105,55,105);
+    painter.drawLine(65,130,55,130);
+    painter.drawLine(65,155,55,155);
+    painter.drawLine(80,180,55,180);
+    painter.drawLine(65,205,55,205);
+    painter.drawLine(65,230,55,230);
+    painter.drawLine(65,255,55,255);
+    painter.drawLine(65,280,55,280);
+    painter.drawLine(80,305,55,305);
 
-    painter.drawText(37,15,"Temp °C");
-    painter.drawText(110,35,"55");
-    painter.drawText(110,60,"50");
-    painter.drawText(110,85,"40");
-    painter.drawText(110,110,"30");
-    painter.drawText(110,135,"20");
-    painter.drawText(110,160,"10");
-    painter.drawText(115,185,"0");
-    painter.drawText(105,210,"-10");
-    painter.drawText(105,235,"-20");
-    painter.drawText(105,260,"-30");
-    painter.drawText(105,285,"-40");
-    painter.drawText(105,310,"-45");
+    painter.drawText(17,15,"Temp °C");
+    painter.drawText(90,35,"55");
+    painter.drawText(90,60,"50");
+    painter.drawText(90,85,"40");
+    painter.drawText(90,110,"30");
+    painter.drawText(90,135,"20");
+    painter.drawText(90,160,"10");
+    painter.drawText(95,185,"0");
+    painter.drawText(85,210,"-10");
+    painter.drawText(85,235,"-20");
+    painter.drawText(85,260,"-30");
+    painter.drawText(85,285,"-40");
+    painter.drawText(85,310,"-45");
 
 //  ********  Couleur de la jauge en fonction de la temperature  ********
     if (temp.toInt() < 5)
@@ -128,8 +127,8 @@ void FormTemperature::readRead(QNetworkReply *data)
         painter.drawEllipse(25,317,60,60);
         pen.setColor(Qt::blue);
         painter.fillRect(rectangle_temp,brush);
-        ui->label_temp->setPixmap(pixmap);
-        ui->label_temp->setFixedWidth(150);
+        ui->label_temp->setFixedWidth(125);
+        ui->label_temp->setFixedHeight(500);
     }
     else if (temp.toInt() >= 5 && temp.toInt() <=25)
     {
@@ -137,12 +136,13 @@ void FormTemperature::readRead(QNetworkReply *data)
         QBrush brush (Qt::green, Qt::SolidPattern);
         pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
-        painter.drawEllipse(25,317,60,60);
+        painter.drawEllipse(10,315,50,50);
         pen.setColor(Qt::green);
         painter.fillRect(rectangle_temp,brush);
 
         ui->label_temp->setPixmap(pixmap);
-        ui->label_temp->setFixedWidth(150);
+        ui->label_temp->setFixedWidth(125);
+        ui->label_temp->setFixedHeight(500);
 
 
     }
@@ -155,8 +155,8 @@ void FormTemperature::readRead(QNetworkReply *data)
         painter.drawEllipse(25,317,60,60);
         pen.setColor(Qt::red);
         painter.fillRect(rectangle_temp,brush);
-        ui->label_temp->setPixmap(pixmap);
-        ui->label_temp->setFixedWidth(150);
+        ui->label_temp->setFixedWidth(125);
+        ui->label_temp->setFixedHeight(500);
     }
 
 //  ********  Hauteur en pixel de la jauge en fonction de la température et taille du thermometre  ********
@@ -168,29 +168,27 @@ void FormTemperature::readRead(QNetworkReply *data)
     pixmap2.fill(QColor("transparent"));
     QPainter painter2(&pixmap2);
     QPen pen2;
-
     pen2.setColor(Config::getFontColor());
     painter2.setPen(pen2);
-    QRectF rectangle2(40.0, 40.0, 30.0, 300.0);
-    QRectF rectangle_hygro(41,340.0-hygro_px,29,hygro_px);
+    QRectF rectangle2(10.0, 40.0, 30.0, 300.0);
+    QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
     painter2.drawRect(rectangle2);
     QBrush brush (Qt::red, Qt::SolidPattern);
     pen2.setColor(Qt::red);
     painter2.fillRect(rectangle_hygro,brush);
 
-    painter2.drawText(105,50,"100");
-    painter2.drawText(105,200,"50");
-    painter2.drawText(110,340,"0");
+    painter2.drawText(7,15,"Hygro %");
+    painter2.drawText(65,50,"100");
+    painter2.drawText(65,200,"50");
+    painter2.drawText(70,340,"0");
 
-    painter2.drawText(37,15,"Hygro %");
-    painter2.drawLine(100,45,75,45);
-    painter2.drawLine(100,195,75,195);
-    painter2.drawLine(100,335,75,335);
-
-
+    painter2.drawLine(60,45,45,45);
+    painter2.drawLine(60,195,45,195);
+    painter2.drawLine(60,335,45,335);
 
     ui->label_hygro->setPixmap(pixmap2);
-    ui->label_hygro->setFixedWidth(150);
+    ui->label_hygro->setFixedWidth(100);
+    ui->label_hygro->setFixedHeight(500);
 }
 FormTemperature::~FormTemperature()
 {
