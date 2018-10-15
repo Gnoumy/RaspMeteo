@@ -89,7 +89,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     pixmap.fill(QColor("transparent"));
     QPainter painter(&pixmap);
     QPen pen;
-    pen.setColor(Qt::black);
+    pen.setColor(Config::getFontColor());
     painter.setPen(pen);
     QRectF rectangle(5.0, 20.0, 30.0, 300.0);
     QRectF rectangle_temp(6,320.0-temp_px,29,temp_px);
