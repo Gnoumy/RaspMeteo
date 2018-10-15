@@ -15,7 +15,7 @@
 #include "config.h"
 
 FormTemperature::FormTemperature(QWidget *parent) :
-    QWidget(parent),
+    LocalStationWidget(parent),
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
