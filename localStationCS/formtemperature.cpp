@@ -19,7 +19,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
-    setFixedSize(412, 525);
+//    setFixedSize(412, 525);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
 //    this->setStyleSheet("background-color: blue");
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
