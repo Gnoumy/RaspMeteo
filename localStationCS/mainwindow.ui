@@ -39,7 +39,11 @@
          <widget class="RechargeVehiculeWidget" name="widget5" native="true"/>
         </item>
         <item>
+<<<<<<< Updated upstream
          <widget class="WidgetSatellite" name="widget6" native="true"/>
+=======
+         <widget class="TraficInfos" name="widget6" native="true"/>
+>>>>>>> Stashed changes
         </item>
         <item>
          <widget class="QWidget" name="widget7" native="true"/>
@@ -59,7 +63,7 @@
      <x>0</x>
      <y>0</y>
      <width>1019</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -78,6 +82,12 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>TraficInfos</class>
+   <extends>QWidget</extends>
+   <header>traficinfos.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>RechargeVehiculeWidget</class>
    <extends>QWidget</extends>
