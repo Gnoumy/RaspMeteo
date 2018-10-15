@@ -10,7 +10,7 @@
 #include <QDebug>
 
 #define NUMBER_OF_WIDGETS       8
-#define SCREEN_GEOMETRY_RATIO   1   // 1 pour 100% de l'ecran, 0.5 pour la moitie
+#define SCREEN_GEOMETRY_RATIO   0.5   // 1 pour 100% de l'ecran, 0.5 pour la moitie
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
