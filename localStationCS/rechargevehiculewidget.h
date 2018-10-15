@@ -32,6 +32,8 @@ public:
 private:
     Ui::RechargeVehiculeWidget *ui;
     QNetworkAccessManager *manager;
+    float longitude;
+    float latitude;
 
 private slots:
     void replyFinished(QNetworkReply *reply);
