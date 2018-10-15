@@ -40,7 +40,7 @@ protected:
 #include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
-//** #include "networkaccessmanager.h"
+
 #include "mainwindow.h"
 
 
