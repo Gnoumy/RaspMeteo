@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network sql
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -35,8 +35,6 @@ SOURCES += \
     widgetsatellite.cpp \
     widgetlocalisation.cpp \
     traficinfos.cpp
-    flightswidget.cpp
-
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +47,6 @@ HEADERS += \
     widgetsatellite.h \
     widgetlocalisation.h \
     traficinfos.h
-    flightswidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -60,8 +57,3 @@ FORMS += \
     widgetsatellite.ui \
     widgetlocalisation.ui \
     traficinfos.ui
-    flightswidget.ui\
-    widgetlocalisation.ui
-
-RESOURCES += \
-    ressources.qrc

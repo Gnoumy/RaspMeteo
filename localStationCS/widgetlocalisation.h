@@ -40,7 +40,7 @@ protected:
 #include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
-
+//** #include "networkaccessmanager.h"
 #include "mainwindow.h"
 
 
@@ -59,10 +59,11 @@ public:
 private slots:
         void replyFinished(QNetworkReply *reply);
 
+
+
 private:
     Ui::widgetlocalisation *ui;
     NetworkAccessManager *manager;
-    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // WIDGETLOCALISATION_H
