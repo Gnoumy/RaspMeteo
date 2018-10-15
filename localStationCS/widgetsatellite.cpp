@@ -7,17 +7,17 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
 {
     ui->setupUi(this);
     QFont font(Config::getFontFamily(),Config::getFontSize());
-    this->setStyleSheet("background-color: "+Config::bgColor);
+    this->setStyleSheet("background-color: "+Config::getBgColor());
     ui->label->setFont(font);
-    ui->label->setStyleSheet("background-color: "+Config::bgColor);
+    ui->label->setStyleSheet("background-color: "+Config::getBgColor());
     ui->tableWidget->setFont(font);
-    ui->tableWidget->setStyleSheet("color: "+Config::fontColor+"; background-color: "+Config::bgColor);
+    ui->tableWidget->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
 
     ui->progressBar->setValue(0);
     SetSat_categories();
     // get latitude, longitude and distance from mainwindow
-    Config::latitude=48.78889;
-    Config::longitude=2.27078f;
+//    Config::getLatitude()=48.78889;
+//    Config::getLongitude()=2.27078f;
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
 //    QString urlalt =URLOPENELEVATIONEBASE+ui->label_lat->text()

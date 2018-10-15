@@ -20,10 +20,11 @@ FormTemperature::FormTemperature(QWidget *parent) :
 {
     ui->setupUi(this);
 //    setFixedSize(320, 340);
+
     QFont font(Config::getFontFamily(),Config::getFontSize());
-    this->setStyleSheet("background-color: "+Config::bgColor);
+    this->setStyleSheet("background-color: "+Config::getBgColor());
     ui->lineEdit_header->setFont(font);
-    ui->lineEdit_header->setStyleSheet("color: "+Config::fontColor);
+    ui->lineEdit_header->setStyleSheet("color: "+Config::getFontColor());
     ui->lineEdit_header->setReadOnly(true);
 
     ui->tableWidget_temp->setFont(font);
@@ -36,7 +37,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->tableWidget_temp->resizeColumnsToContents();
     ui->tableWidget_temp->resizeRowsToContents();
     ui->tableWidget_temp->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    ui->tableWidget_temp->setStyleSheet("color: "+Config::fontColor+"; background-color: "+Config::bgColor);
+    ui->tableWidget_temp->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
 
     qnam->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/weather?lat=40&lon=20&appid=3543ac0c00624ed3bb653359621e5344")));
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
@@ -75,7 +76,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     QPainter painter(&pixmap);
     QPen pen;
 
-    pen.setColor(Config::fontColor);
+    pen.setColor(Config::getFontColor());
     painter.setPen(pen);
     QRectF rectangle(20.0, 0.0, 30.0, 360.0);
     QRectF rectangle_temp(21,360.0-temp_px,29,temp_px);
@@ -111,7 +112,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     {
         painter.setPen(pen);
         QBrush brush (Qt::blue, Qt::SolidPattern);
-        pen.setColor(Config::fontColor);
+        pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
         painter.drawEllipse(5,357,60,60);
         pen.setColor(Qt::blue);
@@ -122,7 +123,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     {
         painter.setPen(pen);
         QBrush brush (Qt::green, Qt::SolidPattern);
-        pen.setColor(Config::fontColor);
+        pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
         painter.drawEllipse(5,357,60,60);
         pen.setColor(Qt::green);
@@ -133,7 +134,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     {
         painter.setPen(pen);
         QBrush brush (Qt::red, Qt::SolidPattern);
-        pen.setColor(Config::fontColor);
+        pen.setColor(Config::getFontColor());
         painter.setBrush(brush);
         painter.drawEllipse(5,357,60,60);
         pen.setColor(Qt::red);
