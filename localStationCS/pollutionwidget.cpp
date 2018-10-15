@@ -16,6 +16,7 @@
 #include <QGraphicsView>
 #include <QBrush>
 #include <QPen>
+#include <QFrame>
 
 PollutionWidget::PollutionWidget(QWidget *parent) :
     LocalStationWidget(parent),
@@ -43,8 +44,9 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         request.setUrl(url);
         networkManager->get(request);
 //        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
-        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(affichageGraphique()));
+        connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(affichageGraphique(QNetworkReply *)));
         ui->stackedWidget->setCurrentIndex(1);
+
 
 }
 
@@ -60,35 +62,50 @@ void PollutionWidget::reponseUrl(QNetworkReply *data)
     ui->label_Station->setText(jsonDoc.object().value("data").toObject().toVariantMap()["city"].toMap()["name"].toString());
 }
 
-void PollutionWidget::affichageGraphique()
+void PollutionWidget::affichageGraphique(QNetworkReply *data)
 {
-    ui->stackedWidget->setCurrentIndex(1);
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
+
+    //Initialisation du graphique
     QPixmap pixmap(500,500);
     pixmap.fill(QColor("transparent"));
     QPainter painter(&pixmap);
-    QPen pen;
-    pen.setColor(Qt::black);
-    painter.setPen(pen);
-
-//    painter.drawLine(0,0,100,100);
-    QRectF rectangle(0.0, 200.0, 500.0, 500.0);
     QBrush brush (Qt::blue, Qt::SolidPattern);
+    QPen pen;
+    pen.setColor(Config::getFontColor());
+    painter.setPen(pen);
+    painter.setBrush(brush);
 
-//    painter.fillRect(rectangle, Qt::red);
-    int startAngle = 30 * 16;
-    int spanAngle = 120 * 16;
-
+    //Configuration du grand cercle
+    QRectF rectangle(50, 200, 400, 400);
+    int startAngle = 0 * 16;
+    int spanAngle = 180 * 16;
     painter.drawArc(rectangle, startAngle, spanAngle);
     painter.drawChord(rectangle, startAngle, spanAngle);
 
-    painter.drawText(20,330,"0");
+    //Configuration du petit cercle
+    QRectF rectangle2(175, 325, 150, 150);
+    int startAngle2 = 0 * 16;
+    int spanAngle2 = 180 * 16;
+    painter.drawArc(rectangle2, startAngle2, spanAngle2);
+
+//    painter.fillRect(rectangle, Qt::red);
+
+
+    painter.drawText(30,400,"0");
     painter.drawText(100,220,"75");
-    painter.drawText(240,190,"150");
+    painter.drawText(240,185,"150");
     painter.drawText(380,220,"225");
-    painter.drawText(470,330,"300");
+    painter.drawText(460,400,"300");
+//    painter.fillRect(rectangle2,brush);
+
+    //Configuration de l'aiguille
+    int position = jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toInt();
+    QLine line(250, 375, 400, position);
+    painter.drawLine(line);
+
 
     ui->label_graph->setPixmap(pixmap);
-
 }
 void PollutionWidget::reloadData()
 {

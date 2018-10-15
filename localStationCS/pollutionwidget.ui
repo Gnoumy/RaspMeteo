@@ -17,7 +17,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_affichageDefaut_3">
       <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -159,6 +159,16 @@
      </widget>
      <widget class="QWidget" name="page_affichageGraphique_3">
       <layout class="QVBoxLayout" name="verticalLayout_10">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Pollution Application</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLabel" name="label_graph">
          <property name="text">

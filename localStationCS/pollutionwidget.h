@@ -25,7 +25,7 @@ private:
     Ui::PollutionWidget *ui;
 private slots:
     void reponseUrl(QNetworkReply *data);
-    void affichageGraphique();
+    void affichageGraphique(QNetworkReply *data);
 };
 
 #endif // POLLUTIONWIDGET_H
