@@ -29,7 +29,7 @@
          <widget class="PollutionWidget" name="widget3" native="true"/>
         </item>
         <item>
-         <widget class="WidgetSatellite" name="widget_4" native="true"/>
+         <widget class="QWidget" name="widget_4" native="true"/>
         </item>
        </layout>
       </item>
@@ -39,10 +39,10 @@
          <widget class="RechargeVehiculeWidget" name="widget5" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget6" native="true"/>
+         <widget class="WidgetSatellite" name="widget6" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget7" native="true"/>
+         <widget class="FlightsWidget" name="widget7" native="true"/>
         </item>
         <item>
          <widget class="QWidget" name="widget8" native="true"/>
@@ -105,6 +105,12 @@
    <class>WidgetSatellite</class>
    <extends>QWidget</extends>
    <header>widgetsatellite.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FlightsWidget</class>
+   <extends>QWidget</extends>
+   <header>flightswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
