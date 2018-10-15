@@ -22,7 +22,7 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QTabWidget" name="tabWidgetTEST">
+    <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>4</number>
      </property>
@@ -95,7 +95,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="fontLabel">
          <property name="text">
-          <string>Body Font</string>
+          <string>Body Font 0123.456,789°C</string>
          </property>
         </widget>
        </item>
@@ -121,7 +121,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="headerFontLabel">
          <property name="text">
-          <string>Header Font</string>
+          <string>Header Font 0123.456,789°C</string>
          </property>
         </widget>
        </item>
@@ -147,7 +147,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="footerFontLabel">
          <property name="text">
-          <string>Footer Font</string>
+          <string>Footer Font 0123.456,789°C</string>
          </property>
         </widget>
        </item>
@@ -165,11 +165,37 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tabTableFont">
+      <attribute name="title">
+       <string>Table Font</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QLabel" name="tableFontLabel">
+         <property name="text">
+          <string>Table Font 0123.456,789°C</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFontComboBox" name="tableFontComboBox"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QComboBox" name="tableFontColorComboBox"/>
+       </item>
+       <item row="3" column="0">
+        <widget class="QComboBox" name="tableBgColorComboBox"/>
+       </item>
+       <item row="4" column="0">
+        <widget class="QSpinBox" name="tableFontSpinBox"/>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Tests</string>
       </attribute>
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="other2_ComboBox">
        <property name="geometry">
         <rect>
          <x>220</x>
@@ -179,13 +205,56 @@
         </rect>
        </property>
       </widget>
+      <widget class="QFontComboBox" name="other1_FontComboBox">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>20</y>
+         <width>275</width>
+         <height>28</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="other3_SpinBox">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>110</y>
+         <width>201</width>
+         <height>29</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QDoubleSpinBox" name="other4_DoubleSpinBox">
+       <property name="geometry">
+        <rect>
+         <x>221</x>
+         <y>150</y>
+         <width>231</width>
+         <height>29</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelAutoScrolling">
+       <property name="geometry">
+        <rect>
+         <x>50</x>
+         <y>50</y>
+         <width>62</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Texte super long du QLabel</string>
+       </property>
+      </widget>
      </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>tabWidgetTEST</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>latDoubleSpinBox</tabstop>
   <tabstop>lonDoubleSpinBox</tabstop>
   <tabstop>distDoubleSpinBox</tabstop>

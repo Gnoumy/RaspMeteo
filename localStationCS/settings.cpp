@@ -13,46 +13,50 @@
 Settings::Settings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Settings)
-{QFontDatabase::addApplicationFont(":/fonts/LLDOT2.TTF");
+{
     // init widgets of the .ui
     ui->setupUi(this);
     this->initAllColorComboBoxes() ;
-    this->ui->comboBox->addItem("LLDot");
+    this->initAllFontComboBoxes() ;
+
+
+//    qDebug()<<"aa"<<this->ui->headerFontLabel->parent()->objectName();
+//    QObjectList tabs(this->ui->tabHeaderFont->parent()->children());
+
+//    for (const QObject* qw : tabs)
+//    {
+//        QObjectList ch(qw->children());
+//        qDebug()<<"a---------a" ;
+//        for (const QObject* ww : ch)
+//            qDebug()<<"aa"<<ww->objectName();
+//    }
 
 
 
-    QStringList familyList ;
-    familyList.reserve(QDir(RESSOURCE_FONTS_FOLDER).count());
-//    qDebug()<<QDir(RESSOURCE_FONTS_FOLDER).count()<<"qqqq";
-    QDirIterator it(RESSOURCE_FONTS_FOLDER, QDirIterator::Subdirectories);
-    while (it.hasNext()) {
-        // tester sur fichiers hidden ?????
-//        qDebug() << "------------------------";
-//        qDebug() << it.fileName();
-        int id = QFontDatabase::addApplicationFont(it.next());
-        familyList.append(QFontDatabase::applicationFontFamilies(id));
-    }
 
-    this->ui->fontComboBox->clear();
-    this->ui->fontComboBox->addItems(familyList);
-    this->ui->headerFontComboBox->clear();
-    this->ui->headerFontComboBox->addItems(familyList);
-    this->ui->footerFontComboBox->clear();
-    this->ui->footerFontComboBox->addItems(familyList);
+//    this->ui->labelAutoScrolling->setText("TextLabelTEXTLABEL");
+//    int textPixelWidth = this->ui->labelAutoScrolling->fontMetrics().boundingRect(this->ui->labelAutoScrolling->text()).width() ;
+//    int labelWidth = this->ui->labelAutoScrolling->width() ;
+
+//    qDebug() << "textPixelWidth " << textPixelWidth ;
+//    qDebug() << "labelWidth " << labelWidth ;
+
+
 
 
 
     // "OrganizationDomain" and "ApplicationName" related to qsettings are set in main.cpp
-    this->qsettings.setParent(this);
-    this->affectValuesToConfigStaticVars();
+//    this->qsettings.setParent(this);
+//    this->affectValuesToConfigStaticVars();
 
 
-    QApplication::setFont(QFont(Config::fontFamily, Config::fontSize));
-
+    QApplication::setFont(QFont( Config::getFontFamily(), Config::getFontSize() ));
 
     // all the connects --------------------------------------------------------------------------------------------------------
 
     connect(this->ui->applyPushButton, SIGNAL(released()), this, SLOT(changeConfig())) ;
+
+/*
 
     // Body, then Header, then Footer
 
@@ -62,7 +66,11 @@ Settings::Settings(QWidget *parent) :
         [this](const QString &value)
         {
             this->fontStr = value ;
-            this->updateLabel();
+            this->updateLabel(this->ui->fontLabel,
+                              this->ui->fontComboBox,
+                              this->ui->fontSpinBox,
+                              this->ui->fontColorComboBox,
+                              this->ui->bgColorComboBox);
         }) ;
 
 
@@ -72,7 +80,11 @@ Settings::Settings(QWidget *parent) :
         [this](const int &value)
         {
             this->fontSize = value ;
-            this->updateLabel();
+            this->updateLabel(this->ui->fontLabel,
+                              this->ui->fontComboBox,
+                              this->ui->fontSpinBox,
+                              this->ui->fontColorComboBox,
+                              this->ui->bgColorComboBox);
         }) ;
             // qOverload<int>(...) is ugly but needed because there are 2 "valueChanged" SpinBox signals
 
@@ -83,7 +95,11 @@ Settings::Settings(QWidget *parent) :
         [this](const QString &value)
         {
             this->fontColor = value ;
-            this->updateLabel();
+            this->updateLabel(this->ui->fontLabel,
+                              this->ui->fontComboBox,
+                              this->ui->fontSpinBox,
+                              this->ui->fontColorComboBox,
+                              this->ui->bgColorComboBox);
         }) ;
 
 
@@ -93,7 +109,11 @@ Settings::Settings(QWidget *parent) :
         [this](const QString &value)
         {
             this->bgColor = value ;
-            this->updateLabel();
+            this->updateLabel(this->ui->fontLabel,
+                              this->ui->fontComboBox,
+                              this->ui->fontSpinBox,
+                              this->ui->fontColorComboBox,
+                              this->ui->bgColorComboBox);
         }) ;
 
 
@@ -190,6 +210,48 @@ Settings::Settings(QWidget *parent) :
 
     // -------------------------------------------------------------------------------------------------------------------------
 
+*/
+
+    this->connectFontRelatedWidgets(this->ui->fontLabel,
+                                    this->ui->fontComboBox,
+                                    this->ui->fontSpinBox,
+                                    this->ui->fontColorComboBox,
+                                    this->ui->bgColorComboBox);
+
+    this->connectFontRelatedWidgets(this->ui->headerFontLabel,
+                                    this->ui->headerFontComboBox,
+                                    this->ui->headerFontSpinBox,
+                                    this->ui->headerFontColorComboBox,
+                                    this->ui->headerBgColorComboBox);
+
+    this->connectFontRelatedWidgets(this->ui->footerFontLabel,
+                                    this->ui->footerFontComboBox,
+                                    this->ui->footerFontSpinBox,
+                                    this->ui->footerFontColorComboBox,
+                                    this->ui->footerBgColorComboBox);
+
+    this->connectFontRelatedWidgets(this->ui->tableFontLabel,
+                                    this->ui->tableFontComboBox,
+                                    this->ui->tableFontSpinBox,
+                                    this->ui->tableFontColorComboBox,
+                                    this->ui->tableBgColorComboBox);
+}
+
+void Settings::paintEvent(QPaintEvent *e)
+{
+
+////    this->ui->labelAutoScrolling->setText("TextLabel");
+//    int textPixelWidth = this->ui->labelAutoScrolling->fontMetrics().boundingRect(this->ui->labelAutoScrolling->text()).width() ;
+//    int labelWidth = this->ui->labelAutoScrolling->width() ;
+
+//    if (labelWidth < textPixelWidth)
+//    {
+//        qDebug() << "Trop grand : " << labelWidth << " < " << textPixelWidth ;
+//        this->ui->labelAutoScrolling->scroll(labelWidth, 0);
+
+//    }
+
+////    QDialog::paintEvent(e) ;
 }
 
 
@@ -201,57 +263,311 @@ void Settings::affectValuesToConfigStaticVars()
 
     // Body ------------------------------------------------------------
 
-    Config::fontFamily = this->qsettings.value(FONT_FAMILY).toString() ;
-    if(Config::fontFamily=="")
-        Config::fontFamily = this->ui->fontLabel->font().family() ;
-
-    Config::fontSize = this->qsettings.value(FONT_SIZE).toInt() ;
-    if(Config::fontSize==0)
-        Config::fontSize = this->ui->fontLabel->font().pointSize() ;
-
-    Config::fontColor = this->qsettings.value(FONT_COLOR).toString() ;
-    Config::bgColor = this->qsettings.value(BG_COLOR).toString() ;
 
     // Header ------------------------------------------------------------
 
-    Config::headerFontFamily = this->qsettings.value(HEADER_FONT_FAMILY).toString() ;
-    if(Config::headerFontFamily=="")
-        Config::headerFontFamily = this->ui->headerFontLabel->font().family() ;
 
-    Config::headerFontSize = this->qsettings.value(HEADER_FONT_SIZE).toInt() ;
-    if(Config::headerFontSize==0)
-        Config::headerFontSize = this->ui->headerFontLabel->font().pointSize() ;
 
-    Config::headerFontColor = this->qsettings.value(HEADER_FONT_COLOR).toString() ;
-    Config::headerBgColor = this->qsettings.value(HEADER_BG_COLOR).toString() ;
 
     // Footer ------------------------------------------------------------
 
-    Config::footerFontFamily = this->qsettings.value(FOOTER_FONT_FAMILY).toString() ;
-    if(Config::footerFontFamily=="")
-        Config::footerFontFamily = this->ui->footerFontLabel->font().family() ;
 
-    Config::footerFontSize = this->qsettings.value(FOOTER_FONT_SIZE).toInt() ;
-    if(Config::footerFontSize==0)
-        Config::footerFontSize = this->ui->footerFontLabel->font().pointSize() ;
 
-    Config::footerFontColor = this->qsettings.value(FOOTER_FONT_COLOR).toString() ;
-    Config::footerBgColor = this->qsettings.value(FOOTER_BG_COLOR).toString() ;
 
     // Position ------------------------------------------------------------
 
-    Config::latitude = this->qsettings.value(POSITION_LATITUDE).toFloat() ;
-    if(Config::latitude == 0.0f )
-        Config::latitude = DEFAULT_POSITION_LATITUDE ;
 
-    Config::longitude = this->qsettings.value(POSITION_LONGITUDE).toFloat() ;
-    if(Config::longitude == 0.0f )
-        Config::longitude = DEFAULT_POSITION_LONGITUDE ;
 
-    Config::distance = this->qsettings.value(POSITION_DISTANCE).toFloat() ;
-    if(Config::distance == 0.0f )
-        Config::distance = DEFAULT_POSITION_DISTANCE ;
 
+
+}
+
+//void Settings::changeFontComboBox(const QString &value)
+//{
+//    this->fontStr = value ;
+//    this->updateLabel(this->ui->fontLabel,
+//                      this->ui->fontComboBox,
+//                      this->ui->fontSpinBox,
+//                      this->ui->fontColorComboBox,
+//                      this->ui->bgColorComboBox);
+//}
+
+//void Settings::changeSpinBox(const int &value)
+//{
+//    this->fontSize = value ;
+//    this->updateLabel(this->ui->fontLabel,
+//                      this->ui->fontComboBox,
+//                      this->ui->fontSpinBox,
+//                      this->ui->fontColorComboBox,
+//                      this->ui->bgColorComboBox);
+//}
+
+void Settings::changeLabelStyleSheet(QLabel *qlabel,
+                                     const QComboBox *comboBoxWithFontColor,
+                                     const QComboBox *comboBoxWithBgColor)
+{
+    qlabel->setStyleSheet(
+                QString(
+                    "QLabel { color : %1; background-color : %2; }"
+                    ).arg(comboBoxWithFontColor->currentText())
+                     .arg(comboBoxWithBgColor->currentText())) ;
+}
+
+void Settings::updateLabel(QLabel *qlabel,
+                           const QFontComboBox  *qfontcombobox,
+                           const QSpinBox       *fontSizeSpinBox,
+                           const QComboBox      *comboBoxWithFontColor,
+                           const QComboBox      *comboBoxWithBgColor)
+{
+//    this->ui->fontComboBox->setCurrentText(this->fontStr);
+//    this->ui->fontSpinBox->setValue(this->fontSize);
+//    this->ui->fontLabel->setFont(QFont(
+//                                     this->ui->fontComboBox->currentText(),
+//                                     this->ui->fontSpinBox->value()));
+    qlabel->setFont(QFont(
+                       qfontcombobox->currentText(),
+                       fontSizeSpinBox->value()));
+
+//    this->ui->fontColorComboBox->setCurrentText(this->fontColor);
+//    this->ui->bgColorComboBox->setCurrentText(this->bgColor);
+//    this->changeLabelStyleSheet(this->ui->fontLabel,
+//                                this->ui->fontColorComboBox,
+//                                this->ui->bgColorComboBox);
+    this->changeLabelStyleSheet(qlabel,
+                                comboBoxWithFontColor,
+                                comboBoxWithBgColor);
+
+}
+
+//void Settings::updateHeaderLabel()
+//{
+////    this->ui->headerFontComboBox->setCurrentText(this->headerFontFamily);
+////    this->ui->headerFontSpinBox->setValue(this->headerFontSize);
+//    this->ui->headerFontLabel->setFont(QFont(
+//                                     this->ui->headerFontComboBox->currentText(),
+//                                     this->ui->headerFontSpinBox->value()));
+
+////    this->ui->headerFontColorComboBox->setCurrentText(this->headerFontColor);
+////    this->ui->headerBgColorComboBox->setCurrentText(this->headerBgColor);
+//    this->changeLabelStyleSheet(this->ui->headerFontLabel,
+//                                this->ui->headerFontColorComboBox,
+//                                this->ui->headerBgColorComboBox);
+
+//}
+
+//void Settings::updateFooterLabel()
+//{
+//    this->ui->footerFontComboBox->setCurrentText(this->footerFontFamily);
+//    this->ui->footerFontSpinBox->setValue(this->footerFontSize);
+//    this->ui->footerFontLabel->setFont(QFont(this->footerFontFamily, this->footerFontSize));
+
+////    this->ui->footerFontColorComboBox->setCurrentText(this->footerFontColor);
+////    this->ui->footerBgColorComboBox->setCurrentText(this->footerBgColor);
+//    this->changeLabelStyleSheet(this->ui->footerFontLabel,
+//                                this->ui->footerFontColorComboBox,
+//                                this->ui->footerBgColorComboBox);
+
+//}
+
+void Settings::connectFontRelatedWidgets(QLabel *qlabel,
+                                         const QFontComboBox  *qfontcombobox,
+                                         const QSpinBox       *fontSizeSpinBox,
+                                         const QComboBox      *comboBoxWithFontColor,
+                                         const QComboBox      *comboBoxWithBgColor)
+{
+
+        // Equivalent. One with a private slot, and one with a lambda expression
+        //this->connect(qfontcombobox, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
+    this->connect(qfontcombobox, &QFontComboBox::currentTextChanged, this,
+        [=](const QString &value)
+        {
+            // this->fontStr = value ;
+            this->updateLabel(qlabel,
+                              qfontcombobox,
+                              fontSizeSpinBox,
+                              comboBoxWithFontColor,
+                              comboBoxWithBgColor);
+        }) ;
+
+
+        // Equivalent. One with a private slot, and one with a lambda expression
+        //this->connect(fontSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeSpinBox(int))) ;
+    this->connect(fontSizeSpinBox, qOverload<int>(&QSpinBox::valueChanged), this,
+        [=](const int &value)
+        {
+            // this->fontSize = value ;
+            this->updateLabel(qlabel,
+                              qfontcombobox,
+                              fontSizeSpinBox,
+                              comboBoxWithFontColor,
+                              comboBoxWithBgColor);
+        }) ;
+            // qOverload<int>(...) is ugly but needed because there are 2 "valueChanged" SpinBox signals
+
+
+        // Equivalent. One with a private slot, and one with a lambda expression
+        //this->connect(comboBoxWithFontColor, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
+    this->connect(comboBoxWithFontColor, &QComboBox::currentTextChanged, this,
+        [=](const QString &value)
+        {
+            // this->fontColor = value ;
+            this->updateLabel(qlabel,
+                              qfontcombobox,
+                              fontSizeSpinBox,
+                              comboBoxWithFontColor,
+                              comboBoxWithBgColor);
+        }) ;
+
+
+        // Equivalent. One with a private slot, and one with a lambda expression
+        //this->connect(comboBoxWithBgColor, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
+    this->connect(comboBoxWithBgColor, &QComboBox::currentTextChanged, this,
+        [=](const QString &value)
+        {
+//            this->bgColor = value ;
+            this->updateLabel(qlabel,
+                              qfontcombobox,
+                              fontSizeSpinBox,
+                              comboBoxWithFontColor,
+                              comboBoxWithBgColor);
+        }) ;
+
+
+}
+
+void Settings::resetWidget(QFontComboBox *qfontcombobox, const QString &value)
+{
+    qfontcombobox->setCurrentText(value);
+}
+
+void Settings::resetWidget(QComboBox *qcombobox, const QString &value)
+{
+    qcombobox->setCurrentText(value);
+}
+
+void Settings::resetWidget(QSpinBox *qspinBox, const int &value)
+{
+    qspinBox->setValue(value);
+}
+
+void Settings::resetWidget(QDoubleSpinBox *qdoublespinBox, const float &value)
+{
+    qdoublespinBox->setValue(value);
+}
+
+void Settings::resetFontRelatedWidgets(QLabel *qlabel,
+                                       QFontComboBox  *qfontcombobox,
+                                       QSpinBox       *fontSizeSpinBox,
+                                       QComboBox      *comboBoxWithFontColor,
+                                       QComboBox      *comboBoxWithBgColor,
+                                       const QString  &valueforqfontcombobox,
+                                       const int      &valueforfontSizeSpinBox,
+                                       const QString  &valueforcomboBoxWithFontColor,
+                                       const QString  &valueforcomboBoxWithBgColor)
+{
+    this->resetWidget(qfontcombobox,        valueforqfontcombobox);
+    this->resetWidget(fontSizeSpinBox,      valueforfontSizeSpinBox);
+    this->resetWidget(comboBoxWithFontColor,valueforcomboBoxWithFontColor);
+    this->resetWidget(comboBoxWithBgColor,  valueforcomboBoxWithBgColor);
+
+    this->updateLabel(qlabel,
+                      qfontcombobox,
+                      fontSizeSpinBox,
+                      comboBoxWithFontColor,
+                      comboBoxWithBgColor);
+}
+
+void Settings::resetSettingsWidgets()
+{
+    // every Settings member gets the value of the corresponding static variable
+
+    // Body ------------------------------------------------------------
+
+//    this->fontStr = Config::getFontFamily() ;
+//    this->fontSize = Config::getFontSize() ;
+//    this->fontColor = Config::getFontColor() ;
+//    this->bgColor = Config::getBgColor() ;
+//    this->ui->fontComboBox->setCurrentText      (Config::getFontFamily());
+//    this->ui->fontSpinBox->setValue             (Config::getFontSize());
+//    this->ui->fontColorComboBox->setCurrentText (Config::getFontColor());
+//    this->ui->bgColorComboBox->setCurrentText   (Config::getBgColor());
+
+//    this->updateLabel(this->ui->fontLabel,
+//                      this->ui->fontComboBox,
+//                      this->ui->fontSpinBox,
+//                      this->ui->fontColorComboBox,
+//                      this->ui->bgColorComboBox);
+    this->resetFontRelatedWidgets(this->ui->fontLabel,
+                                  this->ui->fontComboBox,
+                                  this->ui->fontSpinBox,
+                                  this->ui->fontColorComboBox,
+                                  this->ui->bgColorComboBox,
+                                  Config::getFontFamily(),
+                                  Config::getFontSize(),
+                                  Config::getFontColor(),
+                                  Config::getBgColor());
+
+    // Header ------------------------------------------------------------
+
+//    this->headerFontFamily = Config::getHeaderFontFamily() ;
+//    this->headerFontSize = Config::getHeaderFontSize() ;
+//    this->headerFontColor = Config::getHeaderFontColor() ;
+//    this->headerBgColor = Config::getHeaderBgColor() ;
+//    this->ui->headerFontComboBox->setCurrentText        (Config::getHeaderFontFamily());
+//    this->ui->headerFontSpinBox->setValue               (Config::getHeaderFontSize());
+//    this->ui->headerFontColorComboBox->setCurrentText   (Config::getHeaderFontColor());
+//    this->ui->headerBgColorComboBox->setCurrentText     (Config::getHeaderBgColor());
+
+//    this->updateHeaderLabel();
+    this->resetFontRelatedWidgets(this->ui->headerFontLabel,
+                                  this->ui->headerFontComboBox,
+                                  this->ui->headerFontSpinBox,
+                                  this->ui->headerFontColorComboBox,
+                                  this->ui->headerBgColorComboBox,
+                                  Config::getHeaderFontFamily(),
+                                  Config::getHeaderFontSize(),
+                                  Config::getHeaderFontColor(),
+                                  Config::getHeaderBgColor());
+
+    // Footer ------------------------------------------------------------
+
+//    this->footerFontFamily = Config::getFooterFontFamily() ;
+//    this->footerFontSize = Config::getFooterFontSize() ;
+//    this->footerFontColor = Config::getFooterFontColor() ;
+//    this->footerBgColor = Config::getFooterBgColor() ;
+//    this->ui->footerFontComboBox->setCurrentText        (Config::getFooterFontFamily());
+//    this->ui->footerFontSpinBox->setValue               (Config::getFooterFontSize());
+//    this->ui->footerFontColorComboBox->setCurrentText   (Config::getFooterFontColor());
+//    this->ui->footerBgColorComboBox->setCurrentText     (Config::getFooterBgColor());
+
+//    this->updateFooterLabel();
+    this->resetFontRelatedWidgets(this->ui->footerFontLabel,
+                                  this->ui->footerFontComboBox,
+                                  this->ui->footerFontSpinBox,
+                                  this->ui->footerFontColorComboBox,
+                                  this->ui->footerBgColorComboBox,
+                                  Config::getFooterFontFamily(),
+                                  Config::getFooterFontSize(),
+                                  Config::getFooterFontColor(),
+                                  Config::getFooterBgColor());
+
+    // Table ------------------------------------------------------------
+
+    this->resetFontRelatedWidgets(this->ui->tableFontLabel,
+                                  this->ui->tableFontComboBox,
+                                  this->ui->tableFontSpinBox,
+                                  this->ui->tableFontColorComboBox,
+                                  this->ui->tableBgColorComboBox,
+                                  Config::getTableFontFamily(),
+                                  Config::getTableFontSize(),
+                                  Config::getTableFontColor(),
+                                  Config::getTableBgColor());
+
+    // Position ------------------------------------------------------------
+
+    this->ui->latDoubleSpinBox->setValue(Config::getLatitude());
+    this->ui->lonDoubleSpinBox->setValue(Config::getLongitude());
+    this->ui->distDoubleSpinBox->setValue(Config::getDistance());
 
 }
 
@@ -262,165 +578,109 @@ void Settings::changeConfig()
 
     // Body ------------------------------------------------------------
 
-    Config::fontFamily = this->ui->fontComboBox->currentText();
-    this->qsettings.setValue(FONT_FAMILY, Config::fontFamily);
+    Config::setFontFamily( this->ui->fontComboBox->currentText() ) ;
 
-    Config::fontSize = this->ui->fontSpinBox->value();
-    this->qsettings.setValue(FONT_SIZE, Config::fontSize);
+    Config::setFontSize( this->ui->fontSpinBox->value() ) ;
 
-    Config::fontColor = this->ui->fontColorComboBox->currentText();
-    this->qsettings.setValue(FONT_COLOR, Config::fontColor);
+    Config::setFontColor( this->ui->fontColorComboBox->currentText() ) ;
 
-    Config::bgColor = this->ui->bgColorComboBox->currentText();
-    this->qsettings.setValue(BG_COLOR, Config::bgColor);
+    Config::setBgColor( this->ui->bgColorComboBox->currentText() ) ;
 
     // Header ------------------------------------------------------------
 
-    Config::headerFontFamily = this->ui->headerFontComboBox->currentText();
-    this->qsettings.setValue(HEADER_FONT_FAMILY, Config::headerFontFamily);
+    Config::setHeaderFontFamily( this->ui->headerFontComboBox->currentText() ) ;
 
-    Config::headerFontSize = this->ui->headerFontSpinBox->value();
-    this->qsettings.setValue(HEADER_FONT_SIZE, Config::headerFontSize);
+    Config::setHeaderFontSize( this->ui->headerFontSpinBox->value() ) ;
 
-    Config::headerFontColor = this->ui->headerFontColorComboBox->currentText();
-    this->qsettings.setValue(HEADER_FONT_COLOR, Config::headerFontColor);
+    Config::setHeaderFontColor( this->ui->headerFontColorComboBox->currentText() ) ;
 
-    Config::headerBgColor = this->ui->headerBgColorComboBox->currentText();
-    this->qsettings.setValue(HEADER_BG_COLOR, Config::headerBgColor);
+    Config::setHeaderBgColor( this->ui->headerBgColorComboBox->currentText() ) ;
 
     // Footer ------------------------------------------------------------
 
-    Config::footerFontFamily = this->ui->footerFontComboBox->currentText();
-    this->qsettings.setValue(FOOTER_FONT_FAMILY, Config::footerFontFamily);
+    Config::setFooterFontFamily( this->ui->footerFontComboBox->currentText() ) ;
 
-    Config::footerFontSize = this->ui->footerFontSpinBox->value();
-    this->qsettings.setValue(FOOTER_FONT_SIZE, Config::footerFontSize);
+    Config::setFooterFontSize( this->ui->footerFontSpinBox->value() ) ;
 
-    Config::footerFontColor = this->ui->footerFontColorComboBox->currentText();
-    this->qsettings.setValue(FOOTER_FONT_COLOR, Config::footerFontColor);
+    Config::setFooterFontColor( this->ui->footerFontColorComboBox->currentText() ) ;
 
-    Config::footerBgColor = this->ui->footerBgColorComboBox->currentText();
-    this->qsettings.setValue(FOOTER_BG_COLOR, Config::footerBgColor);
+    Config::setFooterBgColor( this->ui->footerBgColorComboBox->currentText() ) ;
+
+    // Table ------------------------------------------------------------
+
+    Config::setTableFontFamily( this->ui->tableFontComboBox->currentText() ) ;
+
+    Config::setTableFontSize( this->ui->tableFontSpinBox->value() ) ;
+
+    Config::setTableFontColor( this->ui->tableFontColorComboBox->currentText() ) ;
+
+    Config::setTableBgColor( this->ui->tableBgColorComboBox->currentText() ) ;
 
     // Position ------------------------------------------------------------
 
-    Config::latitude = this->ui->latDoubleSpinBox->value();
-    this->qsettings.setValue(POSITION_LATITUDE, Config::latitude);
+    Config::setLatitude( this->ui->latDoubleSpinBox->value() ) ;
 
-    Config::longitude = this->ui->lonDoubleSpinBox->value();
-    this->qsettings.setValue(POSITION_LONGITUDE, Config::longitude);
+    Config::setLongitude( this->ui->lonDoubleSpinBox->value() ) ;
 
-    Config::distance = this->ui->distDoubleSpinBox->value();
-    this->qsettings.setValue(POSITION_DISTANCE, Config::distance);
+    Config::setDistance( this->ui->distDoubleSpinBox->value() ) ;
 
     // Apply to the whole project
     QApplication::setFont(QFont(this->ui->fontComboBox->currentText(),this->ui->fontSpinBox->value()));
     this->hide();
 }
 
-void Settings::changeFontComboBox(const QString &value)
-{
-    this->fontStr = value ;
-    this->updateLabel();
-}
-
-void Settings::changeSpinBox(const int &value)
-{
-    this->fontSize = value ;
-    this->updateLabel();
-}
-
-void Settings::updateLabel()
-{
-    this->ui->fontComboBox->setCurrentText(this->fontStr);
-    this->ui->fontSpinBox->setValue(this->fontSize);
-    this->ui->fontLabel->setFont(QFont(this->fontStr, this->fontSize));
-
-    this->ui->fontColorComboBox->setCurrentText(this->fontColor);
-    this->ui->bgColorComboBox->setCurrentText(this->bgColor);
-    this->ui->fontLabel->setStyleSheet(QString("QLabel { color : %1; background-color : %2; })").arg(this->fontColor).arg(this->bgColor)) ;
-
-}
-
-void Settings::updateHeaderLabel()
-{
-    this->ui->headerFontComboBox->setCurrentText(this->headerFontFamily);
-    this->ui->headerFontSpinBox->setValue(this->headerFontSize);
-    this->ui->headerFontLabel->setFont(QFont(this->headerFontFamily, this->headerFontSize));
-
-    this->ui->headerFontColorComboBox->setCurrentText(this->headerFontColor);
-    this->ui->headerBgColorComboBox->setCurrentText(this->headerBgColor);
-    this->ui->headerFontLabel->setStyleSheet(QString("QLabel { color : %1; background-color : %2; })").arg(this->headerFontColor).arg(this->headerBgColor)) ;
-
-}
-
-void Settings::updateFooterLabel()
-{
-    this->ui->footerFontComboBox->setCurrentText(this->footerFontFamily);
-    this->ui->footerFontSpinBox->setValue(this->footerFontSize);
-    this->ui->footerFontLabel->setFont(QFont(this->footerFontFamily, this->footerFontSize));
-
-    this->ui->footerFontColorComboBox->setCurrentText(this->footerFontColor);
-    this->ui->footerBgColorComboBox->setCurrentText(this->footerBgColor);
-    this->ui->footerFontLabel->setStyleSheet(QString("QLabel { color : %1; background-color : %2; })").arg(this->footerFontColor).arg(this->footerBgColor)) ;
-
-}
-
-void Settings::resetSettingsWidgets()
-{
-    // every Settings member gets the value of the corresponding static variable
-
-    // Body ------------------------------------------------------------
-
-    this->fontStr = Config::fontFamily ;
-    this->fontSize = Config::fontSize ;
-    this->fontColor = Config::fontColor ;
-    this->bgColor = Config::bgColor ;
-
-    this->updateLabel();
-
-    // Header ------------------------------------------------------------
-
-    this->headerFontFamily = Config::headerFontFamily ;
-    this->headerFontSize = Config::headerFontSize ;
-    this->headerFontColor = Config::headerFontColor ;
-    this->headerBgColor = Config::headerBgColor ;
-
-    this->updateHeaderLabel();
-
-    // Footer ------------------------------------------------------------
-
-    this->footerFontFamily = Config::footerFontFamily ;
-    this->footerFontSize = Config::footerFontSize ;
-    this->footerFontColor = Config::footerFontColor ;
-    this->footerBgColor = Config::footerBgColor ;
-
-    this->updateFooterLabel();
-
-    // Position ------------------------------------------------------------
-
-    this->latitude = Config::latitude ;
-    this->ui->latDoubleSpinBox->setValue(this->latitude);
-
-    this->longitude = Config::longitude ;
-    this->ui->lonDoubleSpinBox->setValue(this->longitude);
-
-    this->distance = Config::distance ;
-    this->ui->distDoubleSpinBox->setValue(this->distance);
-
-}
-
 void Settings::initAllColorComboBoxes()
 {
-    // it's the color names
+    // color names that we will insert
+    // in fontColor ComboBoxes and bgColor ComboBoxes
     QStringList colors(QColor::colorNames()) ;
 
     this->ui->fontColorComboBox->addItems(colors);
     this->ui->bgColorComboBox->addItems(colors);
+
     this->ui->headerFontColorComboBox->addItems(colors);
     this->ui->headerBgColorComboBox->addItems(colors);
+
     this->ui->footerFontColorComboBox->addItems(colors);
     this->ui->footerBgColorComboBox->addItems(colors);
+
+    this->ui->tableFontColorComboBox->addItems(colors);
+    this->ui->tableBgColorComboBox->addItems(colors);
+
+    this->ui->other2_ComboBox->addItems(colors);
+
+}
+
+void Settings::initAllFontComboBoxes()
+{
+
+    QStringList familyList ;
+    familyList.reserve(QDir(RESSOURCE_FONTS_FOLDER).count());
+    //    qDebug()<<QDir(RESSOURCE_FONTS_FOLDER).count()<<"qqqq";
+    QDirIterator it(RESSOURCE_FONTS_FOLDER, QDirIterator::Subdirectories);
+
+    // tester aussi sur fichiers hidden ?????
+    while (it.hasNext()) {
+        //        qDebug() << "------------------------";
+        //        qDebug() << it.fileName();
+        int id = QFontDatabase::addApplicationFont(it.next());
+        familyList.append(QFontDatabase::applicationFontFamilies(id));
+    }
+
+    this->ui->fontComboBox->clear();
+    this->ui->fontComboBox->addItems(familyList);
+
+    this->ui->headerFontComboBox->clear();
+    this->ui->headerFontComboBox->addItems(familyList);
+
+    this->ui->footerFontComboBox->clear();
+    this->ui->footerFontComboBox->addItems(familyList);
+
+    this->ui->tableFontComboBox->clear();
+    this->ui->tableFontComboBox->addItems(familyList);
+
+    this->ui->other1_FontComboBox->clear();
+    this->ui->other1_FontComboBox->addItems(familyList);
 
 }
 
@@ -595,4 +855,44 @@ QString Settings::getHeaderFontFamily() const
 void Settings::setHeaderFontFamily(const QString &value)
 {
     headerFontFamily = value;
+}
+
+float Settings::getOther4() const
+{
+    return other4;
+}
+
+void Settings::setOther4(float value)
+{
+    other4 = value;
+}
+
+int Settings::getOther3() const
+{
+    return other3;
+}
+
+void Settings::setOther3(int value)
+{
+    other3 = value;
+}
+
+QString Settings::getOther2() const
+{
+    return other2;
+}
+
+void Settings::setOther2(const QString &value)
+{
+    other2 = value;
+}
+
+QString Settings::getOther1() const
+{
+    return other1;
+}
+
+void Settings::setOther1(const QString &value)
+{
+    other1 = value;
 }
