@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>fonts/LLDOT2.TTF</file>
+        <file>fonts/DOTCIRFUL Bold.otf</file>
+        <file>fonts/jd_led5.ttf</file>
+    </qresource>
+</RCC>
