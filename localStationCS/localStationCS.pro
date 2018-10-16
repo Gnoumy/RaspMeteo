@@ -35,6 +35,7 @@ SOURCES += \
     widgetsatellite.cpp \
     widgetlocalisation.cpp \
     traficinfos.cpp \
+    citieswidget.cpp \
     flightswidget.cpp
 
 HEADERS += \
@@ -48,6 +49,7 @@ HEADERS += \
     widgetsatellite.h \
     widgetlocalisation.h \
     traficinfos.h \
+    citieswidget.h \
     flightswidget.h
 
 FORMS += \
@@ -59,4 +61,5 @@ FORMS += \
     widgetsatellite.ui \
     widgetlocalisation.ui \
     traficinfos.ui \
+    citieswidget.ui \
     flightswidget.ui
