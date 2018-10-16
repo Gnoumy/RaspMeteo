@@ -27,23 +27,24 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         QFont font(Config::getFontFamily(),Config::getFontSize());
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-        this->setStyleSheet("background-color: "+Config::getBgColor());
-        this->setStyleSheet("color: "+Config::getFontColor());
-//        this->setFont(font);
 
-//        ui->label_Titre->setFont(header);
-//        ui->label_Titre2->setFont(header);
+        this->setStyleSheet("color: "+Config::getFontColor()+";background-color: "+Config::getBgColor());
+        this->setFont(font);
 
-        ui->label_Titre->setStyleSheet("color: "+Config::getHeaderFontColor());
-        ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor());
-        ui->label_Indice->setStyleSheet("color:"+Config::getFontColor());
-        ui->label_Titre2->setStyleSheet("background-color: "+Config::getHeaderBgColor());
+        ui->lineEdit_header->setFont(header);
+        ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
+        ui->lineEdit_header->setText("Pollution");
 
-        ui->label_MinMax->setStyleSheet("color: "+Config::getFontColor());
-        ui->label_Station->setStyleSheet("color: "+Config::getFontColor());
+        ui->label_Titre2->setFont(header);
+        ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
 
-        ui->label_MinMax->setStyleSheet("background-color: "+Config::getFooterBgColor());
-        ui->label_Station->setStyleSheet("background-color: "+Config::getFooterBgColor());
+        ui->label_Indice->setStyleSheet("color:"+Config::getFontColor()+";background-color: "+Config::getBgColor());
+
+        ui->label_MinMax->setFont(footer);
+        ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
+
+        ui->label_Station->setFont(footer);
+        ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
     /*********************   FIN PARAMETRES   *****************************/
 
 
@@ -56,7 +57,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         networkManager->get(request);
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(deuxiemePage(QNetworkReply *)));
-        ui->stackedWidget->setCurrentIndex(1);
+        ui->stackedWidget->setCurrentIndex(0);
     /********************   FIN REQUETE JSON   ****************************/
 }
 
@@ -79,7 +80,7 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
 
 //    QPainter painter;
 //    painter.begin(this);
-//        PollutionWidget::paintEvent();
+//    GraphPollutionWidget::paintEvent(QPaintEvent);
 //    painter.end();
 }
 

@@ -64,7 +64,6 @@ class GraphPollutionWidget: public QWidget
 //            aiguille.setBrush(brush);
 //            aiguille.drawPolygon(points,3);
 
-
         //    aiguille.end();
         //    painter.end();
         }
@@ -85,7 +84,6 @@ public:
 private:
     Ui::PollutionWidget *ui;
     QPen *pen = new QPen(Config::getFontColor());
-
 
 private slots:
     void premierePage(QNetworkReply *data);
