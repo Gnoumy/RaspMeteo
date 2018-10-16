@@ -26,7 +26,7 @@
          <widget class="FormTemperature" name="widget2" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget3" native="true"/>
+         <widget class="PollutionWidget" name="widget3" native="true"/>
         </item>
         <item>
          <widget class="CitiesWidget" name="widget_4" native="true"/>
@@ -91,6 +91,12 @@
    <class>RechargeVehiculeWidget</class>
    <extends>QWidget</extends>
    <header>rechargevehiculewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PollutionWidget</class>
+   <extends>QWidget</extends>
+   <header>pollutionwidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

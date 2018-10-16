@@ -30,6 +30,7 @@ Rectangle {
         zoomLevel: 15
         minimumZoomLevel: 5
         maximumZoomLevel: 25
+        copyrightsVisible: false
     }
 
 }
