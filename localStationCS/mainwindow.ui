@@ -45,7 +45,7 @@
          <widget class="FlightsWidget" name="widget7" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget8" native="true"/>
+         <widget class="TraficInfos" name="widget8" native="true"/>
         </item>
        </layout>
       </item>
@@ -59,7 +59,7 @@
      <x>0</x>
      <y>0</y>
      <width>1019</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -111,6 +111,12 @@
    <class>FlightsWidget</class>
    <extends>QWidget</extends>
    <header>flightswidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>TraficInfos</class>
+   <extends>QWidget</extends>
+   <header>traficinfos.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
