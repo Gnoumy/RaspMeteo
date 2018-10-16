@@ -19,7 +19,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>RECHARGE VEHICULE ELECTRIQUE</string>
+        <string>Recharge véhicule électrique</string>
        </property>
       </widget>
      </item>
