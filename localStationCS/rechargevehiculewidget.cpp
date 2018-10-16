@@ -9,9 +9,16 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
 {
     ui->setupUi(this);
     //-------------------- requete------------------------------------//
-        //QString pol
+        //définir une variable pour l'url
+/**-----------QString distance1=distance.append("km")--------------***/
+        QString part1="https://api.openchargemap.io/v2/poi/?output=json&maxresults=";
+        QString part2=part1+QString::number(nbrBorne);//on rajoute l'entier nbrBorne une fois converti en string dans la chaine part1
+        //QString part3=part2.append("&latitude="+QString::number(lat));
+        qDebug() << part2;
+
+
         manager = new QNetworkAccessManager(this);
-        QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.85&longitude=2.33&&distance=2&distanceunit=KM");
+        QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.7734&longitude=2.24&&distance=2&distanceunit=KM");
         QNetworkRequest request; //on declare une variable pour l'envoi de notre requete
         request.setUrl(url);//on fait un set avec l'url
         QNetworkReply* currentReply = manager->get(request); //get
@@ -28,22 +35,21 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     QByteArray ret=reply->readAll();
     QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
-    QFont font(Config::getFontFamily(),Config::getFontSize(),QFont::Black);//font(police, taille, couleur)
-    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize(),QFont::Black);
-    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize(),QFont::Black);
+    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
-    ui->tableWidget->setFont(font);
-    ui->tableWidget->setStyleSheet("color: "+Config::getFontColor());
-    ui->tableWidget->setStyleSheet("background-color: "+Config::getBgColor());
+
+    ui->tableWidget->setFont(font);//appel police et police
+    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
 
     ui->label->setFont(header);//taille de police du l'entete
-    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()); //couleur de police
-    ui->label->setStyleSheet("background-color: "+Config::getHeaderBgColor());//couleur de font
-    //ui->label->setStyleSheet("background-color: yellow");//couleur de fond en local
+    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+   // qDebug()<<"COLOR"<<"color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor();
 
     ui->label_2->setFont(footer); //taille du bas
-    ui->label_2->setStyleSheet("color:"+Config::getFooterFontColor());
-    ui->label_2->setStyleSheet("background-color: "+Config::getFooterBgColor());
+    ui->label_2->setStyleSheet("color:"+Config::getFooterFontColor()+"; background-color: "+Config::getFooterBgColor());
+    //ui->label_2->setStyleSheet("background-color: "+Config::getFooterBgColor());
 
     ui->tableWidget->setColumnCount(3); //nombre de colonne;
     ui->tableWidget->setShowGrid(false);
@@ -59,8 +65,8 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
 
             latitude=myJson.array()[i].toObject().toVariantMap()["AddressInfo"].toMap()["Latitude"].toFloat();
             longitude=myJson.array()[i].toObject().toVariantMap()["AddressInfo"].toMap()["Longitude"].toFloat();
-            qDebug() << latitude;
-            qDebug() << longitude;
+            //qDebug() << latitude;
+            //qDebug() << longitude;
             QString distance=distan.left(4); //je recupere les 4premiers chiffre
             QString distance1=distance.append("km");//on ajoute km à distance on aussi faire QString distance1=distance+"km";
 
