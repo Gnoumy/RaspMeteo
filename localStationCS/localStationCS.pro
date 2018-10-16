@@ -34,7 +34,8 @@ SOURCES += \
     rechargevehiculewidget.cpp \
     widgetsatellite.cpp \
     widgetlocalisation.cpp \
-    traficinfos.cpp
+    traficinfos.cpp \
+    citieswidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS += \
     rechargevehiculewidget.h \
     widgetsatellite.h \
     widgetlocalisation.h \
-    traficinfos.h
+    traficinfos.h \
+    citieswidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -56,4 +58,5 @@ FORMS += \
     rechargevehiculewidget.ui \
     widgetsatellite.ui \
     widgetlocalisation.ui \
-    traficinfos.ui
+    traficinfos.ui \
+    citieswidget.ui
