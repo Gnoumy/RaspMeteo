@@ -16,8 +16,8 @@ MapWindow::~MapWindow()
 void MapWindow::resizeEvent( QResizeEvent* )
 {
     resizeAll( );
-    qDebug() << "Width of map " << ui->mapToDisplay->width();
-    qDebug() << "Heigth of map " << ui->mapToDisplay->height();
+    //qDebug() << "Width of map " << ui->mapToDisplay->width();
+    //qDebug() << "Heigth of map " << ui->mapToDisplay->height();
 }
 
 void MapWindow::showEvent( QShowEvent * )
