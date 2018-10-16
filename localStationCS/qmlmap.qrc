@@ -1,5 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>qmlMapsOSM.qml</file>
-    </qresource>
+        <file>satellites/sat2.png</file>
+        <file>satellites/sat1.png</file>
+        <file>satellites/sat10.png</file>
+        <file>satellites/sat7.png</file>
+        <file>satellites/sat6.png</file>
+        <file>satellites/sat5.png</file>
+        <file>satellites/sat4.png</file>
+        <file>satellites/sat8.png</file>
+        <file>satellites/sat3.png</file>
+        <file>satellites/sat9.png</file>
+        <file>satellites/satobservation.png</file>
+        <file>Base/avionDatabase.db.gz</file>
+      </qresource>
 </RCC>
