@@ -12,6 +12,7 @@
 #include <QJsonDocument>
 #include <QDebug>
 #include <QPainter>
+#include <QPaintEvent>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBrush>
@@ -81,9 +82,8 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
     ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor());
 
     //Initialisation du graphique
-    QPixmap pixmap(500,500);
-    pixmap.fill(QColor("transparent"));
-    QPainter painter(&pixmap);
+    pollutionPixmap->fill(QColor("transparent"));
+    QPainter painter(pollutionPixmap);
 
     QBrush brush (Qt::blue, Qt::SolidPattern);
     QPen pen;
@@ -117,26 +117,19 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
 //    QLine line(250, 375, position, 400);
 //    painter.drawLine(line);
 
-    QPoint points[3]={
-        QPoint(235,370), //gauche
-        QPoint(265,370), //droite
-        QPoint(250,220), //haut
-    };
+//    QPoint points[3]={
+//        QPoint(235,370), //gauche
+//        QPoint(265,370), //droite
+//        QPoint(250,220), //haut
+//    };
 
-    painter.setPen(pen);
-    painter.drawPolygon(points, 3);
-
-
+//    painter.setPen(pen);
+//    painter.drawPolygon(points, 3);
 
 
-
-
-
-
-
-
+    dessinAiguille(75);
+    ui->label_graph->setPixmap(*pollutionPixmap);
     painter.end();
-    ui->label_graph->setPixmap(pixmap);
 }
 void PollutionWidget::reloadData()
 {
@@ -146,3 +139,26 @@ void PollutionWidget::changeFont()
 {
 
 }
+void PollutionWidget::dessinAiguille(int nombre)
+{
+    QPen penAiguille;
+    penAiguille.setColor(Config::getFontColor());
+//    aiguille.setPen(penAiguille);
+//    aiguille(pollutionPixmap);
+//    aiguille->setPen(penAiguille);
+
+    QPoint points[3]={
+        QPoint(235,370), //gauche
+        QPoint(265,370), //droite
+        QPoint(250,220), //haut
+    };
+
+//    aiguille.drawPolygon(points, 3);
+
+//    ui->label_graph->setPixmap(*pollutionPixmap);
+}
+//void PollutionWidget::aiguille2(QPaintEvent *e)
+//{
+
+
+//}

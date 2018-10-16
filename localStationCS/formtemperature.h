@@ -5,13 +5,13 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QFontDatabase>
+#include "localstationwidget.h"
 
 namespace Ui {
 class FormTemperature;
 }
 
-class FormTemperature : public QWidget
+class FormTemperature : public LocalStationWidget
 {
     Q_OBJECT
 

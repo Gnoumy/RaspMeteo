@@ -6,16 +6,25 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui(new Ui::WidgetSatellite)
 {
     ui->setupUi(this);
-    this->setMouseTracking(true);
-    QFont font(Config::getFontFamily(),Config::getFontSize());
+    this->setMouseTracking(true);    
     this->setStyleSheet("background-color: "+Config::getBgColor());
-    ui->label->setFont(font);
-    ui->label->setStyleSheet("background-color: "+Config::getBgColor());
+    //  ********  Parametre du lineEdit header  ********
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    ui->lineEdit->setFont(header);
+    ui->lineEdit->setStyleSheet("color: "+Config::getHeaderFontColor()
+                             +"; background-color: "
+                             +Config::getHeaderBgColor());
+    ui->lineEdit->setReadOnly(true);
+
+    //  ********  Parametre de la table Widget  ********
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     ui->tableWidget->setFont(font);
-    ui->tableWidget->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
+    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()
+                                   +"; background-color: "+
+                                   Config::getTableBgColor());
 
     SetSat_categories();
-    // get latitude, longitude and distance from mainwindow
+    //get latitude, longitude and distance from mainwindow
     Config::setLatitude(48.78889f);
     Config::setLongitude(2.27078f);
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
@@ -71,8 +80,8 @@ void WidgetSatellite::Slot_SatTrack()
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     this->setCursor(Qt::WaitCursor);
-    Config::setDistance(300.0f);
-    double degree=atan(Config::getDistance()/MINI_SATALT)*180/PI;
+//    Config::setDistance(300.0f);
+    double degree=atan(Config::getDistance()*30.0/MINI_SATALT)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
@@ -158,10 +167,10 @@ double WidgetSatellite::getRad(float degree)
 void WidgetSatellite::FillTable()
 {
     QStringList col_labels;
-    col_labels<<"Sat ID"<<"Sat Name"<<"International Designator"
-             <<"Launch Date"<<"Category"<<"Sat Lantitude"<<"Sat Longitude"
-            <<"Sat altitude(km)";
-    ui->tableWidget->setColumnCount(8);
+    col_labels<<"Sat ID"<<"Sat Name"<<"Launch Date"
+             <<"Category"<<"Sat Lat"<<"Sat Lng(km)"
+             <<"Sat Alt";
+    ui->tableWidget->setColumnCount(7);
     ui->tableWidget->setRowCount(SatelliteList.size());
     ui->tableWidget->setHorizontalHeaderLabels(col_labels);
     for(int i=0;i<SatelliteList.size();i++)
@@ -171,17 +180,17 @@ void WidgetSatellite::FillTable()
                                  new QTableWidgetItem(QString::number(sat.Get_satid())));
         ui->tableWidget->setItem(i,1,
                                  new QTableWidgetItem(sat.Get_satname()));
+//        ui->tableWidget->setItem(i,2,
+//                                 new QTableWidgetItem(sat.Get_intDesignator()));
         ui->tableWidget->setItem(i,2,
-                                 new QTableWidgetItem(sat.Get_intDesignator()));
-        ui->tableWidget->setItem(i,3,
                                  new QTableWidgetItem(sat.Get_launchDate()));
-        ui->tableWidget->setItem(i,4,
+        ui->tableWidget->setItem(i,3,
                                  new QTableWidgetItem(sat.Get_category()));
-        ui->tableWidget->setItem(i,5,
+        ui->tableWidget->setItem(i,4,
                                  new QTableWidgetItem(QString::number(sat.Get_satlat())));
-        ui->tableWidget->setItem(i,6,
+        ui->tableWidget->setItem(i,5,
                                  new QTableWidgetItem(QString::number(sat.Get_satlng())));
-        ui->tableWidget->setItem(i,7,
+        ui->tableWidget->setItem(i,6,
                                  new QTableWidgetItem(QString::number(sat.Get_satalt())));
     }
     ui->tableWidget->resizeColumnsToContents();

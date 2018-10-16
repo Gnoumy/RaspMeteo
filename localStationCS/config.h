@@ -40,6 +40,12 @@ public:
 
 // Rest of the methods : Getters/Setters    ---------------------------------------
 
+    static int getWidgetMode();
+    static void setWidgetMode(const int &value);
+
+    static int getScrollingSpeed();
+    static void setScrollingSpeed(const int &value);
+
     static QString getFontFamily();
         static void setFontFamily(const QString &value);
 
