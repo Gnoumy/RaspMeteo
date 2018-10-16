@@ -127,7 +127,7 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
 //    painter.drawPolygon(points, 3);
 
 
-    aiguille(75);
+    dessinAiguille(75);
     ui->label_graph->setPixmap(*pollutionPixmap);
     painter.end();
 }
@@ -139,14 +139,13 @@ void PollutionWidget::changeFont()
 {
 
 }
-void PollutionWidget::aiguille(int nombre)
+void PollutionWidget::dessinAiguille(int nombre)
 {
-
     QPen penAiguille;
-    QPainter aiguille;
     penAiguille.setColor(Config::getFontColor());
-    aiguille.setPen(penAiguille);
-
+//    aiguille.setPen(penAiguille);
+//    aiguille(pollutionPixmap);
+//    aiguille->setPen(penAiguille);
 
     QPoint points[3]={
         QPoint(235,370), //gauche
@@ -154,9 +153,9 @@ void PollutionWidget::aiguille(int nombre)
         QPoint(250,220), //haut
     };
 
-    aiguille.drawPolygon(points, 3);
+//    aiguille.drawPolygon(points, 3);
 
-    ui->label_graph->setPixmap(*pollutionPixmap);
+//    ui->label_graph->setPixmap(*pollutionPixmap);
 }
 //void PollutionWidget::aiguille2(QPaintEvent *e)
 //{

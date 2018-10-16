@@ -23,10 +23,10 @@ public:
 
 private:
     Ui::PollutionWidget *ui;
-    void aiguille(int);
-    void aiguille2(QPaintEvent);
+    void dessinAiguille(int);
 
     QPixmap *pollutionPixmap = new QPixmap(500,500);
+    QPainter *aiguille;
 
 private slots:
     void premierePage(QNetworkReply *data);
