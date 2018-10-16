@@ -83,7 +83,7 @@ void FormTemperature::readRead(QNetworkReply *data)
 
 //  ********  Width & Height  ********
     int width_max = 125;
-    int height_max = 525;
+    int height_max = 450;
 
 //  ********  Dessin du thermometre  ********
     QPixmap pixmap(width_max,height_max);
@@ -228,7 +228,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         ui->label_hygro->setPixmap(pixmap2);
         ui->label_hygro->setFixedWidth(width_max);
         ui->label_hygro->setFixedHeight(height_max);
-    }
+    }  
 }
 FormTemperature::~FormTemperature()
 {
