@@ -1,8 +1,16 @@
 #include "config.h"
 #include <QSettings>
 
+#define WIDGET_MODE             "widgetMode"
+#define DEFAULT_WIDGET_MODE     0
+
+#define SCROLLING_SPEED         "speed/scrolling"
+#define DEFAULT_SCROLLING_SPEED 10
+
 #define DEFAULT_FONT_FAMILY     "Cantarell"
 #define DEFAULT_FONT_SIZE       11
+#define DEFAULT_FONT_COLOR      "black"
+#define DEFAULT_BG_COLOR        "white"
 
 #define FONT_FAMILY "body/font/family"
 #define FONT_SIZE   "body/font/size"
@@ -36,11 +44,49 @@
 
 //}
 
+//int Config::widgetMode(0);
+int Config::getWidgetMode()
+{
+    QSettings qsettings ;
+    int widgetMode = qsettings.value(WIDGET_MODE).toInt() ;
+    if(widgetMode==0)
+        widgetMode = DEFAULT_WIDGET_MODE ;
+    return widgetMode;
+}
+void Config::setWidgetMode(const int &value)
+{
+    if ( value != Config::getWidgetMode() )
+    {
+        QSettings qsettings ;
+        qsettings.setValue(WIDGET_MODE, value);
+    }
+}
+
+//int Config::scrollingSpeed(0);
+int Config::getScrollingSpeed()
+{
+    QSettings qsettings ;
+    int scrollingSpeed = qsettings.value(SCROLLING_SPEED).toInt() ;
+    if(scrollingSpeed==0)
+        scrollingSpeed = DEFAULT_SCROLLING_SPEED ;
+    return scrollingSpeed;
+}
+void Config::setScrollingSpeed(const int &value)
+{
+    if ( value != Config::getScrollingSpeed() )
+    {
+        QSettings qsettings ;
+        qsettings.setValue(SCROLLING_SPEED, value);
+    }
+}
+
 //QString Config::fontColor("");
 QString Config::getFontColor()
 {
     QSettings qsettings ;
     QString fontColor = qsettings.value(FONT_COLOR).toString() ;
+    if(fontColor=="")
+        fontColor = DEFAULT_FONT_COLOR ;
     return fontColor;
 }
 void Config::setFontColor(const QString &value)
@@ -57,6 +103,8 @@ QString Config::getBgColor()
 {
     QSettings qsettings ;
     QString bgColor = qsettings.value(BG_COLOR).toString() ;
+    if(bgColor=="")
+        bgColor = DEFAULT_BG_COLOR ;
     return bgColor;
 }
 void Config::setBgColor(const QString &value)
@@ -181,6 +229,8 @@ QString Config::getHeaderFontColor()
 {
     QSettings qsettings ;
     QString headerFontColor = qsettings.value(HEADER_FONT_COLOR).toString() ;
+    if(headerFontColor=="")
+        headerFontColor = DEFAULT_FONT_COLOR ;
     return headerFontColor;
 }
 void Config::setHeaderFontColor(const QString &value)
@@ -197,6 +247,8 @@ QString Config::getHeaderBgColor()
 {
     QSettings qsettings ;
     QString headerBgColor = qsettings.value(HEADER_BG_COLOR).toString() ;
+    if(headerBgColor=="")
+        headerBgColor = DEFAULT_BG_COLOR ;
     return headerBgColor;
 }
 void Config::setHeaderBgColor(const QString &value)
@@ -231,6 +283,8 @@ QString Config::getFooterFontColor()
 {
     QSettings qsettings ;
     QString footerFontColor = qsettings.value(FOOTER_FONT_COLOR).toString() ;
+    if(footerFontColor=="")
+        footerFontColor = DEFAULT_FONT_COLOR ;
     return footerFontColor;
 }
 void Config::setFooterFontColor(const QString &value)
@@ -247,6 +301,8 @@ QString Config::getFooterBgColor()
 {
     QSettings qsettings ;
     QString footerBgColor = qsettings.value(FOOTER_BG_COLOR).toString() ;
+    if(footerBgColor=="")
+        footerBgColor = DEFAULT_BG_COLOR ;
     return footerBgColor;
 }
 void Config::setFooterBgColor(const QString &value)
@@ -317,6 +373,8 @@ QString Config::getTableFontColor()
 {
     QSettings qsettings ;
     QString tableFontColor = qsettings.value(TABLE_FONT_COLOR).toString() ;
+    if(tableFontColor=="")
+        tableFontColor = DEFAULT_FONT_COLOR ;
     return tableFontColor;
 }
 void Config::setTableFontColor(const QString &value)
@@ -333,6 +391,8 @@ QString Config::getTableBgColor()
 {
     QSettings qsettings ;
     QString tableBgColor = qsettings.value(TABLE_BG_COLOR).toString() ;
+    if(tableBgColor=="")
+        tableBgColor = DEFAULT_BG_COLOR ;
     return tableBgColor;
 }
 void Config::setTableBgColor(const QString &value)
