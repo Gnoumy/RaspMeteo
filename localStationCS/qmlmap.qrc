@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
         <file>qmlMapsOSM.qml</file>
-        <file>icons/osm_logo.svg</file>
     </qresource>
 </RCC>

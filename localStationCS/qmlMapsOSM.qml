@@ -7,7 +7,7 @@ Rectangle {
     property double qlatitude: 48.85341     //Paris latitude
     property double qlongitude: 2.3488      //Paris longitude
 
-    width: 800; height: 480
+    width: 800; height: 600
 
     Plugin {
         id: osmPlugin
@@ -23,11 +23,13 @@ Rectangle {
     }
 
     Map {
+        id: map
         anchors.fill: parent
         plugin: osmPlugin
-        center: QtPositioning.coordinate(qlatitude, qlongitude) // Paris
+        center: QtPositioning.coordinate(qlatitude, qlongitude)
         zoomLevel: 15
-        minimumZoomLevel: 10
-        maximumZoomLevel: 20
+        minimumZoomLevel: 5
+        maximumZoomLevel: 25
     }
+
 }

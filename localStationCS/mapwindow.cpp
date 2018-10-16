@@ -1,11 +1,11 @@
 #include "mapwindow.h"
 #include "ui_mapwindow.h"
 
-MapWindow::MapWindow( double latitude, double longitude, QWidget *parent ) : QWidget( parent ),
+MapWindow::MapWindow( QWidget *parent, double latitude, double longitude ) : QWidget( parent ),
     ui( new Ui::MapWindow )
 {
     ui->setupUi( this );
-    ui->mapToDisplay->setCoordinates( latitude, longitude );
+    setCoordinates( latitude, longitude );
 }
 
 MapWindow::~MapWindow()
@@ -16,6 +16,8 @@ MapWindow::~MapWindow()
 void MapWindow::resizeEvent( QResizeEvent* )
 {
     resizeAll( );
+    qDebug() << "Width of map " << ui->mapToDisplay->width();
+    qDebug() << "Heigth of map " << ui->mapToDisplay->height();
 }
 
 void MapWindow::showEvent( QShowEvent * )
@@ -34,3 +36,10 @@ void MapWindow::resizeAll( )
             map->changeSize( map->size( ) );
     }
 }
+
+void MapWindow::setCoordinates( double latitude, double longitude )
+{
+   ui->mapToDisplay->sendCoordinates( latitude, longitude );
+   this->update( );
+}
+
