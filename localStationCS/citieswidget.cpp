@@ -74,23 +74,30 @@ void CitiesWidget::afficheTableView() {
     ui->tableWidget->setHorizontalHeaderLabels(labels);
 
     // SET font (family, size and color)
-    QColor fc;
+    QColor fc;  // foreGroundCouleur
     fc.setNamedColor(Config::getFontColor());
     QBrush *fcQBrush = new QBrush( fc, Qt::SolidPattern);
+
+    QColor bc;  // foreGroundCouleur
+    bc.setNamedColor(Config::getBgColor());
+    QBrush *bcQBrush = new QBrush( bc, Qt::SolidPattern);
+
     int taillePolice = Config::getFontSize();
     QString fontFamily = Config::getFontFamily();
     QFont apiFont(fontFamily, taillePolice, QFont::Bold, false );    // italic = true
 
-    // SET the background of the 1st header
+    // SET font, backgroundCouleur and foregroundCouleur of the 1st header
     QTableWidgetItem *h1 = new QTableWidgetItem();
     h1 = ui->tableWidget->horizontalHeaderItem(0);
     h1->setFont(apiFont);
-    h1->setBackground(*fcQBrush);
+    h1->setBackground(*bcQBrush);
+    h1->setForeground(*fcQBrush);
 
-    // SET the background of the 2nd header
+    // SET the font backgroundCouleur and foregroundCouleur of the 2nd header
     h1 = ui->tableWidget->horizontalHeaderItem(1);
     h1->setFont(apiFont);
-    h1->setBackground(*fcQBrush);
+    h1->setBackground(*bcQBrush);
+    h1->setForeground(*fcQBrush);
 
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -109,11 +116,13 @@ void CitiesWidget::afficheTableView() {
         innerArray = array[i].toArray();
         ville = new QTableWidgetItem(innerArray[1].toString());
         ville->setFont(apiFont);
-        ville->setBackground(*fcQBrush );
+        ville->setBackground(*bcQBrush );
+        ville->setForeground(*fcQBrush );
 
         distance = new QTableWidgetItem(innerArray[7].toString());
         distance->setFont(apiFont);
-        distance->setBackground(*fcQBrush);
+        distance->setBackground(*bcQBrush);
+        distance->setForeground(*fcQBrush);
 
         ui->tableWidget->setItem(i, 0, ville);
         ui->tableWidget->setItem(i, 1, distance);
