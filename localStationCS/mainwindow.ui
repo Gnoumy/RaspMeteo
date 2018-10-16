@@ -26,10 +26,13 @@
          <widget class="FormTemperature" name="widget2" native="true"/>
         </item>
         <item>
-         <widget class="PollutionWidget" name="widget3" native="true"/>
+         <widget class="QWidget" name="widget3" native="true"/>
         </item>
         <item>
          <widget class="CitiesWidget" name="widget_4" native="true"/>
+        </item>
+        <item>
+         <widget class="MapWindow" name="widget0" native="true"/>
         </item>
        </layout>
       </item>
@@ -59,7 +62,7 @@
      <x>0</x>
      <y>0</y>
      <width>1019</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -79,15 +82,15 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>RechargeVehiculeWidget</class>
+   <class>MapWindow</class>
    <extends>QWidget</extends>
-   <header>rechargevehiculewidget.h</header>
+   <header location="global">mapwindow.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>PollutionWidget</class>
+   <class>RechargeVehiculeWidget</class>
    <extends>QWidget</extends>
-   <header>pollutionwidget.h</header>
+   <header>rechargevehiculewidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
@@ -112,6 +115,16 @@
    <extends>QWidget</extends>
    <header>citieswidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FlightsWidget</class>
+   <extends>QWidget</extends>
+   <header>flightswidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TraficInfos</class>
+   <extends>QWidget</extends>
+   <header>traficinfos.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

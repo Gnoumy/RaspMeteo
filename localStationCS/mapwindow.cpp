@@ -27,6 +27,7 @@ void MapWindow::showEvent( QShowEvent * )
 
 void MapWindow::resizeAll( )
 {
+
     MapWidget *map;
     QList< QWidget* > listChildren = findChildren< QWidget* >( );
 
