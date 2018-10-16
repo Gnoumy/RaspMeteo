@@ -86,82 +86,80 @@ void FormTemperature::readRead(QNetworkReply *data)
     int height_max = 450;
 
 //  ********  Dessin du thermometre  ********
-    QPixmap pixmap(width_max,height_max);
-    pixmap.fill(QColor("transparent"));
-    QPainter painter(&pixmap);
-    QPen pen;
-    pen.setColor(Config::getFontColor());
-    painter.setPen(pen);
-    QRectF rectangle(5.0, 30.0, 30.0, 300.0);
+    QPixmap pixmap_therm(width_max,height_max);
+    pixmap_therm.fill(QColor("transparent"));
+    QPainter painter_therm(&pixmap_therm);
+    QPen pen_therm;
+    pen_therm.setColor(Config::getFontColor());
+    painter_therm.setPen(pen_therm);
+    QRectF rectangle_therm(5.0, 30.0, 30.0, 300.0);
     QRectF rectangle_temp(6.0,330.0-temp_px,29.0,temp_px);
-    painter.drawRect(rectangle);
+    painter_therm.drawRect(rectangle_therm);
 
-    painter.drawLine(65,40,40,40);
-    painter.drawLine(50,65,40,65);
-    painter.drawLine(50,90,40,90);
-    painter.drawLine(50,115,40,115);
-    painter.drawLine(50,140,40,140);
-    painter.drawLine(50,165,40,165);
-    painter.drawLine(65,190,40,190);
-    painter.drawLine(50,215,40,215);
-    painter.drawLine(50,240,40,240);
-    painter.drawLine(50,265,40,265);
-    painter.drawLine(50,290,40,290);
-    painter.drawLine(65,315,40,315);
+    painter_therm.drawLine(65,40,40,40);
+    painter_therm.drawLine(50,65,40,65);
+    painter_therm.drawLine(50,90,40,90);
+    painter_therm.drawLine(50,115,40,115);
+    painter_therm.drawLine(50,140,40,140);
+    painter_therm.drawLine(50,165,40,165);
+    painter_therm.drawLine(65,190,40,190);
+    painter_therm.drawLine(50,215,40,215);
+    painter_therm.drawLine(50,240,40,240);
+    painter_therm.drawLine(50,265,40,265);
+    painter_therm.drawLine(50,290,40,290);
+    painter_therm.drawLine(65,315,40,315);
 
-    painter.drawText(2,15,"Temp °C");
-    painter.drawText(75,45,"55");
-    painter.drawText(75,70,"50");
-    painter.drawText(75,95,"40");
-    painter.drawText(75,120,"30");
-    painter.drawText(75,145,"20");
-    painter.drawText(75,170,"10");
-    painter.drawText(80,195,"0");
-    painter.drawText(70,220,"-10");
-    painter.drawText(70,245,"-20");
-    painter.drawText(70,270,"-30");
-    painter.drawText(70,295,"-40");
-    painter.drawText(70,320,"-45");
+    painter_therm.drawText(2,15,"Temp °C");
+    painter_therm.drawText(75,45,"55");
+    painter_therm.drawText(75,70,"50");
+    painter_therm.drawText(75,95,"40");
+    painter_therm.drawText(75,120,"30");
+    painter_therm.drawText(75,145,"20");
+    painter_therm.drawText(75,170,"10");
+    painter_therm.drawText(80,195,"0");
+    painter_therm.drawText(70,220,"-10");
+    painter_therm.drawText(70,245,"-20");
+    painter_therm.drawText(70,270,"-30");
+    painter_therm.drawText(70,295,"-40");
+    painter_therm.drawText(70,320,"-45");
 
 //  ********  Couleur de la jauge en fonction de la temperature  ********
     if (temp.toInt() < 5)
     {
-        painter.setPen(pen);
-        QBrush brush (Qt::blue, Qt::SolidPattern);
-        pen.setColor(Config::getFontColor());
-        painter.setBrush(brush);
-        painter.drawEllipse(0,310,40,40);
-        pen.setColor(Qt::blue);
-        painter.fillRect(rectangle_temp,brush);
-        ui->label_temp->setPixmap(pixmap);
+        painter_therm.setPen(pen_therm);
+        QBrush brush_temp (Qt::blue, Qt::SolidPattern);
+        pen_therm.setColor(Config::getFontColor());
+        painter_therm.setBrush(brush_temp);
+        painter_therm.drawEllipse(0,310,40,40);
+        pen_therm.setColor(Qt::blue);
+        painter_therm.fillRect(rectangle_temp,brush_temp);
+        ui->label_temp->setPixmap(pixmap_therm);
         ui->label_temp->setFixedWidth(width_max);
         ui->label_temp->setFixedHeight(height_max);
     }
     else if (temp.toInt() >= 5 && temp.toInt() <=25)
     {
-        painter.setPen(pen);
-        QBrush brush (Qt::green, Qt::SolidPattern);
-        pen.setColor(Config::getFontColor());
-        painter.setBrush(brush);
-        painter.drawEllipse(0,310,40,40);
-        pen.setColor(Qt::green);
-        painter.fillRect(rectangle_temp,brush);
-
-        ui->label_temp->setPixmap(pixmap);
+        painter_therm.setPen(pen_therm);
+        QBrush brush_temp (Qt::green, Qt::SolidPattern);
+        pen_therm.setColor(Config::getFontColor());
+        painter_therm.setBrush(brush_temp);
+        painter_therm.drawEllipse(0,310,40,40);
+        pen_therm.setColor(Qt::green);
+        painter_therm.fillRect(rectangle_temp,brush_temp);
+        ui->label_temp->setPixmap(pixmap_therm);
         ui->label_temp->setFixedWidth(width_max);
         ui->label_temp->setFixedHeight(height_max);
     }
     else if (temp.toInt() > 25)
     {
-        painter.setPen(pen);
-        QBrush brush (Qt::red, Qt::SolidPattern);
-        pen.setColor(Config::getFontColor());
-        painter.setBrush(brush);
-        painter.drawEllipse(0,310,40,40);
-        pen.setColor(Qt::red);
-        painter.fillRect(rectangle_temp,brush);
-
-        ui->label_temp->setPixmap(pixmap);
+        painter_therm.setPen(pen_therm);
+        QBrush brush_temp (Qt::red, Qt::SolidPattern);
+        pen_therm.setColor(Config::getFontColor());
+        painter_therm.setBrush(brush_temp);
+        painter_therm.drawEllipse(0,310,40,40);
+        pen_therm.setColor(Qt::red);
+        painter_therm.fillRect(rectangle_temp,brush_temp);
+        ui->label_temp->setPixmap(pixmap_therm);
         ui->label_temp->setFixedWidth(width_max);
         ui->label_temp->setFixedHeight(height_max);
     }
@@ -191,7 +189,7 @@ void FormTemperature::readRead(QNetworkReply *data)
 //  ********  Couleur de la jauge en fonction de lhygro  ********
     if (hygro.toInt() < 35)
     {
-        painter2.setPen(pen);
+        painter2.setPen(pen2);
         QBrush brush2 (Qt::blue, Qt::SolidPattern);
         pen2.setColor(Config::getFontColor());
         painter2.setBrush(brush2);
@@ -204,7 +202,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     }
     else if (hygro.toInt() <=65 && hygro.toInt() >=35)
     {
-        painter2.setPen(pen);
+        painter2.setPen(pen2);
         QBrush brush2 (Qt::green, Qt::SolidPattern);
         pen2.setColor(Config::getFontColor());
         painter2.setBrush(brush2);
@@ -217,7 +215,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     }
     else if (hygro.toInt() > 65)
     {
-        painter2.setPen(pen);
+        painter2.setPen(pen2);
         QBrush brush2 (Qt::red, Qt::SolidPattern);
         pen2.setColor(Config::getFontColor());
         painter2.setBrush(brush2);
