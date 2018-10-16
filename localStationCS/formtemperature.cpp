@@ -37,6 +37,8 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->tableWidget_temp->horizontalHeader()->hide();
     ui->tableWidget_temp->verticalHeader()->hide();
     ui->tableWidget_temp->setShowGrid(false);
+    ui->tableWidget_temp->setColumnWidth(0,this->width());
+
     ui->tableWidget_temp->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableWidget_temp->resizeColumnsToContents();
     ui->tableWidget_temp->resizeRowsToContents();
@@ -91,7 +93,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     pen.setColor(Config::getFontColor());
     painter.setPen(pen);
     QRectF rectangle(5.0, 30.0, 30.0, 300.0);
-    QRectF rectangle_temp(6,330.0-temp_px,29,temp_px);
+    QRectF rectangle_temp(6.0,330.0-temp_px,29.0,temp_px);
     painter.drawRect(rectangle);
 
     painter.drawLine(65,40,40,40);
@@ -227,7 +229,6 @@ void FormTemperature::readRead(QNetworkReply *data)
         ui->label_hygro->setFixedWidth(width_max);
         ui->label_hygro->setFixedHeight(height_max);
     }
-
 }
 FormTemperature::~FormTemperature()
 {
