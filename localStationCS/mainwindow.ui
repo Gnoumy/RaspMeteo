@@ -39,11 +39,8 @@
          <widget class="RechargeVehiculeWidget" name="widget5" native="true"/>
         </item>
         <item>
-<<<<<<< Updated upstream
+
          <widget class="WidgetSatellite" name="widget6" native="true"/>
-=======
-         <widget class="TraficInfos" name="widget6" native="true"/>
->>>>>>> Stashed changes
         </item>
         <item>
          <widget class="QWidget" name="widget7" native="true"/>
