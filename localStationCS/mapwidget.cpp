@@ -23,9 +23,9 @@ void MapWidget::sendCoordinates( double latitude, double longitude )
 
 MapWidget::~MapWidget()
 {
-    delete object;
-    delete container;
-    delete view;
+    //delete object;
+    //delete container;
+    //delete view;
 }
 
 void MapWidget::changeSize( QSize size )
