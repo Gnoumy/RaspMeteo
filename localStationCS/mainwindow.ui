@@ -39,11 +39,10 @@
          <widget class="RechargeVehiculeWidget" name="widget5" native="true"/>
         </item>
         <item>
-
          <widget class="WidgetSatellite" name="widget6" native="true"/>
         </item>
         <item>
-         <widget class="QWidget" name="widget7" native="true"/>
+         <widget class="FlightsWidget" name="widget7" native="true"/>
         </item>
         <item>
          <widget class="QWidget" name="widget8" native="true"/>
@@ -60,7 +59,7 @@
      <x>0</x>
      <y>0</y>
      <width>1019</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -79,12 +78,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>TraficInfos</class>
-   <extends>QWidget</extends>
-   <header>traficinfos.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>RechargeVehiculeWidget</class>
    <extends>QWidget</extends>
@@ -112,6 +105,12 @@
    <class>WidgetSatellite</class>
    <extends>QWidget</extends>
    <header>widgetsatellite.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FlightsWidget</class>
+   <extends>QWidget</extends>
+   <header>flightswidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

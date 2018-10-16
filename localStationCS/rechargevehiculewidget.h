@@ -34,6 +34,8 @@ private:
     QNetworkAccessManager *manager;
     float longitude;
     float latitude;
+    float disMax;
+    int nbrBorne=200;
 
 private slots:
     void replyFinished(QNetworkReply *reply);
