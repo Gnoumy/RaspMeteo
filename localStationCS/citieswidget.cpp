@@ -71,6 +71,9 @@ void CitiesWidget::afficheTableView() {
     ui->tableWidget->setRowCount(maxRow);
     ui->tableWidget->setColumnCount(2);
 
+    ui->tableWidget->setColumnWidth(0, 0.75*width());
+    ui->tableWidget->setColumnWidth(1, 0.25*width());
+
     QFont apiFont(Config::getFontFamily(), Config::getFontSize(), QFont::Normal, false );
 
     ui->tableWidget->horizontalHeader()->hide();
@@ -119,14 +122,14 @@ void CitiesWidget::afficheHeader(){
     QFont headerFont(Config::getHeaderFontFamily(),
                      Config::getHeaderFontSize(),
                      QFont::Normal, false );
-    ui->headerLabel->setFont(headerFont);
+    ui->headerLineEdit->setFont(headerFont);
 
-    ui->headerLabel->setAlignment(Qt::AlignHCenter);
+    ui->headerLineEdit->setAlignment(Qt::AlignHCenter);
 
-    QString bcfc = "QLabel { background-color : "+Config::getHeaderBgColor()+
+    QString bcfc = "QLineEdit { background-color : "+Config::getHeaderBgColor()+
             "; color : " + Config::getHeaderFontColor() + ";}";
-    ui->headerLabel->setStyleSheet(bcfc);
-    ui->headerLabel->setText("Les villes le plus proche");
+    ui->headerLineEdit->setStyleSheet(bcfc);
+    ui->headerLineEdit->setText("Les villes les plus proches");
 }
 
 void CitiesWidget::afficheFooter(){

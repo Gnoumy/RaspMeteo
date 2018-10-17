@@ -17,7 +17,7 @@ class CitiesWidget : public LocalStationWidget
     Q_OBJECT
 
 public:
-    explicit CitiesWidget(QWidget *parent = 0);
+    explicit CitiesWidget(QWidget *parent = nullptr);
     ~CitiesWidget();
 
 private:
