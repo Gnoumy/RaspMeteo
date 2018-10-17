@@ -28,17 +28,15 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
-        this->setStyleSheet("color: "+Config::getFontColor()+";background-color: "+Config::getBgColor());
+//        this->setStyleSheet("color: "+Config::getFontColor()+";background-color: "+Config::getBgColor());
         this->setFont(font);
 
         ui->lineEdit_header->setFont(header);
         ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
         ui->lineEdit_header->setText("Pollution");
 
-        ui->label_Titre2->setFont(header);
-        ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
-
         ui->label_Indice->setStyleSheet("color:"+Config::getFontColor()+";background-color: "+Config::getBgColor());
+        ui->stackedWidget->setStyleSheet("background-color: "+Config::getBgColor());
 
         ui->label_MinMax->setFont(footer);
         ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
@@ -51,7 +49,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
     /**********************   REQUETE JSON   ******************************/
         QNetworkRequest request;
         QString latitude = QString::number(Config::getLatitude());
-        QString longitude = QString::number(Config::getLatitude());
+        QString longitude = QString::number(Config::getLongitude());
         QUrl url("https://api.waqi.info/feed/geo:"+latitude+";"+longitude+"/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Plessis Robinson
         request.setUrl(url);
         networkManager->get(request);
@@ -76,7 +74,7 @@ void PollutionWidget::premierePage(QNetworkReply *data)
 void PollutionWidget::deuxiemePage(QNetworkReply *data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
-    ui->label_Titre2->setStyleSheet("color: "+Config::getHeaderFontColor());
+
 
 //    QPainter painter;
 //    painter.begin(this);
