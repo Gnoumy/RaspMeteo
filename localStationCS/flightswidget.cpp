@@ -22,12 +22,30 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
+
+
+
+    //  ********  Parametre de la table Widget  ********
+
+
+    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+
     ui->m_pTableWidget->setRowCount(10);
     ui->m_pTableWidget->setColumnCount(6);
     m_TableHeader<<"Icao"<<"Fabricant"<<"Modèle"<<"Pays"<<"Longitude"<<"Latitude";
     ui-> m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
     ui-> m_pTableWidget->verticalHeader()->setVisible(false);
     ui->m_pTableWidget->setShowGrid(false);
+    ui->m_pTableWidget->setFont(font);//appel police et police
+    ui->m_pTableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+
+    ui->lineEdit->setFont(header);//taille de police du l'entete
+    ui->lineEdit->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+   // qDebug()<<"COLOR"<<"color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor();
+
 
 
     QNetworkRequest request;
@@ -85,6 +103,10 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
         ui-> m_pTableWidget->setItem(i,4, ele2);
         ui-> m_pTableWidget->setItem(i,5, ele3);
         ui->m_pTableWidget->setItem(i,3, ele4);
+
+        ui->m_pTableWidget->resizeColumnsToContents();
+        ui->m_pTableWidget->resizeRowsToContents();
+        ui->m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     }
 }

@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QQuickItem>
+#include <QGeoRectangle>
 
 MapWidget::MapWidget( QWidget *parent ) : QWidget( parent )
 {
@@ -14,7 +15,7 @@ MapWidget::MapWidget( QWidget *parent ) : QWidget( parent )
     object = view->rootObject();
 }
 
-void MapWidget::setCoordinates( double latitude, double longitude )
+void MapWidget::sendCoordinates( double latitude, double longitude )
 {
     object->setProperty( "qlatitude", latitude );
     object->setProperty( "qlongitude", longitude );
@@ -22,8 +23,9 @@ void MapWidget::setCoordinates( double latitude, double longitude )
 
 MapWidget::~MapWidget()
 {
-    delete object;
-    delete view;
+    //delete object;
+    //delete container;
+    //delete view;
 }
 
 void MapWidget::changeSize( QSize size )
