@@ -6,16 +6,25 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui(new Ui::WidgetSatellite)
 {
     ui->setupUi(this);
-    this->setMouseTracking(true);
-    QFont font(Config::getFontFamily(),Config::getFontSize());
+    this->setMouseTracking(true);    
     this->setStyleSheet("background-color: "+Config::getBgColor());
-    ui->label->setFont(font);
-    ui->label->setStyleSheet("background-color: "+Config::getBgColor());
+    //  ********  Parametre du lineEdit header  ********
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    ui->lineEdit->setFont(header);
+    ui->lineEdit->setStyleSheet("color: "+Config::getHeaderFontColor()
+                             +"; background-color: "
+                             +Config::getHeaderBgColor());
+    ui->lineEdit->setReadOnly(true);
+
+    //  ********  Parametre de la table Widget  ********
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     ui->tableWidget->setFont(font);
-    ui->tableWidget->setStyleSheet("color: "+Config::getFontColor()+"; background-color: "+Config::getBgColor());
+    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()
+                                   +"; background-color: "+
+                                   Config::getTableBgColor());
 
     SetSat_categories();
-    // get latitude, longitude and distance from mainwindow
+    //get latitude, longitude and distance from mainwindow
     Config::setLatitude(48.78889f);
     Config::setLongitude(2.27078f);
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
@@ -28,7 +37,11 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     manager->get(request);
     //QNetworkReply *pReplayalt = manager->get(request);
     connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
- }
+   //  ********  image show  ********
+    QImage img;
+    img.load(":/satellites/satobservation.png");
+    Showpic(img);
+}
 
 WidgetSatellite::~WidgetSatellite()
 {
@@ -71,8 +84,8 @@ void WidgetSatellite::Slot_SatTrack()
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     this->setCursor(Qt::WaitCursor);
-    Config::setDistance(300.0f);
-    double degree=atan(Config::getDistance()/MINI_SATALT)*180/PI;
+//    Config::setDistance(300.0f);
+    double degree=atan(Config::getDistance()*FACTOR_DISTANCE/MINI_SATALT)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
@@ -92,6 +105,9 @@ void WidgetSatellite::Slot_SatTrack()
     CleanTable();
     qDebug()<<"SatelliteList has  "<<SatelliteList.size()<< "  satellites !";
     FillTable();
+    QImage img;
+    img.load(":/satellites/satobservation.png");
+    DrawSatellites(&img);
 }
 
 void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
@@ -158,10 +174,10 @@ double WidgetSatellite::getRad(float degree)
 void WidgetSatellite::FillTable()
 {
     QStringList col_labels;
-    col_labels<<"Sat ID"<<"Sat Name"<<"International Designator"
-             <<"Launch Date"<<"Category"<<"Sat Lantitude"<<"Sat Longitude"
-            <<"Sat altitude(km)";
-    ui->tableWidget->setColumnCount(8);
+    col_labels<<"ID"<<"Name"<<"Launch Date"
+             <<"Cate"<<"Lat"<<"Lng"
+             <<"Alt(km)";
+    ui->tableWidget->setColumnCount(7);
     ui->tableWidget->setRowCount(SatelliteList.size());
     ui->tableWidget->setHorizontalHeaderLabels(col_labels);
     for(int i=0;i<SatelliteList.size();i++)
@@ -171,17 +187,17 @@ void WidgetSatellite::FillTable()
                                  new QTableWidgetItem(QString::number(sat.Get_satid())));
         ui->tableWidget->setItem(i,1,
                                  new QTableWidgetItem(sat.Get_satname()));
+//        ui->tableWidget->setItem(i,2,
+//                                 new QTableWidgetItem(sat.Get_intDesignator()));
         ui->tableWidget->setItem(i,2,
-                                 new QTableWidgetItem(sat.Get_intDesignator()));
-        ui->tableWidget->setItem(i,3,
                                  new QTableWidgetItem(sat.Get_launchDate()));
-        ui->tableWidget->setItem(i,4,
+        ui->tableWidget->setItem(i,3,
                                  new QTableWidgetItem(sat.Get_category()));
-        ui->tableWidget->setItem(i,5,
+        ui->tableWidget->setItem(i,4,
                                  new QTableWidgetItem(QString::number(sat.Get_satlat())));
-        ui->tableWidget->setItem(i,6,
+        ui->tableWidget->setItem(i,5,
                                  new QTableWidgetItem(QString::number(sat.Get_satlng())));
-        ui->tableWidget->setItem(i,7,
+        ui->tableWidget->setItem(i,6,
                                  new QTableWidgetItem(QString::number(sat.Get_satalt())));
     }
     ui->tableWidget->resizeColumnsToContents();
@@ -198,6 +214,52 @@ void WidgetSatellite::CleanTable()
     }
 }
 
+void WidgetSatellite::Showpic(QImage & img)
+{
+    QImage scaledimg;
+    ui->label->setGeometry(0,0,400,200);
+    int Owidth=img.width();
+    int Oheight=img.height() ;
+    int Fwidth, Fheight,Mul;
+    if((Owidth/ui->label->geometry().width())
+            >=(Oheight/ui->label->geometry().height()))
+    {
+        Mul=Owidth/ui->label->geometry().width();
+    }
+    else
+    {
+        Mul=Oheight/ui->label->geometry().height();
+    }
+    Fwidth=Owidth/Mul;
+    Fheight=Oheight/Mul;
+    scaledimg=img.scaled(Fwidth,Fheight,Qt::KeepAspectRatio);
+    ui->label->resize(scaledimg.width(),scaledimg.height());
+    ui->label->setPixmap(QPixmap::fromImage(scaledimg));
+    ui->label->show();
+}
+
+void WidgetSatellite::DrawSatellites(QImage * img)
+{
+    QPainter p(img);
+    for(int i=0;i<SatelliteList.size();i++)
+    {
+        Satellite sat = SatelliteList.at(i);
+        QImage imgSat;
+        if(i<10)
+        {
+        imgSat.load(":/satellites/sat"+QString::number(i+1)+".png");
+        p.drawPixmap(5+i*70,10,50,50,QPixmap::fromImage(imgSat));
+        p.drawText(5+i*70,71,sat.Get_satname());
+        }
+        else
+        {
+        imgSat.load(":/satellites/sat"+QString::number(i-9)+".png");
+        p.drawPixmap(5+(i-10)*60,70,50,50,QPixmap::fromImage(imgSat));
+        p.drawText(5+(i-10)*60,101,sat.Get_satname());
+        }
+    }
+    Showpic(*img);
+}
 
 void WidgetSatellite::SetSat_categories()
 {

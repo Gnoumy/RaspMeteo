@@ -4,3 +4,4 @@ build*
 Makefile
 moc_*
 ui_*.h
+avionDatabase.db

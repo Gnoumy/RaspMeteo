@@ -14,14 +14,12 @@ public:
     explicit MapWidget( QWidget *parent = Q_NULLPTR );
     ~MapWidget( );
     void changeSize( QSize size );
+    void sendCoordinates( double, double );
 
 private:
     QQuickView *view;
     QWidget* container;
     QObject *object;
-
-public slots:
-    void setCoordinates( double, double );
 
 };
 

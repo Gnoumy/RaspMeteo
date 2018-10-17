@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>RechargeVehiculeWidget</class>
- <widget class="QWidget" name="RechargeVehiculeWidget">
+ <class>CitiesWidget</class>
+ <widget class="QWidget" name="CitiesWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>300</height>
+    <width>276</width>
+    <height>272</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Recharge véhicule électrique</string>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="headerLineEdit"/>
      </item>
      <item>
       <widget class="QTableWidget" name="tableWidget"/>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="footerLabel">
        <property name="text">
-        <string>Autres bornes </string>
+        <string>TextLabel</string>
        </property>
       </widget>
      </item>

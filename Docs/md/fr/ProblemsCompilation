@@ -6,4 +6,33 @@ J'ai rencontré un problème lorsque j'ai besoin de lier la bibliothèque openss
 
 Étape 2: Installez libssl1.0-dev
 
+2 Problem details : Complilater QT of Rasperry 5.11.1 has not added modules positioning and location.
+Solution : 
+step 1: In menuconfig, make sure you choise the following options
 
+        Target packages-> Graphic libraries and applications (graphic/text)-> Qt5 (BR2_PACKAGE_QT5 [=y]),BR2_PACKAGE_QT5LOCATION [=y]
+        Target package-> Networking applications-> sconeserver (BR2_PACKAGE_SCONESERVER [=y]) ,BR2_PACKAGE_SCONESERVER_LOCATION [=y]
+        Filesystem image -> exact size (480M)
+
+step 2: do "make" to rebuild Raspberry buildroot
+
+3 Problem details : A crash because the application has no connexion, there is no JSON but someone analys the json structure with .at(0)
+Solution: cut the network connection on desktop and run the program in debug mode
+
+4 Problem destails: Datebase of Marco
+Solution:
+
+## Solution
+
+Etape 1:
+	Décompressez l'archive 'avionDatabaseCompress.db.gz'. Vous obtiendrez un dossier 'aviondDatabaseCompress.db'
+
+Etape 2:
+	Dans le dossier 'avionDatabaseCompress.db' obtenu, couper la base de données 'data' et la coller dans le dossier ' /localStationCS/Base '
+	Renommer la base de données 'data' en 'avionDatabase.db'
+
+Etape 3:
+	Dans QtCreator, dans les 'Ressources', supprimer la base de données existante puis la remplacer par 'avionDatabase.db' située dans '/localStationCS/Base'
+
+Etape 4:
+	Supprimer le dossier 'avionDatabaseCompress.db'
