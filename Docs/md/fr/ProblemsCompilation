@@ -6,4 +6,16 @@ J'ai rencontré un problème lorsque j'ai besoin de lier la bibliothèque openss
 
 Étape 2: Installez libssl1.0-dev
 
+2 Problem detail : Complilater QT of Rasperry 5.11.1 has not added modules positioning and location.
+Solution : 
+step 1: In menuconfig, make sure you choise the following options
+
+        Target packages-> Graphic libraries and applications (graphic/text)-> Qt5 (BR2_PACKAGE_QT5 [=y]),BR2_PACKAGE_QT5LOCATION [=y]
+        Target package-> Networking applications-> sconeserver (BR2_PACKAGE_SCONESERVER [=y]) ,BR2_PACKAGE_SCONESERVER_LOCATION [=y]
+        Filesystem image -> exact size (480M)
+
+step 2: do "make" to rebuild Raspberry buildroot
+
+
+
 

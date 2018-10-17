@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network sql
+QT       += core gui network sql quick positioning location
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,7 +36,9 @@ SOURCES += \
     widgetlocalisation.cpp \
     traficinfos.cpp \
     citieswidget.cpp \
-    flightswidget.cpp
+    flightswidget.cpp \
+    mapwidget.cpp \
+    mapwindow.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +52,9 @@ HEADERS += \
     widgetlocalisation.h \
     traficinfos.h \
     citieswidget.h \
-    flightswidget.h
+    flightswidget.h \
+    mapwidget.h \
+    mapwindow.h
 
 FORMS += \
         mainwindow.ui \
@@ -62,4 +66,8 @@ FORMS += \
     widgetlocalisation.ui \
     traficinfos.ui \
     citieswidget.ui \
-    flightswidget.ui
+    flightswidget.ui \
+    mapwindow.ui
+
+RESOURCES += \
+    qmlmap.qrc

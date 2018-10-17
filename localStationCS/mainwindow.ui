@@ -31,6 +31,9 @@
         <item>
          <widget class="CitiesWidget" name="widget_4" native="true"/>
         </item>
+        <item>
+         <widget class="MapWindow" name="widget0" native="true"/>
+        </item>
        </layout>
       </item>
       <item>
@@ -59,7 +62,7 @@
      <x>0</x>
      <y>0</y>
      <width>1019</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuOptions">
@@ -78,6 +81,12 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
+  <customwidget>
+   <class>MapWindow</class>
+   <extends>QWidget</extends>
+   <header location="global">mapwindow.h</header>
+   <container>1</container>
+  </customwidget>
   <customwidget>
    <class>RechargeVehiculeWidget</class>
    <extends>QWidget</extends>
@@ -112,6 +121,16 @@
    <extends>QWidget</extends>
    <header>citieswidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FlightsWidget</class>
+   <extends>QWidget</extends>
+   <header>flightswidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TraficInfos</class>
+   <extends>QWidget</extends>
+   <header>traficinfos.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

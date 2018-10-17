@@ -37,7 +37,11 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     manager->get(request);
     //QNetworkReply *pReplayalt = manager->get(request);
     connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
- }
+   //  ********  image show  ********
+    QImage img;
+    img.load(":/satellites/satobservation.png");
+    Showpic(img);
+}
 
 WidgetSatellite::~WidgetSatellite()
 {
@@ -81,7 +85,7 @@ void WidgetSatellite::Slot_SatTrack()
     QNetworkRequest request;
     this->setCursor(Qt::WaitCursor);
 //    Config::setDistance(300.0f);
-    double degree=atan(Config::getDistance()*30.0/MINI_SATALT)*180/PI;
+    double degree=atan(Config::getDistance()*FACTOR_DISTANCE/MINI_SATALT)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
         QString url=URLN2YOBASE+QString("%1").arg(Config::getLatitude())+"/"
@@ -101,6 +105,9 @@ void WidgetSatellite::Slot_SatTrack()
     CleanTable();
     qDebug()<<"SatelliteList has  "<<SatelliteList.size()<< "  satellites !";
     FillTable();
+    QImage img;
+    img.load(":/satellites/satobservation.png");
+    DrawSatellites(&img);
 }
 
 void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
@@ -167,9 +174,9 @@ double WidgetSatellite::getRad(float degree)
 void WidgetSatellite::FillTable()
 {
     QStringList col_labels;
-    col_labels<<"Sat ID"<<"Sat Name"<<"Launch Date"
-             <<"Category"<<"Sat Lat"<<"Sat Lng(km)"
-             <<"Sat Alt";
+    col_labels<<"ID"<<"Name"<<"Launch Date"
+             <<"Cate"<<"Lat"<<"Lng"
+             <<"Alt(km)";
     ui->tableWidget->setColumnCount(7);
     ui->tableWidget->setRowCount(SatelliteList.size());
     ui->tableWidget->setHorizontalHeaderLabels(col_labels);
@@ -207,6 +214,52 @@ void WidgetSatellite::CleanTable()
     }
 }
 
+void WidgetSatellite::Showpic(QImage & img)
+{
+    QImage scaledimg;
+    ui->label->setGeometry(0,0,400,200);
+    int Owidth=img.width();
+    int Oheight=img.height() ;
+    int Fwidth, Fheight,Mul;
+    if((Owidth/ui->label->geometry().width())
+            >=(Oheight/ui->label->geometry().height()))
+    {
+        Mul=Owidth/ui->label->geometry().width();
+    }
+    else
+    {
+        Mul=Oheight/ui->label->geometry().height();
+    }
+    Fwidth=Owidth/Mul;
+    Fheight=Oheight/Mul;
+    scaledimg=img.scaled(Fwidth,Fheight,Qt::KeepAspectRatio);
+    ui->label->resize(scaledimg.width(),scaledimg.height());
+    ui->label->setPixmap(QPixmap::fromImage(scaledimg));
+    ui->label->show();
+}
+
+void WidgetSatellite::DrawSatellites(QImage * img)
+{
+    QPainter p(img);
+    for(int i=0;i<SatelliteList.size();i++)
+    {
+        Satellite sat = SatelliteList.at(i);
+        QImage imgSat;
+        if(i<10)
+        {
+        imgSat.load(":/satellites/sat"+QString::number(i+1)+".png");
+        p.drawPixmap(5+i*70,10,50,50,QPixmap::fromImage(imgSat));
+        p.drawText(5+i*70,71,sat.Get_satname());
+        }
+        else
+        {
+        imgSat.load(":/satellites/sat"+QString::number(i-9)+".png");
+        p.drawPixmap(5+(i-10)*60,70,50,50,QPixmap::fromImage(imgSat));
+        p.drawText(5+(i-10)*60,101,sat.Get_satname());
+        }
+    }
+    Showpic(*img);
+}
 
 void WidgetSatellite::SetSat_categories()
 {

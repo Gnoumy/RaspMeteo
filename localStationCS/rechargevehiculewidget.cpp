@@ -34,7 +34,6 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
-
     ui->tableWidget->setFont(font); //appel police et police
     ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
 
@@ -48,21 +47,21 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     ui->tableWidget->setShowGrid(false); //pour supprimer les grilles du tableau
     ui->tableWidget->horizontalHeader()->hide(); //pour cacher le nom ou numero des ligne
     ui->tableWidget->verticalHeader()->hide(); //pour cacher le nom ou numero des colonne
+    qDebug() << "taille du tableau" <<ui->tableWidget->size();
+
+    //ajutser le tableau par rapport à qtablewidget
+    QHeaderView* header1 = ui->tableWidget->horizontalHeader();
+    //QHeaderView* header2 = ui->tableWidget->verticalHeader();
+    header1->setSectionResizeMode(QHeaderView::Stretch);
+    //header2->setSectionResizeMode(QHeaderView::Stretch);
 
     if (myJson.array().count()==0) {
-        QString message0("AUCUNE BORNE TROUVEE");
-        QString message1("BORNE");
-        QString message2("TROUVEE");
-
-        ui->tableWidget->setRowCount(3);
-        ui->tableWidget->setColumnCount(3);
+        QString message0("PAS DE BORNE DE RECHARGE POUR CETTE POSITION DONNEE");
+        ui->tableWidget->setRowCount(12);
+        ui->tableWidget->setColumnCount(1);
         QTableWidgetItem *item0= new QTableWidgetItem(message0);
-        ui->tableWidget->setItem(0,0,item0);
-        QTableWidgetItem *item1= new QTableWidgetItem(message1);
-        ui->tableWidget->setItem(1,1,item1);
-        QTableWidgetItem *item2= new QTableWidgetItem(message2);
-        ui->tableWidget->setItem(2,2,item2);
-        qDebug() << "------boucle, total: " << myJson.array().count();
+        ui->tableWidget->setItem(5,0,item0);
+
     }
 
     if (myJson.array().count() >3) { //alors on affiche le nombre des autres bornes et la distance de celle la plus proche
