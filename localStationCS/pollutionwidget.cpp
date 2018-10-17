@@ -23,13 +23,9 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
     ui->setupUi(this);
 
     /*********************  PARAMETRES WIDGET  *****************************/
-        //api Token:  82740759ffaf747ed45aad29febf758fffd33758
         QFont font(Config::getFontFamily(),Config::getFontSize());
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-
-//        this->setStyleSheet("color: "+Config::getFontColor()+";background-color: "+Config::getBgColor());
-        this->setFont(font);
 
         ui->lineEdit_header->setFont(header);
         ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
@@ -81,8 +77,6 @@ void PollutionWidget::deuxiemePage(QNetworkReply *data)
 //    GraphPollutionWidget::paintEvent(QPaintEvent);
 //    painter.end();
 }
-
-
 
 void PollutionWidget::reloadData()
 {
