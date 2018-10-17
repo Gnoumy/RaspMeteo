@@ -29,7 +29,7 @@
 #define EARTH_RADIUS 6378.137
 #define TIME_RESTART 60000
 #define MINI_SATALT 1000
-#define FACTOR_DISTANCE 45
+#define FACTOR_DISTANCE 20
 #define N2YOKEY "/&apiKey=UWRBCN-GBFDZC-W3RCP5-3WA0"
 #define URLN2YOBASE "https://www.n2yo.com/rest/v1/satellite/above/"
 #define URLOPENELEVATIONEBASE "https://api.open-elevation.com/api/v1/lookup?locations="
