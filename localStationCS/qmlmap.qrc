@@ -12,6 +12,6 @@
         <file>satellites/sat3.png</file>
         <file>satellites/sat9.png</file>
         <file>satellites/satobservation.png</file>
-        <file>Base/avionDatabase.db.gz</file>
-      </qresource>
+        <file>Base/avionDatabase.db</file>
+    </qresource>
 </RCC>
