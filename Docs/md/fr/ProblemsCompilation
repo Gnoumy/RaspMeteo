@@ -6,7 +6,7 @@ J'ai rencontré un problème lorsque j'ai besoin de lier la bibliothèque openss
 
 Étape 2: Installez libssl1.0-dev
 
-2 Problem detail : Complilater QT of Rasperry 5.11.1 has not added modules positioning and location.
+2 Problem details : Complilater QT of Rasperry 5.11.1 has not added modules positioning and location.
 Solution : 
 step 1: In menuconfig, make sure you choise the following options
 
@@ -15,6 +15,16 @@ step 1: In menuconfig, make sure you choise the following options
         Filesystem image -> exact size (480M)
 
 step 2: do "make" to rebuild Raspberry buildroot
+
+3 Problem details : A crash because the application has no connexion, there is no JSON but someone analys the json structure with .at(0)
+Solution: cut the network connection on desktop and run the program in debug mode
+
+4 Problem destails: Datebase of Marco
+Solution:
+Step 1 : Decompress and Unarchivie "avionDatabase.db.gz". Put the correct datebase file "avionDatabase.db" just under the folder "Base"
+Step 2: In QT creator, open Ressources->qmlmap.qrc->/->Base, delect "avionDatabase.db.gz" and add avionDatabase.db.
+Step 3 : Delect "avionDatabase.db.gz" using "git rm"
+
 
 
 
