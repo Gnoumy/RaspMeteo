@@ -2,6 +2,8 @@
 #define MAPWINDOW_H
 
 #include <QWidget>
+#include <QQuickView>
+#include <QObject>
 
 namespace Ui { class MapWindow; }
 
@@ -10,19 +12,22 @@ class MapWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit MapWindow( QWidget *parent = Q_NULLPTR, double latitude = 48.85341, double longitude = 2.3488 );  //
-    virtual ~MapWindow( );
+    //explicit MapWindow( float latitude = 48.85341, float longitude = 2.3488, QWidget *parent = Q_NULLPTR );
+    explicit MapWindow( QWidget *parent = Q_NULLPTR );
+    ~MapWindow();
 
 protected :
      virtual void resizeEvent( QResizeEvent* );
-     virtual void showEvent( QShowEvent * );
 
 private:
     Ui::MapWindow *ui;
     void resizeAll( );
+    QQuickView *view;
+    QWidget *container;
+    QObject* object;
 
 public slots:
-    void setCoordinates( double, double );
+    void setCoordinates( float, float );
 };
 
 #endif // MAPWINDOW_H
