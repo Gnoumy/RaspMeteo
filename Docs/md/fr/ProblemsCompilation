@@ -24,6 +24,21 @@ Solution:
 Step 1 : Decompress and Unarchivie "avionDatabase.db.gz". Put the correct datebase file "avionDatabase.db" just under the folder "Base"
 Step 2: In QT creator, open Ressources->qmlmap.qrc->/->Base, delect "avionDatabase.db.gz" and add avionDatabase.db.
 Step 3 : Delect "avionDatabase.db.gz" using "git rm"
+Step 4 : Add "localStationCS/Base/*" to the end of file .gitignore
+
+5 Problem destails: The program crashes on Raspberry because some modules use JSON array on empty JSON when no connexion is activated.
+Solution:
+Do same protection program before reading json files. For example:
+
+    QByteArray bytes = pReplayalt->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        qDebug()<<QStringLiteral("Parsed Json failure");
+        qDebug()<<jsonError.errorString();
+        return;
+    }
 
 
 
