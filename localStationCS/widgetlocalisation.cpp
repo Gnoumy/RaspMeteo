@@ -9,6 +9,8 @@
 
 
 
+
+
 widgetlocalisation::widgetlocalisation(QWidget *parent) :
     LocalStationWidget(parent),
     ui(new Ui::widgetlocalisation)
@@ -17,9 +19,12 @@ widgetlocalisation::widgetlocalisation(QWidget *parent) :
     manager = new NetworkAccessManager(this);
 
 
+    QString lati = QString::number(Config::getLatitude(),'g',10);
+    //qDebug() << lati;
+    QString longi = QString::number(Config::getLongitude(),'g',10);
+    //qDebug() << longi;
 
-
-    QUrl url("https://nominatim.openstreetmap.org/reverse?format=json&lat=48.773218&lon=2.244258&zoom=18&addressdetails=1");
+    QUrl url("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lati+"&lon="+longi+"&zoom=18&addressdetails=1");
    //QUrl url("https://api.navitia.io/v1/coverage/sandbox/stop_areas/stop_area%3ARAT%3ASA%3AGDLYO/stop_schedules?items_per_schedule=2&");
     //url.setUserName("45205f1c-86f6-4740-9af7-a5dbe3fcf15d");
     //url.setPassword("dieynaba92");
@@ -28,6 +33,11 @@ widgetlocalisation::widgetlocalisation(QWidget *parent) :
      //connect(manager, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(authenticationRequired(QNetworkReply*, QAuthenticator*)));
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
     manager->get(request);
+
+
+
+
+
 }
 
 widgetlocalisation::~widgetlocalisation()
@@ -45,10 +55,19 @@ widgetlocalisation::~widgetlocalisation()
 
 void widgetlocalisation::replyFinished(QNetworkReply *reply)
 {
+    QByteArray bytes = reply->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+            qDebug()<<QStringLiteral("Parsed Json failure");
+            qDebug()<<jsonError.errorString();
+            return;
+    }
 
-    QByteArray ret=reply->readAll();
+    //QByteArray ret=reply->readAll();
     //qDebug()<<ret;
-    QJsonDocument myJson=QJsonDocument::fromJson(ret);
+    QJsonDocument myJson=QJsonDocument::fromJson(bytes);
 
 
 
@@ -58,8 +77,9 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
         //ui->tableWidget->setStyleSheet(Config::getFontColor());
         ui->tableWidget->setStyleSheet("color :"+Config::getTableFontColor()+";background-color :"+Config::getTableBgColor());
 
-        ui->label->setFont(header);//taille de police du l'entete
-        ui->label->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
+        ui->lineEdit->setFont(header);//taille de police du l'entete
+        ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
+        ui->lineEdit->setAlignment(Qt::AlignHCenter);
 
     //qDebug() << myJson.toObject().toVariantMap()["licence"].toMap()["lat"].toString();
     //qDebug() << myJson.array()[1].toObject().toVariantMap()["links"].toList().at(0).toMap()["href"].toString();
@@ -84,6 +104,10 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     //qDebug() << build;
     //float lon=myJson.object().toVariantMap()["licence"].toMap()["lon"].toFloat();
     //QString lonst = QString::number(lon);
+
+    /*QList<QString> list;
+     list << "town" << "postecode" << "road";
+     qDebug() << list;*/
 
 
     ui->tableWidget->setColumnCount(1);// le nombre de colonne
@@ -142,9 +166,11 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
 
 
-   /*QTableWidgetItem *building = new QTableWidgetItem(build);
-    ui->tableWidget->setItem(0, 3, building);
-    QBrush couleurBuild("#000000");
+
+
+    //QTableWidgetItem *building = new QTableWidgetItem(build);
+    //ui->tableWidget->setItem(0, 3, building);
+    /*QBrush couleurBuild("#000000");
     building->setForeground(couleurBuild);
     QFont fontBuild("Times", taillePolice, QFont::Bold, false);
     building->setFont(fontBuild);*/
@@ -155,13 +181,6 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     longitude->setForeground(couleurLon);
     QFont fontLon("Times", taillePolice, QFont::Bold, false);
     longitude->setFont(fontLon);*/
-
-
-
-
-
-
-
 
 
 
