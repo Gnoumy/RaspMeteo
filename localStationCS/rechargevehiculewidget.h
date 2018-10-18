@@ -32,10 +32,10 @@ public:
 private:
     Ui::RechargeVehiculeWidget *ui;
     QNetworkAccessManager *manager;
-    float longitude=2.33;//2.24;
-    float latitude=48.85;//48.7734;
-    float disMax=6;
-    int nbrBorne=0;
+    float longitude=2.24;
+    float latitude=48.7734;
+    float disMax=1;
+    int nbrBorne=10;
 
 private slots:
     void replyFinished(QNetworkReply *reply);
