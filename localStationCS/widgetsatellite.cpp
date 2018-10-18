@@ -217,7 +217,7 @@ void WidgetSatellite::CleanTable()
 void WidgetSatellite::Showpic(QImage & img)
 {
     QImage scaledimg;
-    ui->label->setGeometry(0,0,400,200);
+    ui->label->setGeometry(0,0,400,250);
     int Owidth=img.width();
     int Oheight=img.height() ;
     int Fwidth, Fheight,Mul;
@@ -241,6 +241,8 @@ void WidgetSatellite::Showpic(QImage & img)
 void WidgetSatellite::DrawSatellites(QImage * img)
 {
     QPainter p(img);
+    QFont font(Config::getFontFamily(),Config::getFontSize());
+    p.setFont(font);
     for(int i=0;i<SatelliteList.size();i++)
     {
         Satellite sat = SatelliteList.at(i);
@@ -248,16 +250,42 @@ void WidgetSatellite::DrawSatellites(QImage * img)
         if(i<10)
         {
         imgSat.load(":/satellites/sat"+QString::number(i+1)+".png");
-        p.drawPixmap(5+i*70,10,50,50,QPixmap::fromImage(imgSat));
-        p.drawText(5+i*70,71,sat.Get_satname());
+        int satalt;
+        if(sat.Get_satalt()>HIGHTALT)
+        {
+            satalt=0;
+        }else if(sat.Get_satalt()>MEDIENALT)
+        {
+            satalt=50;
+        }else
+        {
+            satalt=100;
+        }
+        p.drawPixmap(i*70,satalt,50,50,QPixmap::fromImage(imgSat));
+        p.drawText(i*70,satalt+60,sat.Get_satname());
         }
         else
         {
         imgSat.load(":/satellites/sat"+QString::number(i-9)+".png");
-        p.drawPixmap(5+(i-10)*60,70,50,50,QPixmap::fromImage(imgSat));
-        p.drawText(5+(i-10)*60,101,sat.Get_satname());
+        int satalt;
+        if(sat.Get_satalt()>HIGHTALT)
+        {
+            satalt=70;
+        }else if(sat.Get_satalt()>MEDIENALT)
+        {
+            satalt=95;
+        }else
+        {
+            satalt=120;
+        }
+        p.drawPixmap((i-10)*70,satalt,50,50,QPixmap::fromImage(imgSat));
+        p.drawText((i-10)*70,satalt+60,sat.Get_satname());
         }
     }
+    QString msg=" I can see ";
+    msg=msg+QString::number(SatelliteList.size());
+    msg=msg+" satellite(s)";
+    p.drawText(350,230,msg);
     Showpic(*img);
 }
 
