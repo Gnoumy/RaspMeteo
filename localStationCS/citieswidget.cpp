@@ -26,8 +26,9 @@ CitiesWidget::CitiesWidget(QWidget *parent) :
 }
 
 void CitiesWidget::reloadData(){
-    QStringList adr = buildWebAdress(QString::number(Config::getLatitude()),
-                                     QString::number(Config::getLongitude()));
+    QStringList adr = buildWebAdress(QString::number(double(Config::getLatitude())),
+                                     QString::number(double(Config::getLongitude())));
+
     QNetworkRequest request;
     request.setUrl(QUrl(adr.join("")));
     manager->get(request);
@@ -38,8 +39,9 @@ void CitiesWidget::changeFont(){
 }
 
 void CitiesWidget::resizeEvent(QResizeEvent * /* event */) {
-    ui->tableWidget->setColumnWidth(0, 0.75*width());
-    ui->tableWidget->setColumnWidth(1, 0.25*width());
+    int largeur1 = int(0.75*width());
+    ui->tableWidget->setColumnWidth(0, largeur1);
+    ui->tableWidget->setColumnWidth(1, width()-largeur1);
 }
 
 QStringList CitiesWidget::buildWebAdress(QString lat, QString lon) {
@@ -80,8 +82,9 @@ void CitiesWidget::afficheTableView() {
     ui->tableWidget->setRowCount(maxRow);
     ui->tableWidget->setColumnCount(2);
 
-    ui->tableWidget->setColumnWidth(0, 0.75*width());
-    ui->tableWidget->setColumnWidth(1, 0.25*width());
+    int largeur1 = int(0.75*width());
+    ui->tableWidget->setColumnWidth(0, largeur1);
+    ui->tableWidget->setColumnWidth(1, width()-largeur1);
 
     QFont apiFont(Config::getFontFamily(), Config::getFontSize(), QFont::Normal, false );
 
