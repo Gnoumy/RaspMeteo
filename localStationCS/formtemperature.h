@@ -18,6 +18,8 @@ class FormTemperature : public LocalStationWidget
 public:
     explicit FormTemperature(QWidget *parent = 0);
     QNetworkAccessManager *qnam = new QNetworkAccessManager(this);
+    void reloadData() ;
+    void changeFont() ;
 
     ~FormTemperature();
 

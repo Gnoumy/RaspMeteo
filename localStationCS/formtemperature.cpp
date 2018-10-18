@@ -21,7 +21,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->setupUi(this);
 //    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
-//    this->setStyleSheet("background-color: blue");
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
 //  ********  Parametre du lineEdit header  ********
@@ -53,6 +52,34 @@ FormTemperature::FormTemperature(QWidget *parent) :
     qnam->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=3543ac0c00624ed3bb653359621e5344")));
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
+
+void FormTemperature::reloadData()
+{
+    //  ********  Importation des données lat et lon  ********
+        QString lat = QString::number(Config::getLatitude(),'g',4);
+        QString lon = QString::number(Config::getLongitude(),'g',4);
+
+    //  ********  Requete API   ********
+        qnam->get(QNetworkRequest(QUrl("http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=3543ac0c00624ed3bb653359621e5344")));
+        connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
+}
+
+void FormTemperature::changeFont()
+{
+    connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
+    this->setStyleSheet("background-color: "+Config::getTableBgColor());
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+
+//  ********  Parametre du lineEdit header  ********
+    ui->lineEdit_header->setFont(header);
+    ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+
+//  ********  Parametre de la table Widget  ********
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+    ui->tableWidget_temp->setFont(font);
+    ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+
+}
 void FormTemperature::readRead(QNetworkReply *data)
 {
 //  ********  Enregistrement des données à partir du Json  ********
@@ -82,7 +109,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     float temp_px = ((50.0+temp_float)*300/110);
 
 //  ********  Width & Height  ********
-    int width_max = 125;
+    int width_max = 120;
     int height_max = 450;
 
 //  ********  Dessin du thermometre  ********
@@ -165,7 +192,7 @@ void FormTemperature::readRead(QNetworkReply *data)
     }
 //  ********  Hauteur en pixel de la jauge en fonction de la température et taille du thermometre  ********
     float hygro_float = jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toFloat();
-    float hygro_px = ((hygro_float)*340/100);
+    float hygro_px = ((hygro_float)*300/100);
 
 //  ********  Dessin de l'hygrometre  ********
     QPixmap pixmap2(width_max,height_max);
