@@ -20,6 +20,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
+
 //    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
@@ -56,6 +57,19 @@ FormTemperature::FormTemperature(QWidget *parent) :
 
 void FormTemperature::reloadData()
 {
+
+        this->setStyleSheet("background-color: "+Config::getTableBgColor());
+        QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+
+    //  ********  Parametre du lineEdit header  ********
+        ui->lineEdit_header->setFont(header);
+        ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+
+    //  ********  Parametre de la table Widget  ********
+        QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+        ui->tableWidget_temp->setFont(font);
+        ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+
     //  ********  Importation des données lat et lon  ********
         QString lat = QString::number(Config::getLatitude(),'g',4);
         QString lon = QString::number(Config::getLongitude(),'g',4);
@@ -67,7 +81,7 @@ void FormTemperature::reloadData()
 
 void FormTemperature::changeFont()
 {
-    connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
+
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -79,8 +93,10 @@ void FormTemperature::changeFont()
     QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     ui->tableWidget_temp->setFont(font);
     ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
-
+    connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
+
+
 void FormTemperature::readRead(QNetworkReply *data)
 {
 //  ********  Enregistrement des données à partir du Json  ********
