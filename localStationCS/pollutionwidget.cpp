@@ -15,6 +15,7 @@
 #include <QPaintEvent>
 #include <QBrush>
 #include <QPen>
+#include <QPushButton>
 
 PollutionWidget::PollutionWidget(QWidget *parent) :
     LocalStationWidget(parent),
