@@ -21,9 +21,6 @@ Solution: cut the network connection on desktop and run the program in debug mod
 
 4 Problem destails: Datebase of Marco
 Solution:
-
-## Solution
-
 Etape 1:
 	Décompressez l'archive 'avionDatabaseCompress.db.gz'. Vous obtiendrez un dossier 'aviondDatabaseCompress.db'
 
@@ -36,3 +33,18 @@ Etape 3:
 
 Etape 4:
 	Supprimer le dossier 'avionDatabaseCompress.db'
+
+
+5 Problem destails: The program crashes on Raspberry because some modules use JSON array on empty JSON when no connexion is activated.
+Solution:
+Do same protection program before reading json files. For example:
+
+    QByteArray bytes = pReplayalt->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        qDebug()<<QStringLiteral("Parsed Json failure");
+        qDebug()<<jsonError.errorString();
+        return;
+    }

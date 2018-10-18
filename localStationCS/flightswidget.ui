@@ -15,6 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="text">
+      <string>Vols Détectés sur Zone</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
       <number>0</number>
@@ -23,13 +33,6 @@
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QLineEdit" name="lineEdit">
-           <property name="text">
-            <string>Vols Détectés sur Zone</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <widget class="QTableWidget" name="m_pTableWidget"/>
          </item>
