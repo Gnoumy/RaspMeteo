@@ -19,7 +19,10 @@
      <item>
       <widget class="QLineEdit" name="lineEdit">
        <property name="text">
-        <string>                                                                                                                          Localisation</string>
+        <string>Localisation</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

@@ -55,10 +55,19 @@ widgetlocalisation::~widgetlocalisation()
 
 void widgetlocalisation::replyFinished(QNetworkReply *reply)
 {
+    QByteArray bytes = reply->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+            qDebug()<<QStringLiteral("Parsed Json failure");
+            qDebug()<<jsonError.errorString();
+            return;
+    }
 
-    QByteArray ret=reply->readAll();
+    //QByteArray ret=reply->readAll();
     //qDebug()<<ret;
-    QJsonDocument myJson=QJsonDocument::fromJson(ret);
+    QJsonDocument myJson=QJsonDocument::fromJson(bytes);
 
 
 
@@ -70,6 +79,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
         ui->lineEdit->setFont(header);//taille de police du l'entete
         ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
+        ui->lineEdit->setAlignment(Qt::AlignHCenter);
 
     //qDebug() << myJson.toObject().toVariantMap()["licence"].toMap()["lat"].toString();
     //qDebug() << myJson.array()[1].toObject().toVariantMap()["links"].toList().at(0).toMap()["href"].toString();
