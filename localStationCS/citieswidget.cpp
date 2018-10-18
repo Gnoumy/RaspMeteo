@@ -57,7 +57,16 @@ void CitiesWidget::replyFinished(QNetworkReply* reply){
         return;
     }
 
-    QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
+    QByteArray bytes = reply->readAll();
+    QJsonParseError jsonError;
+    QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError) {
+        qDebug()<<QStringLiteral("Parsed Json failure in citieswidget");
+        qDebug()<<jsonError.errorString();
+        return;
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson(bytes);
     array = doc.array();
     afficheAll();
 }
