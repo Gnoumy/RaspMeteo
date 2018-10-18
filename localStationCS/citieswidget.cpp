@@ -16,20 +16,30 @@
 CitiesWidget::CitiesWidget(QWidget *parent) :
     LocalStationWidget(parent), ui(new Ui::CitiesWidget)
 {
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     ui->setupUi(this);    
     manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
-//    setLatLon("48.866667", "2.333333");
+    connect(manager, SIGNAL(finished(QNetworkReply*)), this,
+            SLOT(replyFinished(QNetworkReply*)));
+    //connect(this, SIGNAL(QWidget::resizeEvent() ) )
     reloadData();
 }
 
 void CitiesWidget::reloadData(){
-    setLatLon(QString::number(Config::getLatitude()),
-              QString::number(Config::getLongitude()));
+    QStringList adr = buildWebAdress(QString::number(Config::getLatitude()),
+                                     QString::number(Config::getLongitude()));
+    QNetworkRequest request;
+    request.setUrl(QUrl(adr.join("")));
+    manager->get(request);
 }
 
 void CitiesWidget::changeFont(){
-    reloadData();
+    afficheAll();
+}
+
+void CitiesWidget::resizeEvent(QResizeEvent * /* event */) {
+    ui->tableWidget->setColumnWidth(0, 0.75*width());
+    ui->tableWidget->setColumnWidth(1, 0.25*width());
 }
 
 QStringList CitiesWidget::buildWebAdress(QString lat, QString lon) {
@@ -41,13 +51,6 @@ QStringList CitiesWidget::buildWebAdress(QString lat, QString lon) {
     return adr;
 }
 
-void CitiesWidget::setLatLon(QString lat, QString lon){
-    QStringList adr = buildWebAdress(lat, lon);
-    QNetworkRequest request;
-    request.setUrl(QUrl(adr.join("")));
-    manager->get(request);
-}
-
 void CitiesWidget::replyFinished(QNetworkReply* reply){
     if (reply->error() != QNetworkReply::NoError) {
         qDebug() << "Probleme de connexion !! \n" ;
@@ -56,7 +59,7 @@ void CitiesWidget::replyFinished(QNetworkReply* reply){
 
     QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
     array = doc.array();
-    afficheTableView();
+    afficheAll();
 }
 
 void CitiesWidget::afficheTableView() {
@@ -68,43 +71,20 @@ void CitiesWidget::afficheTableView() {
     ui->tableWidget->setRowCount(maxRow);
     ui->tableWidget->setColumnCount(2);
 
-    // SET labels of the header
-    QStringList labels;
-    labels << "Villes le plus proche" << "Distance (en km)";
-    ui->tableWidget->setHorizontalHeaderLabels(labels);
+    ui->tableWidget->setColumnWidth(0, 0.75*width());
+    ui->tableWidget->setColumnWidth(1, 0.25*width());
 
-    // SET font (family, size and color)
-    QColor fc;  // foreGroundCouleur
-    fc.setNamedColor(Config::getFontColor());
-    QBrush *fcQBrush = new QBrush( fc, Qt::SolidPattern);
+    QFont apiFont(Config::getFontFamily(), Config::getFontSize(), QFont::Normal, false );
 
-    QColor bc;  // foreGroundCouleur
-    bc.setNamedColor(Config::getBgColor());
-    QBrush *bcQBrush = new QBrush( bc, Qt::SolidPattern);
-
-    int taillePolice = Config::getFontSize();
-    QString fontFamily = Config::getFontFamily();
-    QFont apiFont(fontFamily, taillePolice, QFont::Bold, false );    // italic = true
-
-    // SET font, backgroundCouleur and foregroundCouleur of the 1st header
-    QTableWidgetItem *h1 = new QTableWidgetItem();
-    h1 = ui->tableWidget->horizontalHeaderItem(0);
-    h1->setFont(apiFont);
-    h1->setBackground(*bcQBrush);
-    h1->setForeground(*fcQBrush);
-
-    // SET the font backgroundCouleur and foregroundCouleur of the 2nd header
-    h1 = ui->tableWidget->horizontalHeaderItem(1);
-    h1->setFont(apiFont);
-    h1->setBackground(*bcQBrush);
-    h1->setForeground(*fcQBrush);
-
+    ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableWidget->setShowGrid(false);
-
-    ui->tableWidget->setStyleSheet("QTableView {selection-background-color: red;}");
+    QString tableSetUp = "QTableView {background-color: "
+            + Config::getTableBgColor() + "; selection-background-color: red; color: "
+            + Config::getTableFontColor() + ";}";
+    ui->tableWidget->setStyleSheet(tableSetUp);
 
     //    qDebug() << "Liste de couleurs reconnus " << QColor::colorNames();
 
@@ -112,39 +92,61 @@ void CitiesWidget::afficheTableView() {
     QTableWidgetItem *distance = new QTableWidgetItem();
 
     QJsonArray innerArray;
+    QString distanceSTR;
     for (int i=0; i < maxRow; i++) {
         innerArray = array[i].toArray();
         ville = new QTableWidgetItem(innerArray[1].toString());
         ville->setFont(apiFont);
-        ville->setBackground(*bcQBrush );
-        ville->setForeground(*fcQBrush );
 
-        distance = new QTableWidgetItem(innerArray[7].toString());
+        distanceSTR = innerArray[7].toString();
+        distanceSTR.append(" km");
+        distance = new QTableWidgetItem(distanceSTR);
         distance->setFont(apiFont);
-        distance->setBackground(*bcQBrush);
-        distance->setForeground(*fcQBrush);
 
         ui->tableWidget->setItem(i, 0, ville);
         ui->tableWidget->setItem(i, 1, distance);
     }
 
     if (nbEle > maxRow) {
-        QString nextCitiesInfoText = "+";
-        nextCitiesInfoText.append(QString::number(nbEle-maxRow));
-        nextCitiesInfoText.append(" autres villes à moins de ");
+        QString nextCitiesInfoText = "+" + QString::number(nbEle-maxRow) +
+                " autres villes à moins de " +
+                array[nbEle-1].toArray()[7].toString() + " km";
 
-        nextCitiesInfoText.append(array[nbEle-1].toArray()[7].toString());
-        nextCitiesInfoText.append(" km");
-
-        ui->label->setText(nextCitiesInfoText);
-        ui->label->setFont(apiFont);
-
-//        QString tmp = QString::number(myInt)
-//        QString tmp = tr("%1").arg(myInt)
+        ui->footerLabel->setText(nextCitiesInfoText);
     }
     else
-        ui->label->hide();
+        ui->footerLabel->hide();
+}
 
+void CitiesWidget::afficheHeader(){
+    QFont headerFont(Config::getHeaderFontFamily(),
+                     Config::getHeaderFontSize(),
+                     QFont::Normal, false );
+    ui->headerLineEdit->setFont(headerFont);
+
+    ui->headerLineEdit->setAlignment(Qt::AlignHCenter);
+
+    QString bcfc = "QLineEdit { background-color : "+Config::getHeaderBgColor()+
+            "; color : " + Config::getHeaderFontColor() + ";}";
+    ui->headerLineEdit->setStyleSheet(bcfc);
+    ui->headerLineEdit->setText("Les villes les plus proches");
+}
+
+void CitiesWidget::afficheFooter(){
+    QFont footerFont(Config::getFooterFontFamily(),
+                     Config::getFooterFontSize(),
+                     QFont::Normal, false );
+    ui->footerLabel ->setFont(footerFont);
+
+    QString bcfc = "QLabel { background-color : "+Config::getFooterBgColor()+
+            "; color : "+Config::getFooterFontColor()+";}";
+    ui->footerLabel->setStyleSheet(bcfc);
+}
+
+void CitiesWidget::afficheAll(){
+    afficheHeader();
+    afficheTableView();
+    afficheFooter();
 }
 
 CitiesWidget::~CitiesWidget()

@@ -21,10 +21,19 @@ Solution: cut the network connection on desktop and run the program in debug mod
 
 4 Problem destails: Datebase of Marco
 Solution:
-Step 1 : Decompress and Unarchivie "avionDatabase.db.gz". Put the correct datebase file "avionDatabase.db" just under the folder "Base"
-Step 2: In QT creator, open Ressources->qmlmap.qrc->/->Base, delect "avionDatabase.db.gz" and add avionDatabase.db.
-Step 3 : Delect "avionDatabase.db.gz" using "git rm"
-Step 4 : Add "localStationCS/Base/*" to the end of file .gitignore
+Etape 1:
+	Décompressez l'archive 'avionDatabaseCompress.db.gz'. Vous obtiendrez un dossier 'aviondDatabaseCompress.db'
+
+Etape 2:
+	Dans le dossier 'avionDatabaseCompress.db' obtenu, couper la base de données 'data' et la coller dans le dossier ' /localStationCS/Base '
+	Renommer la base de données 'data' en 'avionDatabase.db'
+
+Etape 3:
+	Dans QtCreator, dans les 'Ressources', supprimer la base de données existante puis la remplacer par 'avionDatabase.db' située dans '/localStationCS/Base'
+
+Etape 4:
+	Supprimer le dossier 'avionDatabaseCompress.db'
+
 
 5 Problem destails: The program crashes on Raspberry because some modules use JSON array on empty JSON when no connexion is activated.
 Solution:
@@ -39,8 +48,3 @@ Do same protection program before reading json files. For example:
         qDebug()<<jsonError.errorString();
         return;
     }
-
-
-
-
-
