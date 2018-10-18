@@ -84,8 +84,8 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
 
         for ( int i=0;i<10 && i< doc.object().toVariantMap()["states"].toList().at(i).toList().count();i++)
         {
-            QTableWidgetItem *ele1 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString());//icao
-            ui-> m_pTableWidget->setItem(i,0, ele1);
+            QTableWidgetItem *icao = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString());//icao
+            ui-> m_pTableWidget->setItem(i,0, icao);
 
 
             //Requete base de donnée pour obtenir les caractéristiques de l'avion
@@ -106,21 +106,21 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
 
                     //qDebug()<< query.value(1).toString();//fabricant
 
-                    QTableWidgetItem *ele6 = new QTableWidgetItem(query.value(2).toString());//modele
-                    ui-> m_pTableWidget->setItem(i,1, ele6);//modèle
+                    QTableWidgetItem *modele = new QTableWidgetItem(query.value(2).toString());//modele
+                    ui-> m_pTableWidget->setItem(i,1, modele);//modèle
 
                     //qDebug()<< query.value(2).toString();//modele
                 }
             }
-            QTableWidgetItem *ele2 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude
-            QTableWidgetItem *ele3 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(6).toString());//latitude
-            QTableWidgetItem *ele4 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(2).toString());//paysorigine
+            QTableWidgetItem *longit= new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude
+            QTableWidgetItem *lat = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(6).toString());//latitude
+            QTableWidgetItem *country = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(2).toString());//paysorigine
             QTableWidgetItem *altit = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(7).toString());//altitude
 
             //ui-> m_pTableWidget->setItem(i,3, ele4);
-            ui-> m_pTableWidget->setItem(i,4, ele2);//longitude
-            ui-> m_pTableWidget->setItem(i,5, ele3);//latitude
-            ui->m_pTableWidget->setItem(i,2, ele4);//pays
+            ui-> m_pTableWidget->setItem(i,4,longit);//longitude
+            ui-> m_pTableWidget->setItem(i,5, lat);//latitude
+            ui->m_pTableWidget->setItem(i,2, country);//pays
             ui->m_pTableWidget->setItem(i,3, altit);//altitude
 
             ui->m_pTableWidget->resizeColumnsToContents();
