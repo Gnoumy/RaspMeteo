@@ -65,51 +65,68 @@ FlightsWidget::~FlightsWidget()
 
 
 void FlightsWidget::reponseUrl(QNetworkReply *data){
-    QJsonDocument doc = QJsonDocument::fromJson(data->readAll()) ;
-    for ( int i=0;i<10 && i< doc.object().toVariantMap()["states"].toList().at(i).toList().count();i++)
+    QJsonParseError jsonError;
+
+    QJsonDocument doc = QJsonDocument::fromJson(data->readAll(), &jsonError) ;
+
+    if(jsonError.error != QJsonParseError::NoError)
     {
-        QTableWidgetItem *ele1 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString());//icao
-        ui-> m_pTableWidget->setItem(i,0, ele1);
+        qDebug()<<QStringLiteral("Parsed Json failure on FlightsWidget");
+        qDebug()<<jsonError.errorString();
+        return;
+    }else{
 
+        qDebug()<<QStringLiteral(" ok ParsedJson on FlightsWidget");
 
-        //Requete base de donnée pour obtenir les caractéristiques de l'avion
+    }
+    if (doc.isObject())
+    {
 
-        QSqlQuery query;
-        QString myIcao24 = doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString();
-        //qDebug()<< query.value(0).toString();//icao
-        query.prepare("select icao24, manufacturername, model FROM avionmodel where icao24 = (:myIcao24)");
-        // query.bindValue(":name", name);
-        query.bindValue(":myIcao24", myIcao24);
-
-        if (query.exec())
+        for ( int i=0;i<10 && i< doc.object().toVariantMap()["states"].toList().at(i).toList().count();i++)
         {
-            if (query.next())
+            QTableWidgetItem *ele1 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString());//icao
+            ui-> m_pTableWidget->setItem(i,0, ele1);
+
+
+            //Requete base de donnée pour obtenir les caractéristiques de l'avion
+
+            QSqlQuery query;
+            QString myIcao24 = doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString();
+            //qDebug()<< query.value(0).toString();//icao
+            query.prepare("select icao24, manufacturername, model FROM avionmodel where icao24 = (:myIcao24)");
+            // query.bindValue(":name", name);
+            query.bindValue(":myIcao24", myIcao24);
+
+            if (query.exec())
             {
-                //QTableWidgetItem *ele5 = new QTableWidgetItem(query.value(1).toString());//fabricant
-               // ui-> m_pTableWidget->setItem(i,1, ele5);
+                if (query.next())
+                {
+                    //QTableWidgetItem *ele5 = new QTableWidgetItem(query.value(1).toString());//fabricant
+                    // ui-> m_pTableWidget->setItem(i,1, ele5);
 
-                //qDebug()<< query.value(1).toString();//fabricant
+                    //qDebug()<< query.value(1).toString();//fabricant
 
-                QTableWidgetItem *ele6 = new QTableWidgetItem(query.value(2).toString());//modele
-                ui-> m_pTableWidget->setItem(i,1, ele6);//modèle
+                    QTableWidgetItem *ele6 = new QTableWidgetItem(query.value(2).toString());//modele
+                    ui-> m_pTableWidget->setItem(i,1, ele6);//modèle
 
-                //qDebug()<< query.value(2).toString();//modele
+                    //qDebug()<< query.value(2).toString();//modele
+                }
             }
+            QTableWidgetItem *ele2 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude
+            QTableWidgetItem *ele3 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(6).toString());//latitude
+            QTableWidgetItem *ele4 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(2).toString());//paysorigine
+            QTableWidgetItem *altit = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(7).toString());//altitude
+
+            //ui-> m_pTableWidget->setItem(i,3, ele4);
+            ui-> m_pTableWidget->setItem(i,4, ele2);//longitude
+            ui-> m_pTableWidget->setItem(i,5, ele3);//latitude
+            ui->m_pTableWidget->setItem(i,2, ele4);//pays
+            ui->m_pTableWidget->setItem(i,3, altit);//altitude
+
+            ui->m_pTableWidget->resizeColumnsToContents();
+            ui->m_pTableWidget->resizeRowsToContents();
+            ui->m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
         }
-        QTableWidgetItem *ele2 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude
-        QTableWidgetItem *ele3 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(6).toString());//latitude
-        QTableWidgetItem *ele4 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(2).toString());//paysorigine
-        QTableWidgetItem *altit = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(7).toString());//altitude
-
-        //ui-> m_pTableWidget->setItem(i,3, ele4);
-        ui-> m_pTableWidget->setItem(i,4, ele2);//longitude
-        ui-> m_pTableWidget->setItem(i,5, ele3);//latitude
-        ui->m_pTableWidget->setItem(i,2, ele4);//pays
-         ui->m_pTableWidget->setItem(i,3, altit);//altitude
-
-        ui->m_pTableWidget->resizeColumnsToContents();
-        ui->m_pTableWidget->resizeRowsToContents();
-        ui->m_pTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
     }
 }
