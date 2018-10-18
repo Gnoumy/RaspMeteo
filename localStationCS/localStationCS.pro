@@ -37,7 +37,6 @@ SOURCES += \
     traficinfos.cpp \
     citieswidget.cpp \
     flightswidget.cpp \
-    mapwidget.cpp \
     mapwindow.cpp
 
 HEADERS += \
@@ -53,7 +52,6 @@ HEADERS += \
     traficinfos.h \
     citieswidget.h \
     flightswidget.h \
-    mapwidget.h \
     mapwindow.h
 
 FORMS += \
