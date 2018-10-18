@@ -35,7 +35,7 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
 
     ui->m_pTableWidget->setRowCount(10);
     ui->m_pTableWidget->setColumnCount(6);
-    m_TableHeader<<"Icao"<<"Fabricant"<<"Modèle"<<"Pays"<<"Longitude"<<"Latitude";
+    m_TableHeader<<"Icao"<<"Modèle"<<"Pays"<<"Altitude"<<"Longitude"<<"Latitude";
     ui-> m_pTableWidget->setHorizontalHeaderLabels(m_TableHeader);
     ui-> m_pTableWidget->verticalHeader()->setVisible(false);
     ui->m_pTableWidget->setShowGrid(false);
@@ -85,13 +85,13 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
         {
             if (query.next())
             {
-                QTableWidgetItem *ele5 = new QTableWidgetItem(query.value(1).toString());//fabricant
-                ui-> m_pTableWidget->setItem(i,1, ele5);
+                //QTableWidgetItem *ele5 = new QTableWidgetItem(query.value(1).toString());//fabricant
+               // ui-> m_pTableWidget->setItem(i,1, ele5);
 
                 //qDebug()<< query.value(1).toString();//fabricant
 
                 QTableWidgetItem *ele6 = new QTableWidgetItem(query.value(2).toString());//modele
-                ui-> m_pTableWidget->setItem(i,2, ele6);
+                ui-> m_pTableWidget->setItem(i,1, ele6);//modèle
 
                 //qDebug()<< query.value(2).toString();//modele
             }
@@ -99,10 +99,13 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
         QTableWidgetItem *ele2 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude
         QTableWidgetItem *ele3 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(6).toString());//latitude
         QTableWidgetItem *ele4 = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(2).toString());//paysorigine
+        QTableWidgetItem *altit = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(7).toString());//altitude
+
         //ui-> m_pTableWidget->setItem(i,3, ele4);
-        ui-> m_pTableWidget->setItem(i,4, ele2);
-        ui-> m_pTableWidget->setItem(i,5, ele3);
-        ui->m_pTableWidget->setItem(i,3, ele4);
+        ui-> m_pTableWidget->setItem(i,4, ele2);//longitude
+        ui-> m_pTableWidget->setItem(i,5, ele3);//latitude
+        ui->m_pTableWidget->setItem(i,2, ele4);//pays
+         ui->m_pTableWidget->setItem(i,3, altit);//altitude
 
         ui->m_pTableWidget->resizeColumnsToContents();
         ui->m_pTableWidget->resizeRowsToContents();

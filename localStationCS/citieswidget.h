@@ -17,7 +17,7 @@ class CitiesWidget : public LocalStationWidget
     Q_OBJECT
 
 public:
-    explicit CitiesWidget(QWidget *parent = 0);
+    explicit CitiesWidget(QWidget *parent = nullptr);
     ~CitiesWidget();
 
 private:
@@ -28,11 +28,14 @@ private:
     QStringList buildWebAdress(QString, QString);
     void reloadData();
     void changeFont();
+    void resizeEvent(QResizeEvent * /* event */);
 
+    void afficheHeader();
+    void afficheFooter();
     void afficheTableView();
+    void afficheAll();
 
 private slots:
-    void setLatLon(QString, QString);
     void replyFinished(QNetworkReply*);
 };
 
