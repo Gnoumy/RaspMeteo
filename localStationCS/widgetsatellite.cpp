@@ -217,7 +217,7 @@ void WidgetSatellite::CleanTable()
 void WidgetSatellite::Showpic(QImage & img)
 {
     QImage scaledimg;
-    ui->label->setGeometry(0,0,400,250);
+    ui->label->setGeometry(0,0,600,300);
     int Owidth=img.width();
     int Oheight=img.height() ;
     int Fwidth, Fheight,Mul;
@@ -285,7 +285,7 @@ void WidgetSatellite::DrawSatellites(QImage * img)
     QString msg=" I can see ";
     msg=msg+QString::number(SatelliteList.size());
     msg=msg+" satellite(s)";
-    p.drawText(350,230,msg);
+    p.drawText(350,270,msg);
     Showpic(*img);
 }
 
