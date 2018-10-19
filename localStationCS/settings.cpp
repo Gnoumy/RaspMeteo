@@ -32,6 +32,7 @@ Settings::Settings(QWidget *parent) :
     // "French" => decimal separator = ','
     this->ui->latDoubleSpinBox->setLocale(QLocale::English);
     this->ui->lonDoubleSpinBox->setLocale(QLocale::English);
+    this->ui->distDoubleSpinBox->setLocale(QLocale::English);
 
 
     // qDebug() << "this->ui->autoScrollingLabel->parentWidget()" << this->ui->autoScrollingLabel->parentWidget() ;
