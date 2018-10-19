@@ -6,6 +6,10 @@
 #include <QMessageBox>
 
 #define RESSOURCE_FONTS_FOLDER  ":/fonts"
+#define MIN_SCROLLING_SPEED     1   // fast
+#define MAX_SCROLLING_SPEED     50  // slow
+#define MIN_WIDGET_MODE         0
+#define MAX_WIDGET_MODE         1
 
 
 #include <QDebug>
@@ -16,9 +20,26 @@ Settings::Settings(QWidget *parent) :
 {
     // init widgets of the .ui
     ui->setupUi(this);
+
+    // qDebug() << "this->ui->autoScrollingLabel->width()" << this->ui->autoScrollingLabel->width() ;
+    // qDebug() << "this->ui->scrollingSpeedHorizontalSlider->width()" << this->ui->scrollingSpeedHorizontalSlider->width() ;
+    // qDebug() << "this->ui->scrollingSpeedLabel->width()" << this->ui->scrollingSpeedLabel->width() ;
     this->initAllColorComboBoxes() ;
     this->initAllFontComboBoxes() ;
 
+    // init doubleSpinBoxes (for now : latitude, longitude, distance)
+    // "English" => decimal separator = '.'
+    // "French" => decimal separator = ','
+    this->ui->latDoubleSpinBox->setLocale(QLocale::English);
+    this->ui->lonDoubleSpinBox->setLocale(QLocale::English);
+
+
+    // qDebug() << "this->ui->autoScrollingLabel->parentWidget()" << this->ui->autoScrollingLabel->parentWidget() ;
+    this->initMiscellaneous() ;
+    // qDebug() << "this->ui->autoScrollingLabel->parentWidget()" << this->ui->autoScrollingLabel->parentWidget() ;
+    // qDebug() << "this->ui->autoScrollingLabel->width()" << this->ui->autoScrollingLabel->width() ;
+    // qDebug() << "this->ui->scrollingSpeedHorizontalSlider->width()" << this->ui->scrollingSpeedHorizontalSlider->width() ;
+    // qDebug() << "this->ui->scrollingSpeedLabel->width()" << this->ui->scrollingSpeedLabel->width() ;
 
 //    qDebug()<<"aa"<<this->ui->headerFontLabel->parent()->objectName();
 //    QObjectList tabs(this->ui->tabHeaderFont->parent()->children());
@@ -634,18 +655,32 @@ void Settings::initAllColorComboBoxes()
     // color names that we will insert
     // in fontColor ComboBoxes and bgColor ComboBoxes
     QStringList colors(QColor::colorNames()) ;
+    QString fontColorToolTip    = "Font Color" ;
+    QString bgColorToolTip      = "Background Color" ;
 
-    this->ui->fontColorComboBox->addItems(colors);
-    this->ui->bgColorComboBox->addItems(colors);
+    this->ui->fontColorComboBox         ->addItems(colors);
+    this->ui->fontColorComboBox         ->setToolTip(fontColorToolTip);
 
-    this->ui->headerFontColorComboBox->addItems(colors);
-    this->ui->headerBgColorComboBox->addItems(colors);
+    this->ui->bgColorComboBox           ->addItems(colors);
+    this->ui->bgColorComboBox           ->setToolTip(bgColorToolTip);
 
-    this->ui->footerFontColorComboBox->addItems(colors);
-    this->ui->footerBgColorComboBox->addItems(colors);
+    this->ui->headerFontColorComboBox   ->addItems(colors);
+    this->ui->headerFontColorComboBox   ->setToolTip(fontColorToolTip);
 
-    this->ui->tableFontColorComboBox->addItems(colors);
-    this->ui->tableBgColorComboBox->addItems(colors);
+    this->ui->headerBgColorComboBox     ->addItems(colors);
+    this->ui->headerBgColorComboBox     ->setToolTip(bgColorToolTip);
+
+    this->ui->footerFontColorComboBox   ->addItems(colors);
+    this->ui->footerFontColorComboBox   ->setToolTip(fontColorToolTip);
+
+    this->ui->footerBgColorComboBox     ->addItems(colors);
+    this->ui->footerBgColorComboBox     ->setToolTip(bgColorToolTip);
+
+    this->ui->tableFontColorComboBox    ->addItems(colors);
+    this->ui->tableFontColorComboBox    ->setToolTip(fontColorToolTip);
+
+    this->ui->tableBgColorComboBox      ->addItems(colors);
+    this->ui->tableBgColorComboBox      ->setToolTip(bgColorToolTip);
 
     this->ui->other2_ComboBox->addItems(colors);
 
@@ -682,6 +717,21 @@ void Settings::initAllFontComboBoxes()
     this->ui->other1_FontComboBox->clear();
     this->ui->other1_FontComboBox->addItems(familyList);
 
+}
+
+void Settings::initMiscellaneous()
+{
+    if ( QString(this->ui->autoScrollingLabel->metaObject()->className()) != "AutoScrollingLabel" )
+        qDebug() << "Warning : the class of autoScrollingLabel is not AutoScrollingLabel" ;
+
+    this->ui->autoScrollingLabel->setFixedWidth(this->width()>>1);
+    this->ui->verticalLayout_4->setAlignment(this->ui->autoScrollingLabel, Qt::AlignCenter);
+//    this->ui->autoScrollingLabel->setUpLabel();
+    this->ui->autoScrollingLabel->setText("This is a long text in an auto-scrolling label.");
+
+    this->ui->scrollingSpeedHorizontalSlider->setRange(MIN_SCROLLING_SPEED, MAX_SCROLLING_SPEED);
+
+    this->ui->widgetModeSpinBox->setRange(MIN_WIDGET_MODE, MAX_WIDGET_MODE);
 }
 
 // ameliorer ???
