@@ -5,5 +5,7 @@ Makefile
 moc_*
 ui_*.h
 localStationCS/A faire en fin de projet
+localStationCS/A faire en fin de projet
+localStationCS/Base/avionDatabase.db
 sshLudoGithub.pub
 
