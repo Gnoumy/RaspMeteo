@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <config.h>
 #include <localstationwidget.h>
+
 CitiesWidget::CitiesWidget(QWidget *parent) :
     LocalStationWidget(parent), ui(new Ui::CitiesWidget)
 {
