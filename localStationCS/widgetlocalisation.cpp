@@ -179,3 +179,8 @@ void widgetlocalisation::paintEvent(QPaintEvent *)
 void widgetlocalisation::reloadData() {}
 
 void widgetlocalisation::changeFont() {}
+
+void widgetlocalisation::changeMode()
+{
+
+}

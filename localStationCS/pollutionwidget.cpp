@@ -93,3 +93,8 @@ void PollutionWidget::changeFont()
 {
 
 }
+
+void PollutionWidget::changeMode()
+{
+
+}

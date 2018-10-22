@@ -36,6 +36,8 @@ private:
     float latitude=48.7734;
     float disMax=1;
     int nbrBorne=10;
+    void reloadData();
+    void changeMode();
 
 private slots:
     void replyFinished(QNetworkReply *reply);
