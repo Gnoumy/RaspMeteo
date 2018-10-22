@@ -28,6 +28,16 @@ RechargeVehiculeWidget::~RechargeVehiculeWidget()
     delete ui;
 }
 
+void RechargeVehiculeWidget::reloadData()
+{
+
+}
+
+void RechargeVehiculeWidget::changeMode()
+{
+
+}
+
 void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
 {
     QByteArray ret=reply->readAll();

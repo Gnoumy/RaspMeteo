@@ -40,6 +40,11 @@ void CitiesWidget::changeFont(){
 
 void CitiesWidget::changeMode() {}
 
+void CitiesWidget::changeMode()
+{
+        afficheAll();
+}
+
 void CitiesWidget::resizeEvent(QResizeEvent * /* event */) {
     int largeurTableWidget = ui->tableWidget->width();
     int largeur1 = int(0.7*largeurTableWidget);

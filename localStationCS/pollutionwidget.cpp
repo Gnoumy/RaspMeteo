@@ -115,3 +115,8 @@ void PollutionWidget::changeFont()
     ui->label_Station->setFont(footer);
     ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
 }
+
+void PollutionWidget::changeMode()
+{
+
+}

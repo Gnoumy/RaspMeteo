@@ -57,6 +57,7 @@ public:
     ~widgetlocalisation();
     void reloadData() ;
     void changeFont() ;
+    void changeMode();
 
 private slots:
         void replyFinished(QNetworkReply *reply);
