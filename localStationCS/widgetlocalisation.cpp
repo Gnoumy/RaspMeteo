@@ -81,16 +81,6 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
         ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
         ui->lineEdit->setAlignment(Qt::AlignHCenter);
 
-    //qDebug() << myJson.toObject().toVariantMap()["licence"].toMap()["lat"].toString();
-    //qDebug() << myJson.array()[1].toObject().toVariantMap()["links"].toList().at(0).toMap()["href"].toString();
-    //qDebug() << myJson.object().toVariantMap()["licence"].toMap()["lat"].toString();
-    //qDebug() << myJson.object().toVariantMap()["licence"].toMap()["lon"].toString();
-    //qDebug() << myJson.object().toVariantMap()["display_name"].toString();
-    //qDebug() << myJson.object().toVariantMap()["address"].toMap()["town"].toString();
-    //qDebug() << myJson.object().toVariantMap()["address"].toMap()["postcode"].toString();
-    //qDebug() << myJson.object().toVariantMap()["address"].toMap()["building"].toString();
-    //qDebug() << myJson.object().toVariantMap()["address"].toMap()["state"].toString();
-    //qDebug() << myJson.object().toVariantMap()["address"].toMap()["country"].toString();
 
 
     QString vil(myJson.object().toVariantMap()["address"].toMap()["town"].toString());
@@ -100,14 +90,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
     QString lon(myJson.object().toVariantMap()["lon"].toString());
     //qDebug() << lon;
     QString lat(myJson.object().toVariantMap()["lat"].toString());
-    //QString build(myJson.object().toVariantMap()["address"].toMap()["building"].toString());
-    //qDebug() << build;
-    //float lon=myJson.object().toVariantMap()["licence"].toMap()["lon"].toFloat();
-    //QString lonst = QString::number(lon);
 
-    /*QList<QString> list;
-     list << "town" << "postecode" << "road";
-     qDebug() << list;*/
 
 
     ui->tableWidget->setColumnCount(1);// le nombre de colonne
@@ -168,12 +151,7 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
 
 
-    //QTableWidgetItem *building = new QTableWidgetItem(build);
-    //ui->tableWidget->setItem(0, 3, building);
-    /*QBrush couleurBuild("#000000");
-    building->setForeground(couleurBuild);
-    QFont fontBuild("Times", taillePolice, QFont::Bold, false);
-    building->setFont(fontBuild);*/
+
 
     QTableWidgetItem *longitude = new QTableWidgetItem(lon);
     ui->tableWidget->setItem(0, 5, longitude);
@@ -188,7 +166,16 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
 
 }
 
-void widgetlocalisation::resizeEvent(QResizeEvent *event)
+/*void widgetlocalisation::resizeEvent(QResizeEvent *)
+{
+    ui->tableWidget->setColumnWidth(0,this->width());
+}*/
+
+void widgetlocalisation::paintEvent(QPaintEvent *)
 {
     ui->tableWidget->setColumnWidth(0,this->width());
 }
+
+void widgetlocalisation::reloadData() {}
+
+void widgetlocalisation::changeFont() {}

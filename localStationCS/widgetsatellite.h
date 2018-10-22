@@ -29,7 +29,7 @@
 #define EARTH_RADIUS 6378.137
 #define TIME_RESTART 60000
 #define MINI_SATALT 1000
-#define FACTOR_DISTANCE 15
+#define FACTOR_DISTANCE 10
 #define HIGHTALT 20000
 #define MEDIENALT 1000
 #define N2YOKEY "/&apiKey=UWRBCN-GBFDZC-W3RCP5-3WA0"
@@ -112,6 +112,8 @@ private:
     double getRad(float);
     void Showpic(QImage &img);
     void DrawSatellites(QImage *img);
+    void reloadData();
+    void changeMode();
 };
 
 #endif // QWIDGETSATELLITE_H

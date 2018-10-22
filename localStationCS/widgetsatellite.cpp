@@ -217,7 +217,7 @@ void WidgetSatellite::CleanTable()
 void WidgetSatellite::Showpic(QImage & img)
 {
     QImage scaledimg;
-    ui->label->setGeometry(0,0,400,250);
+    ui->label->setGeometry(0,0,600,300);
     int Owidth=img.width();
     int Oheight=img.height() ;
     int Fwidth, Fheight,Mul;
@@ -285,7 +285,7 @@ void WidgetSatellite::DrawSatellites(QImage * img)
     QString msg=" I can see ";
     msg=msg+QString::number(SatelliteList.size());
     msg=msg+" satellite(s)";
-    p.drawText(350,230,msg);
+    p.drawText(350,270,msg);
     Showpic(*img);
 }
 
@@ -342,3 +342,18 @@ void WidgetSatellite::SetSat_categories()
     Sat_categories.insert("XM and Sirius",33);
     Sat_categories.insert("Yaogan",36);
 }
+
+void WidgetSatellite::reloadData()
+{
+    QNetworkAccessManager * manager = new QNetworkAccessManager(this);
+    QNetworkRequest request;
+    QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
+               +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
+    request.setUrl(QUrl(urlalt));
+    manager->get(request);
+    //QNetworkReply *pReplayalt = manager->get(request);
+    connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
+}
+
+void WidgetSatellite::changeMode()
+{}

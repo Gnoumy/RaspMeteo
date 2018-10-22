@@ -7,9 +7,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QStandardItemModel>
+#include "localstationwidget.h"
 
 TraficInfos::TraficInfos(QWidget *parent) :
-    QWidget(parent),
+    LocalStationWidget(parent),
     ui(new Ui::TraficInfos)
 {
     ui->setupUi(this);
@@ -59,4 +60,19 @@ void TraficInfos::replyFinished(QNetworkReply *reply)
         this->model.appendRow(row);
     }
     ui->tableViewTrafic->setModel(&model);
+}
+
+void TraficInfos::reloadData()
+{
+
+}
+
+void TraficInfos::changeFont()
+{
+
+}
+
+void TraficInfos::changeMode()
+{
+
 }

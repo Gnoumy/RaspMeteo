@@ -12,7 +12,7 @@ public:
     NetworkAccessManager(QObject *parent) :QNetworkAccessManager(parent) {}
 
 protected:
-    QNetworkReply * createRequest ( Operation op, const QNetworkRequest & req, QIODevice * outgoingData = 0 )
+    QNetworkReply * createRequest ( Operation op, const QNetworkRequest & req, QIODevice * outgoingData = nullptr )
     {
     QNetworkRequest new_req(req);
     new_req.setRawHeader("User-Agent",  "projet c-s");
@@ -53,8 +53,10 @@ class widgetlocalisation : public LocalStationWidget
     Q_OBJECT
 
 public:
-    explicit widgetlocalisation(QWidget *parent = 0);
+    explicit widgetlocalisation(QWidget *parent = nullptr);
     ~widgetlocalisation();
+    void reloadData() ;
+    void changeFont() ;
 
 private slots:
         void replyFinished(QNetworkReply *reply);
@@ -62,7 +64,8 @@ private slots:
 private:
     Ui::widgetlocalisation *ui;
     NetworkAccessManager *manager;
-    void resizeEvent(QResizeEvent *event);
+    //void resizeEvent(QResizeEvent *);
+    void paintEvent(QPaintEvent *);
 };
 
 #endif // WIDGETLOCALISATION_H

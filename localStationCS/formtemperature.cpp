@@ -23,6 +23,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
 //    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    int index = ui->stackedWidget->currentIndex();
 
 //  ********  Parametre du lineEdit header  ********
     ui->lineEdit_header->setFont(header);
@@ -91,6 +92,21 @@ void FormTemperature::changeFont()
     ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
+
+void FormTemperature::changeMode()
+{
+    int index = ui->stackedWidget->currentIndex();
+    if(index == 0)
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+    else
+    {
+        ui->stackedWidget->setCurrentIndex(0);
+    }
+
+}
+
 void FormTemperature::readRead(QNetworkReply *data)
 {
 //  ********  Enregistrement des données à partir du Json  ********
@@ -104,30 +120,29 @@ void FormTemperature::readRead(QNetworkReply *data)
     }
     if(jsonDoc.isObject())
     {
-
         QString temp = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["temp"].toInt()-273);
         ui->tableWidget_temp->setItem(0,0,new QTableWidgetItem("temp"));
         ui->tableWidget_temp->setItem(0,2,new QTableWidgetItem(temp));
         ui->tableWidget_temp->setItem(0,3,new QTableWidgetItem("°C"));
 
-        QString wind = QString::number(jsonDoc.object().toVariantMap()["wind"].toMap()["speed"].toFloat());
+        QString wind = QString::number(jsonDoc.object().toVariantMap()["wind"].toMap()["speed"].toDouble());
         ui->tableWidget_temp->setItem(1,0,new QTableWidgetItem("wind"));
         ui->tableWidget_temp->setItem(1,2,new QTableWidgetItem(wind));
         ui->tableWidget_temp->setItem(1,3,new QTableWidgetItem("m/s"));
 
-        QString hygro = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toFloat());
+        QString hygro = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toDouble());
         ui->tableWidget_temp->setItem(2,0,new QTableWidgetItem("hygro"));
         ui->tableWidget_temp->setItem(2,2,new QTableWidgetItem(hygro));
         ui->tableWidget_temp->setItem(2,3,new QTableWidgetItem("%"));
 
-        QString press = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["pressure"].toFloat());
+        QString press = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["pressure"].toDouble());
         ui->tableWidget_temp->setItem(3,0,new QTableWidgetItem("press"));
         ui->tableWidget_temp->setItem(3,2,new QTableWidgetItem(press));
         ui->tableWidget_temp->setItem(3,3,new QTableWidgetItem("mbar"));
 
     //  ********  Hauteur en pixel de la jauge en fonction de la température et taille du thermometre  ********
-        float temp_float = jsonDoc.object().toVariantMap()["main"].toMap()["temp"].toFloat()-273;
-        float temp_px = ((50.0+temp_float)*300/110);
+        double temp_float = jsonDoc.object().toVariantMap()["main"].toMap()["temp"].toDouble()-273;
+        double temp_px = ((50.0+temp_float)*300/110);
 
     //  ********  Width & Height  ********
         int width_max = 120;
@@ -212,8 +227,8 @@ void FormTemperature::readRead(QNetworkReply *data)
             ui->label_temp->setFixedHeight(height_max);
         }
     //  ********  Hauteur en pixel de la jauge en fonction de la température et taille du thermometre  ********
-        float hygro_float = jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toFloat();
-        float hygro_px = ((hygro_float)*300/100.5);
+        double hygro_float = jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toDouble();
+        double hygro_px = ((hygro_float)*300/100.5);
 
     //  ********  Dessin de l'hygrometre  ********
         QPixmap pixmap2(width_max,height_max);
