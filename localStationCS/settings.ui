@@ -24,7 +24,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tabPosition">
       <attribute name="title">
@@ -191,6 +191,55 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tabMiscellaneous">
+      <attribute name="title">
+       <string>Miscellaneous</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="scrollingSpeedLabel">
+           <property name="text">
+            <string>Speed (Fast -&gt; Slow)</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="scrollingSpeedHorizontalSlider">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="AutoScrollingLabel" name="autoScrollingLabel">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="lineMiscellaneous">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="widgetModeLabel">
+           <property name="text">
+            <string>Widget mode</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="widgetModeSpinBox"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="tab">
       <attribute name="title">
        <string>Tests</string>
@@ -253,6 +302,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AutoScrollingLabel</class>
+   <extends>QLabel</extends>
+   <header>autoscrollinglabel.h</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>latDoubleSpinBox</tabstop>

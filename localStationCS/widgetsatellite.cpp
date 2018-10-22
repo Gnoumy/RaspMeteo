@@ -25,8 +25,8 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
 
     SetSat_categories();
     //get latitude, longitude and distance from mainwindow
-    Config::setLatitude(48.78889f);
-    Config::setLongitude(2.27078f);
+//    Config::setLatitude(48.78889f);
+//    Config::setLongitude(2.27078f);
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
 //    QString urlalt =URLOPENELEVATIONEBASE+ui->label_lat->text()

@@ -20,7 +20,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
-
 //    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
@@ -39,7 +38,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->tableWidget_temp->verticalHeader()->hide();
     ui->tableWidget_temp->setShowGrid(false);
     ui->tableWidget_temp->setColumnWidth(0,this->width());
-
     ui->tableWidget_temp->setSelectionMode(QAbstractItemView::NoSelection);
     ui->tableWidget_temp->resizeColumnsToContents();
     ui->tableWidget_temp->resizeRowsToContents();
@@ -57,7 +55,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
 
 void FormTemperature::reloadData()
 {
-
         this->setStyleSheet("background-color: "+Config::getTableBgColor());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -81,7 +78,6 @@ void FormTemperature::reloadData()
 
 void FormTemperature::changeFont()
 {
-
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -95,8 +91,6 @@ void FormTemperature::changeFont()
     ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
-
-
 void FormTemperature::readRead(QNetworkReply *data)
 {
 //  ********  Enregistrement des données à partir du Json  ********
@@ -219,7 +213,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         }
     //  ********  Hauteur en pixel de la jauge en fonction de la température et taille du thermometre  ********
         float hygro_float = jsonDoc.object().toVariantMap()["main"].toMap()["humidity"].toFloat();
-        float hygro_px = ((hygro_float)*300/100);
+        float hygro_px = ((hygro_float)*300/100.5);
 
     //  ********  Dessin de l'hygrometre  ********
         QPixmap pixmap2(width_max,height_max);
@@ -244,11 +238,11 @@ void FormTemperature::readRead(QNetworkReply *data)
         if (hygro.toInt() < 35)
         {
             painter2.setPen(pen2);
-            QBrush brush2 (Qt::blue, Qt::SolidPattern);
+            QBrush brush2 (Qt::red, Qt::SolidPattern);
             pen2.setColor(Config::getFontColor());
             painter2.setBrush(brush2);
-            QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
-            pen2.setColor(Qt::blue);
+            QRectF rectangle_hygro(11,341.0-hygro_px,29,1+hygro_px);
+            pen2.setColor(Qt::red);
             painter2.fillRect(rectangle_hygro,brush2);
             ui->label_hygro->setPixmap(pixmap2);
             ui->label_hygro->setFixedWidth(width_max);
@@ -270,11 +264,11 @@ void FormTemperature::readRead(QNetworkReply *data)
         else if (hygro.toInt() > 65)
         {
             painter2.setPen(pen2);
-            QBrush brush2 (Qt::red, Qt::SolidPattern);
+            QBrush brush2 (Qt::blue, Qt::SolidPattern);
             pen2.setColor(Config::getFontColor());
             painter2.setBrush(brush2);
             QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
-            pen2.setColor(Qt::red);
+            pen2.setColor(Qt::blue);
             painter2.fillRect(rectangle_hygro,brush2);
 
             ui->label_hygro->setPixmap(pixmap2);
