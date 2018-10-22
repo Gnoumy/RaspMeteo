@@ -63,8 +63,13 @@ FlightsWidget::~FlightsWidget()
     delete ui;
 }
 
- void FlightsWidget::reloadData() {}//= 0 ; // recupere les donnees pour actualiser le widget
- void FlightsWidget::changeFont() {}
+void FlightsWidget::reloadData() {}//= 0 ; // recupere les donnees pour actualiser le widget
+void FlightsWidget::changeFont() {}
+
+void FlightsWidget::changeMode()
+{
+
+}
 
 
 

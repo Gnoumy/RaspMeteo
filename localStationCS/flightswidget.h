@@ -53,7 +53,7 @@ private:
 
     void reloadData() ;//= 0 ; // recupere les donnees pour actualiser le widget
     void changeFont() ;//= 0 ; // changer la police (style, taille, etc...)
-
+    void changeMode() ;
 };
 
 #endif // FLIGHTSWIDGET_H
