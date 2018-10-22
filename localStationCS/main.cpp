@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     if (!mydb.open()){
         qDebug()<<"connection to Avion database failed";
         qDebug()<<mydb.lastError();
+
     }else{
 
      qDebug()<< "connected to Avion database "  ;}
