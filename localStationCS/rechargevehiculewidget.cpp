@@ -11,7 +11,7 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
     //-------------------- requete------------------------------------//
         QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+QString::number(latitude)
                       +"&longitude="+QString::number(longitude)+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
-    //qDebug() << "url: " << urlvar;
+        //qDebug() << "url: " << urlvar;
         //QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+Config::getLatitude()
                       //+"&longitude="+Config::getLongitude()+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
         manager = new QNetworkAccessManager(this);
@@ -23,6 +23,7 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
         connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
         QNetworkReply* currentReply = manager->get(request); //get
         //connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
+        changeFont();
 }
 
 RechargeVehiculeWidget::~RechargeVehiculeWidget()
@@ -30,7 +31,7 @@ RechargeVehiculeWidget::~RechargeVehiculeWidget()
     delete ui;
 }
 
-/**********   reloadData   ************/
+/**********   reloadData pour l'actualisation   ************/
 void RechargeVehiculeWidget::reloadData()
 {
 
@@ -39,7 +40,28 @@ void RechargeVehiculeWidget::reloadData()
 /**********   pour la police et fond   ************/
 void RechargeVehiculeWidget::changeFont()
 {
+    QFont font(Config::getFontFamily(),Config::getFontSize());//font(taille police corps de texte)
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());//font(taille police bas de texte)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());//font(taille police entête)
 
+    ui->tableWidget->setFont(font); //appel police et police
+    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+
+    ui->label->setFont(header); //taille de police du l'entete
+    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+
+    ui->label_2->setFont(footer); //taille du bas
+    ui->label_2->setStyleSheet("color:"+Config::getFooterFontColor()+"; background-color: "+Config::getFooterBgColor());
+
+    ui->tableWidget->setColumnCount(3); //nombre de colonne;
+    ui->tableWidget->setShowGrid(false); //pour supprimer les grilles du tableau
+    ui->tableWidget->horizontalHeader()->hide(); //pour cacher le nom ou numero des ligne
+    ui->tableWidget->verticalHeader()->hide(); //pour cacher le nom ou numero des colonne
+    //qDebug() << "taille du tableau" <<ui->tableWidget->size();
+
+    //ajutser le tableau par rapport à qtablewidget
+    QHeaderView* ajusteColonne = ui->tableWidget->horizontalHeader();//ajustage des colonnes
+    ajusteColonne->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 /**********   changement mode   ************/
@@ -53,9 +75,9 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     QByteArray ret=reply->readAll();
     //QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
-    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
-    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
-    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    /*QFont font(Config::getFontFamily(),Config::getFontSize());//font(taille police corps de texte)
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());//font(taille police bas de texte)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());//font(taille police entête)
 
     ui->tableWidget->setFont(font); //appel police et police
     ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
@@ -76,7 +98,7 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     QHeaderView* ajusteColonne = ui->tableWidget->horizontalHeader();//ajustage des colonnes
     ajusteColonne->setSectionResizeMode(QHeaderView::Stretch);
     //QHeaderView* ajusteLigne = ui->tableWidget->verticalHeader();
-    //ajusteLigne->setSectionResizeMode(QHeaderView::Stretch);
+    //ajusteLigne->setSectionResizeMode(QHeaderView::Stretch);*/
 
     QJsonParseError jsonError;
     //QJsonDocument doc =QJsonDocument::fromJson(ret,&jsonError);
