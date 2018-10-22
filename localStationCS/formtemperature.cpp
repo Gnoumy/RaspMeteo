@@ -23,6 +23,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
 //    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    int index = ui->stackedWidget->currentIndex();
 
 //  ********  Parametre du lineEdit header  ********
     ui->lineEdit_header->setFont(header);
@@ -94,6 +95,15 @@ void FormTemperature::changeFont()
 
 void FormTemperature::changeMode()
 {
+    int index = ui->stackedWidget->currentIndex();
+    if(index == 0)
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+    else
+    {
+        ui->stackedWidget->setCurrentIndex(0);
+    }
 
 }
 
