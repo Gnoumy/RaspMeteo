@@ -8,21 +8,9 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
     ui(new Ui::RechargeVehiculeWidget)
 {
     ui->setupUi(this);
-    //-------------------- requete------------------------------------//
-        QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+QString::number(latitude)
-                      +"&longitude="+QString::number(longitude)+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
-        //qDebug() << "url: " << urlvar;
-        //QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+Config::getLatitude()
-                      //+"&longitude="+Config::getLongitude()+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
-        manager = new QNetworkAccessManager(this);
-        //QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=148.7734&longitude=2.24&&distance=2&distanceunit=KM");//format json
-        QUrl url(urlvar);
-        QNetworkRequest request; //on declare une variable pour l'envoi de notre requete
-        //request.setUrl(url); //on fait une requête
-        request.setUrl(urlvar); //on fait une requête
+    //-------------------- reload pour la requête ------------------------------------//
+        reloadData();
         connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
-        QNetworkReply* currentReply = manager->get(request); //get
-        //connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
         changeFont();
 }
 
@@ -34,7 +22,13 @@ RechargeVehiculeWidget::~RechargeVehiculeWidget()
 /**********   reloadData pour l'actualisation   ************/
 void RechargeVehiculeWidget::reloadData()
 {
-
+    QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+QString::number(latitude)
+                  +"&longitude="+QString::number(longitude)+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
+    manager = new QNetworkAccessManager(this);
+    QUrl url(urlvar);
+    QNetworkRequest request; //on declare une variable pour l'envoi de notre requete
+    request.setUrl(urlvar); //on fait une requête
+    QNetworkReply* currentReply = manager->get(request);
 }
 
 /**********   pour la police et fond   ************/
@@ -57,7 +51,6 @@ void RechargeVehiculeWidget::changeFont()
     ui->tableWidget->setShowGrid(false); //pour supprimer les grilles du tableau
     ui->tableWidget->horizontalHeader()->hide(); //pour cacher le nom ou numero des ligne
     ui->tableWidget->verticalHeader()->hide(); //pour cacher le nom ou numero des colonne
-    //qDebug() << "taille du tableau" <<ui->tableWidget->size();
 
     //ajutser le tableau par rapport à qtablewidget
     QHeaderView* ajusteColonne = ui->tableWidget->horizontalHeader();//ajustage des colonnes
@@ -73,28 +66,7 @@ void RechargeVehiculeWidget::changeMode()
 void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
 {
     QByteArray ret=reply->readAll();
-    //QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
-    /*QFont font(Config::getFontFamily(),Config::getFontSize());//font(taille police corps de texte)
-    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());//font(taille police bas de texte)
-    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());//font(taille police entête)
-
-    ui->tableWidget->setFont(font); //appel police et police
-    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
-
-    ui->label->setFont(header); //taille de police du l'entete
-    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
-
-    ui->label_2->setFont(footer); //taille du bas
-    ui->label_2->setStyleSheet("color:"+Config::getFooterFontColor()+"; background-color: "+Config::getFooterBgColor());
-
-    ui->tableWidget->setColumnCount(3); //nombre de colonne;
-    ui->tableWidget->setShowGrid(false); //pour supprimer les grilles du tableau
-    ui->tableWidget->horizontalHeader()->hide(); //pour cacher le nom ou numero des ligne
-    ui->tableWidget->verticalHeader()->hide(); //pour cacher le nom ou numero des colonne
-    //qDebug() << "taille du tableau" <<ui->tableWidget->size();
-
-    //ajutser le tableau par rapport à qtablewidget
     QHeaderView* ajusteColonne = ui->tableWidget->horizontalHeader();//ajustage des colonnes
     ajusteColonne->setSectionResizeMode(QHeaderView::Stretch);
     //QHeaderView* ajusteLigne = ui->tableWidget->verticalHeader();

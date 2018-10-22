@@ -40,6 +40,7 @@ private:
     float disMax=2;
     int nbrBorne=10;
 
+
 private slots:
     void replyFinished(QNetworkReply *reply);
 };

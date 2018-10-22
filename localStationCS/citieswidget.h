@@ -28,6 +28,7 @@ private:
     QStringList buildWebAdress(QString, QString);
     void reloadData();
     void changeFont();
+    void changeMode();
     void resizeEvent(QResizeEvent * /* event */);
 
     void afficheHeader();

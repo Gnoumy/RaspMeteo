@@ -77,22 +77,6 @@ void FormTemperature::reloadData()
         connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
 
-void FormTemperature::changeFont()
-{
-    this->setStyleSheet("background-color: "+Config::getTableBgColor());
-    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-
-//  ********  Parametre du lineEdit header  ********
-    ui->lineEdit_header->setFont(header);
-    ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
-
-//  ********  Parametre de la table Widget  ********
-    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
-    ui->tableWidget_temp->setFont(font);
-    ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
-    connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
-}
-
 void FormTemperature::changeMode()
 {
     int index = ui->stackedWidget->currentIndex();

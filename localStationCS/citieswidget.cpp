@@ -13,6 +13,7 @@
 #include <QDebug>
 #include <config.h>
 #include <localstationwidget.h>
+
 CitiesWidget::CitiesWidget(QWidget *parent) :
     LocalStationWidget(parent), ui(new Ui::CitiesWidget)
 {
@@ -36,6 +37,8 @@ void CitiesWidget::reloadData(){
 void CitiesWidget::changeFont(){
     afficheAll();
 }
+
+void CitiesWidget::changeMode() {}
 
 void CitiesWidget::resizeEvent(QResizeEvent * /* event */) {
     int largeurTableWidget = ui->tableWidget->width();
@@ -70,7 +73,8 @@ void CitiesWidget::replyFinished(QNetworkReply* reply){
 
     QJsonDocument doc = QJsonDocument::fromJson(bytes);
     array = doc.array();
-    afficheAll();
+//    afficheAll();
+    changeFont();
 }
 
 void CitiesWidget::afficheTableView() {
