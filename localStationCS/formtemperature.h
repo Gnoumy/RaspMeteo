@@ -23,7 +23,6 @@ public:
 //    QString font_draw = Config::getFontColor();
 
     void reloadData() ;
-    void changeFont() ;
     void changeMode() ;
 
 
