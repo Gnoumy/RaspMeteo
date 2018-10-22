@@ -152,6 +152,7 @@ private:
     void affectValuesToConfigStaticVars();
     void initAllColorComboBoxes();
     void initAllFontComboBoxes();
+    void initMiscellaneous();
     void changeLabelStyleSheet(QLabel *qlabel, const QComboBox *comboBoxWithFontColor, const QComboBox *comboBoxWithBgColor);
     void resetWidget(QFontComboBox *qfontcombobox,  const QString &value);
     void resetWidget(QComboBox *qcombobox,          const QString &value);

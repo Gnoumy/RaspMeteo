@@ -11,8 +11,11 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
     //-------------------- requete------------------------------------//
         QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+QString::number(latitude)
                       +"&longitude="+QString::number(longitude)+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
+
+        //QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+Config::getLatitude()
+                      //+"&longitude="+Config::getLongitude()+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
         manager = new QNetworkAccessManager(this);
-        //QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.7734&longitude=2.24&&distance=2&distanceunit=KM");
+        //QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.7734&longitude=2.24&&distance=2&distanceunit=KM");//format json
         QUrl url(urlvar);
         QNetworkRequest request; //on declare une variable pour l'envoi de notre requete
         request.setUrl(url);//on fait un set avec l'url
@@ -28,7 +31,7 @@ RechargeVehiculeWidget::~RechargeVehiculeWidget()
 void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
 {
     QByteArray ret=reply->readAll();
-    QJsonDocument myJson=QJsonDocument::fromJson(ret);
+    //QJsonDocument myJson=QJsonDocument::fromJson(ret);
 
     QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
@@ -47,13 +50,29 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
     ui->tableWidget->setShowGrid(false); //pour supprimer les grilles du tableau
     ui->tableWidget->horizontalHeader()->hide(); //pour cacher le nom ou numero des ligne
     ui->tableWidget->verticalHeader()->hide(); //pour cacher le nom ou numero des colonne
-    qDebug() << "taille du tableau" <<ui->tableWidget->size();
+    //qDebug() << "taille du tableau" <<ui->tableWidget->size();
 
     //ajutser le tableau par rapport à qtablewidget
-    QHeaderView* header1 = ui->tableWidget->horizontalHeader();
-    //QHeaderView* header2 = ui->tableWidget->verticalHeader();
-    header1->setSectionResizeMode(QHeaderView::Stretch);
-    //header2->setSectionResizeMode(QHeaderView::Stretch);
+    QHeaderView* ajusteColonne = ui->tableWidget->horizontalHeader();//ajustage des colonnes
+    ajusteColonne->setSectionResizeMode(QHeaderView::Stretch);
+    //QHeaderView* ajusteLigne = ui->tableWidget->verticalHeader();
+    //ajusteLigne->setSectionResizeMode(QHeaderView::Stretch);
+
+    QJsonParseError jsonError;
+    //QJsonDocument doc =QJsonDocument::fromJson(ret,&jsonError);
+    QJsonDocument myJson =QJsonDocument::fromJson(ret,&jsonError);
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        //qDebug()<<QStringLiteral("Recharge Parsed Json failure");
+        //qDebug()<<jsonError.errorString();
+        QString message0("Erreur de connexion, veuillez reessayer plus tard");
+        ui->tableWidget->setRowCount(12);
+        ui->tableWidget->setColumnCount(1);
+        QTableWidgetItem *item0= new QTableWidgetItem(message0);
+        ui->tableWidget->setItem(5,0,item0);
+
+        return;
+    }
 
     if (myJson.array().count()==0) {
         QString message0("PAS DE BORNE DE RECHARGE POUR CETTE POSITION DONNEE");

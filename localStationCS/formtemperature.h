@@ -6,6 +6,8 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include "localstationwidget.h"
+#include <QPushButton>
+#include "config.h"
 
 namespace Ui {
 class FormTemperature;
@@ -18,8 +20,11 @@ class FormTemperature : public LocalStationWidget
 public:
     explicit FormTemperature(QWidget *parent = 0);
     QNetworkAccessManager *qnam = new QNetworkAccessManager(this);
+//    QString font_draw = Config::getFontColor();
+
     void reloadData() ;
     void changeFont() ;
+
 
     ~FormTemperature();
 
