@@ -47,12 +47,12 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
    // qDebug()<<"COLOR"<<"color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor();
 
 
-
-    QNetworkRequest request;
-
+    //QUrl urlPlanesBox ("https://opensky-network.org/api/states/all?lamin="+latiMini+"&lomin="+longiMini+"&lamax="+latiMaxi+"&lomax="+longiMaxi+"\"");
     QUrl url ("https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
 
-    request.setUrl(url);
+    QNetworkRequest request;
+   request.setUrl(url);
+
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
 
@@ -62,6 +62,17 @@ FlightsWidget::~FlightsWidget()
 {
     delete ui;
 }
+
+void FlightsWidget::reloadData() {}//= 0 ; // recupere les donnees pour actualiser le widget
+void FlightsWidget::changeFont() {}
+
+void FlightsWidget::changeMode()
+{
+
+}
+
+
+
 
 
 void FlightsWidget::reponseUrl(QNetworkReply *data){
@@ -109,7 +120,8 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
                     QTableWidgetItem *modele = new QTableWidgetItem(query.value(2).toString());//modele
                     ui-> m_pTableWidget->setItem(i,1, modele);//modèle
 
-                    //qDebug()<< query.value(2).toString();//modele
+
+                    qDebug()<< query.value(2).toString();//modele
                 }
             }
             QTableWidgetItem *longit= new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(5).toString());//longitude

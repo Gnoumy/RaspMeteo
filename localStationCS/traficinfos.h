@@ -6,12 +6,13 @@
 #include <QString>
 #include <QUrl>
 #include <QStandardItemModel>
+#include "localstationwidget.h"
 
 namespace Ui {
 class TraficInfos;
 }
 
-class TraficInfos : public QWidget
+class TraficInfos : public LocalStationWidget
 {
     Q_OBJECT
 
@@ -20,8 +21,12 @@ public:
     const QString itemWhat = "what";
     const QString itemWhen = "where";
 
-    explicit TraficInfos(QWidget *parent = 0);
+    explicit TraficInfos(QWidget *parent);
     ~TraficInfos();
+
+    void reloadData();
+    void changeFont();
+    void changeMode();
 
 private:
     Ui::TraficInfos *ui;
