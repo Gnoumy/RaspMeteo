@@ -91,6 +91,12 @@ void FormTemperature::changeFont()
     ui->tableWidget_temp->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
     connect(qnam,SIGNAL(finished(QNetworkReply*)),this,SLOT(readRead(QNetworkReply*)));
 }
+
+void FormTemperature::changeMode()
+{
+
+}
+
 void FormTemperature::readRead(QNetworkReply *data)
 {
 //  ********  Enregistrement des données à partir du Json  ********
@@ -104,7 +110,6 @@ void FormTemperature::readRead(QNetworkReply *data)
     }
     if(jsonDoc.isObject())
     {
-
         QString temp = QString::number(jsonDoc.object().toVariantMap()["main"].toMap()["temp"].toInt()-273);
         ui->tableWidget_temp->setItem(0,0,new QTableWidgetItem("temp"));
         ui->tableWidget_temp->setItem(0,2,new QTableWidgetItem(temp));

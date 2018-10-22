@@ -24,6 +24,7 @@ public:
 
     void reloadData() ;
     void changeFont() ;
+    void changeMode() ;
 
 
     ~FormTemperature();
