@@ -1,46 +1,51 @@
 #include "mapwindow.h"
 #include "ui_mapwindow.h"
+#include <QQuickView>
+#include <QQuickItem>
+#include <QUrl>
+#include <QtDebug>
+#include <QGeoRectangle>
+#include <QVariant>
+#include "config.h"
 
-MapWindow::MapWindow( QWidget *parent, double latitude, double longitude ) : QWidget( parent ),
-    ui( new Ui::MapWindow )
+//MapWindow::MapWindow( float latitude, float longitude, QWidget *parent ) : QWidget(parent), ui(new Ui::MapWindow)
+MapWindow::MapWindow( QWidget *parent ) : QWidget(parent), ui(new Ui::MapWindow)
 {
-    ui->setupUi( this );
-    setCoordinates( latitude, longitude );
+    ui->setupUi(this);
+
+    //Loading qml plugin for OSM maps
+    view = new QQuickView();
+    container = QWidget::createWindowContainer(view, this);
+
+    view->setSource(QUrl( QStringLiteral( "qrc:/qmlMapsOSM.qml" )));
+    object = view->rootObject();
+
+    setCoordinates( Config::getLatitude(), Config::getLongitude() );
+    ui->verticalLayout->addWidget(container);
+
 }
 
 MapWindow::~MapWindow()
 {
+    delete view;
+    delete container;
     delete ui;
 }
 
 void MapWindow::resizeEvent( QResizeEvent* )
 {
-    resizeAll( );
-    //qDebug() << "Width of map " << ui->mapToDisplay->width();
-    //qDebug() << "Heigth of map " << ui->mapToDisplay->height();
+
+    object->setProperty( "width", this->size().width() );
+    object->setProperty(  "height", this->size().height() );
+
+    container->resize( this->size( ) );
 }
 
-void MapWindow::showEvent( QShowEvent * )
+
+void MapWindow::setCoordinates( float latitude, float longitude )
 {
-    resizeAll();
-}
+   object->setProperty( "qlatitude", latitude );
+   object->setProperty( "qlongitude", longitude );
 
-void MapWindow::resizeAll( )
-{
-
-    MapWidget *map;
-    QList< QWidget* > listChildren = findChildren< QWidget* >( );
-
-    foreach( QWidget* ptrWidget, listChildren) {
-        map = qobject_cast< MapWidget * >( ptrWidget );
-        if ( map )
-            map->changeSize( map->size( ) );
-    }
-}
-
-void MapWindow::setCoordinates( double latitude, double longitude )
-{
-   ui->mapToDisplay->sendCoordinates( latitude, longitude );
    this->update( );
 }
-

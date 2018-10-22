@@ -15,6 +15,7 @@
 #include <QPaintEvent>
 #include <QBrush>
 #include <QPen>
+#include <QPushButton>
 
 PollutionWidget::PollutionWidget(QWidget *parent) :
     LocalStationWidget(parent),
@@ -63,6 +64,12 @@ PollutionWidget::~PollutionWidget()
 void PollutionWidget::premierePage(QNetworkReply *data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
+    QJsonParseError jsonError;
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        qDebug()<<QStringLiteral("Parsed Json failure PollutionWidget");
+        return;
+    }
     ui->label_Indice->setText(jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toString());
     ui->label_Station->setText(jsonDoc.object().value("data").toObject().toVariantMap()["city"].toMap()["name"].toString());
 }

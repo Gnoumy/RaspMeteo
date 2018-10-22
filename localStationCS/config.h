@@ -40,68 +40,62 @@ public:
 
 // Rest of the methods : Getters/Setters    ---------------------------------------
 
-    static int getWidgetMode();
-    static void setWidgetMode(const int &value);
+    static int      getWidgetMode();
+    static int      getScrollingSpeed();
 
-    static int getScrollingSpeed();
-    static void setScrollingSpeed(const int &value);
+    static float    getLatitude();
+    static float    getLongitude();
+    static float    getDistance();
 
-    static QString getFontFamily();
-        static void setFontFamily(const QString &value);
+    static QString  getFontFamily();
+    static QString  getFontColor();
+    static QString  getBgColor();
+    static int      getFontSize();
 
-    static QString getFontColor();
-        static void setFontColor(const QString &value);
+    static QString  getHeaderFontFamily();
+    static QString  getHeaderFontColor();
+    static QString  getHeaderBgColor();
+    static int      getHeaderFontSize();
 
-    static int getFontSize();
-        static void setFontSize(const int &value);
+    static QString  getFooterFontFamily();
+    static QString  getFooterFontColor();
+    static QString  getFooterBgColor();
+    static int      getFooterFontSize();
 
-    static QString getBgColor();
-        static void setBgColor(const QString &value);
+    static QString  getTableFontFamily();
+    static QString  getTableFontColor();
+    static QString  getTableBgColor();
+    static int      getTableFontSize();
 
-    static float getLatitude();
-    static void setLatitude(const float &value);
+friend class Settings ;
+protected:
 
-    static float getLongitude();
-    static void setLongitude(const float &value);
+    static void setWidgetMode       (const int &value);
+    static void setScrollingSpeed   (const int &value);
 
-    static float getDistance();
-    static void setDistance(const float &value);
+    static void setLatitude         (const float &value);
+    static void setLongitude        (const float &value);
+    static void setDistance         (const float &value);
 
-    static QString getHeaderFontFamily();
-    static void setHeaderFontFamily(const QString &value);
+    static void setFontFamily       (const QString &value);
+    static void setFontColor        (const QString &value);
+    static void setBgColor          (const QString &value);
+    static void setFontSize         (const int &value);
 
-    static QString getHeaderFontColor();
-    static void setHeaderFontColor(const QString &value);
+    static void setHeaderFontFamily (const QString &value);
+    static void setHeaderFontColor  (const QString &value);
+    static void setHeaderBgColor    (const QString &value);
+    static void setHeaderFontSize   (const int &value);
 
-    static QString getHeaderBgColor();
-    static void setHeaderBgColor(const QString &value);
+    static void setFooterFontFamily (const QString &value);
+    static void setFooterFontColor  (const QString &value);
+    static void setFooterBgColor    (const QString &value);
+    static void setFooterFontSize   (const int &value);
 
-    static QString getFooterFontFamily();
-    static void setFooterFontFamily(const QString &value);
-
-    static QString getFooterFontColor();
-    static void setFooterFontColor(const QString &value);
-
-    static QString getFooterBgColor();
-    static void setFooterBgColor(const QString &value);
-
-    static int getHeaderFontSize();
-    static void setHeaderFontSize(const int &value);
-
-    static int getFooterFontSize();
-    static void setFooterFontSize(const int &value);
-
-    static QString getTableFontFamily();
-    static void setTableFontFamily(const QString &value);
-
-    static QString getTableFontColor();
-    static void setTableFontColor(const QString &value);
-
-    static QString getTableBgColor();
-    static void setTableBgColor(const QString &value);
-
-    static int getTableFontSize();
-    static void setTableFontSize(const int &value);
+    static void setTableFontFamily  (const QString &value);
+    static void setTableFontColor   (const QString &value);
+    static void setTableBgColor     (const QString &value);
+    static void setTableFontSize    (const int &value);
 
 //    static QString getOther_1();
 //    static void setOther_1(const QString &value);

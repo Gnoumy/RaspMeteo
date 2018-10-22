@@ -16,3 +16,8 @@ void LocalStationWidget::changeFont()
 {
 
 }
+
+void LocalStationWidget::changeMode()
+{
+
+}

@@ -37,8 +37,8 @@ SOURCES += \
     traficinfos.cpp \
     citieswidget.cpp \
     flightswidget.cpp \
-    mapwidget.cpp \
-    mapwindow.cpp
+    mapwindow.cpp \
+    autoscrollinglabel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,8 +53,8 @@ HEADERS += \
     traficinfos.h \
     citieswidget.h \
     flightswidget.h \
-    mapwidget.h \
-    mapwindow.h
+    mapwindow.h \
+    autoscrollinglabel.h
 
 FORMS += \
         mainwindow.ui \
