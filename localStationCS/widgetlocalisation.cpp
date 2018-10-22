@@ -18,10 +18,10 @@ widgetlocalisation::widgetlocalisation(QWidget *parent) :
     ui->setupUi(this);
     manager = new NetworkAccessManager(this);
 
-
-    QString lati = QString::number(Config::getLatitude(),'g',10);
+    QString lati = QString::number(double(Config::getLatitude()),'g',10);
+//    QString lati = QString::number(Config::getLatitude(),'g',10);
     //qDebug() << lati;
-    QString longi = QString::number(Config::getLongitude(),'g',10);
+    QString longi = QString::number(double(Config::getLongitude()),'g',10);
     //qDebug() << longi;
 
     QUrl url("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lati+"&lon="+longi+"&zoom=18&addressdetails=1");
