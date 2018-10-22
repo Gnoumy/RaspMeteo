@@ -4,7 +4,6 @@ build*
 Makefile
 moc_*
 ui_*.h
-localStationCS/Base/*
 localStationCS/A faire en fin de projet
 sshLudoGithub.pub
 
