@@ -175,3 +175,7 @@ void widgetlocalisation::paintEvent(QPaintEvent *)
 {
     ui->tableWidget->setColumnWidth(0,this->width());
 }
+
+void widgetlocalisation::reloadData() {}
+
+void widgetlocalisation::changeFont() {}

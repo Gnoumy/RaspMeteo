@@ -55,6 +55,8 @@ class widgetlocalisation : public LocalStationWidget
 public:
     explicit widgetlocalisation(QWidget *parent = nullptr);
     ~widgetlocalisation();
+    void reloadData() ;
+    void changeFont() ;
 
 private slots:
         void replyFinished(QNetworkReply *reply);
