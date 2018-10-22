@@ -28,13 +28,16 @@ class RechargeVehiculeWidget : public LocalStationWidget
 public:
     explicit RechargeVehiculeWidget(QWidget *parent = 0);
     ~RechargeVehiculeWidget();
+    void reloadData();
+    void changeFont();
+    void changeMode();
 
 private:
     Ui::RechargeVehiculeWidget *ui;
     QNetworkAccessManager *manager;
     float longitude=2.24;
     float latitude=48.7734;
-    float disMax=1;
+    float disMax=2;
     int nbrBorne=10;
 
 private slots:

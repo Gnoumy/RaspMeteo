@@ -11,21 +11,41 @@ RechargeVehiculeWidget::RechargeVehiculeWidget(QWidget *parent) :
     //-------------------- requete------------------------------------//
         QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+QString::number(latitude)
                       +"&longitude="+QString::number(longitude)+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
-
+    //qDebug() << "url: " << urlvar;
         //QString urlvar("https://api.openchargemap.io/v2/poi/?output=json&maxresults="+QString::number(nbrBorne)+"&latitude="+Config::getLatitude()
                       //+"&longitude="+Config::getLongitude()+"&&distance="+QString::number(disMax)+"&distanceunit=KM");
         manager = new QNetworkAccessManager(this);
-        //QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=48.7734&longitude=2.24&&distance=2&distanceunit=KM");//format json
+        //QUrl url("https://api.openchargemap.io/v2/poi/?output=json&maxresults=10&latitude=148.7734&longitude=2.24&&distance=2&distanceunit=KM");//format json
         QUrl url(urlvar);
         QNetworkRequest request; //on declare une variable pour l'envoi de notre requete
-        request.setUrl(url);//on fait un set avec l'url
-        QNetworkReply* currentReply = manager->get(request); //get
+        //request.setUrl(url); //on fait une requête
+        request.setUrl(urlvar); //on fait une requête
         connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
+        QNetworkReply* currentReply = manager->get(request); //get
+        //connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
 }
 
 RechargeVehiculeWidget::~RechargeVehiculeWidget()
 {
     delete ui;
+}
+
+/**********   reloadData   ************/
+void RechargeVehiculeWidget::reloadData()
+{
+
+}
+
+/**********   pour la police et fond   ************/
+void RechargeVehiculeWidget::changeFont()
+{
+
+}
+
+/**********   changement mode   ************/
+void RechargeVehiculeWidget::changeMode()
+{
+
 }
 
 void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
@@ -70,7 +90,6 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
         ui->tableWidget->setColumnCount(1);
         QTableWidgetItem *item0= new QTableWidgetItem(message0);
         ui->tableWidget->setItem(5,0,item0);
-
         return;
     }
 
@@ -80,7 +99,6 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
         ui->tableWidget->setColumnCount(1);
         QTableWidgetItem *item0= new QTableWidgetItem(message0);
         ui->tableWidget->setItem(5,0,item0);
-
     }
 
     if (myJson.array().count() >3) { //alors on affiche le nombre des autres bornes et la distance de celle la plus proche
@@ -105,16 +123,20 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
             ui->tableWidget->setItem(i,1,item2);
 
             QTableWidgetItem *item3= new QTableWidgetItem(distance1);//item1 pour recuperer la distance
-            ui->tableWidget->setItem(i,2,item3);
-
-
+            //ui->tableWidget->setItem(i,2,item3);
+            if (distan==""){//on rajoute une condition pour gerer les distance non definie
+                QString distNonDefini="distance non définie";
+                QTableWidgetItem *item3= new QTableWidgetItem(distNonDefini);//item1 pour recuperer la distance
+                ui->tableWidget->setItem(i,2,item3);
+            }else{
+                ui->tableWidget->setItem(i,2,item3);
+            }
         }
 
         int rest= myJson.array().count()-3;
         QString autresBornes=QString::number(rest);//on convertit un double en QString*/
         QString distance(myJson.array()[myJson.array().count()-1].toObject().toVariantMap()["AddressInfo"].toMap()["Distance"].toString());
         QString dist=distance.left(4);
-
         ui->label_2->setText("+"+autresBornes+ " autres bornes à moins de " +dist+"km");
 
     } else {
@@ -136,7 +158,14 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
             ui->tableWidget->setItem(i,1,item2);
 
             QTableWidgetItem *item3= new QTableWidgetItem(distance1);//item1 pour recuperer la distance
-            ui->tableWidget->setItem(i,2,item3);
+            //ui->tableWidget->setItem(i,2,item3);
+            if (distan==""){ //on rajoute une condition pour gerer les distance non definie
+                QString distNonDefini="distance non définie";
+                QTableWidgetItem *item3= new QTableWidgetItem(distNonDefini);//item1 pour recuperer la distance
+                ui->tableWidget->setItem(i,2,item3);
+            }else{
+                ui->tableWidget->setItem(i,2,item3);
+            }
         }
     }
 }
