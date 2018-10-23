@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->settingsWindow = new Settings(this) ;
     this->connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(openSettings())) ;
 
+    this->connect(this->settingsWindow, SIGNAL(widgetModeChanged()), this, SLOT(switchModeForAllWidgets())) ;
+
+    this->connect(this->settingsWindow, SIGNAL(positionChanged()), this, SLOT(reloadDataForAllWidgets())) ;
 
     //this->connect(this->ui->testPushButton, SIGNAL(clicked(bool)), this, SLOT(testDebugConfig())) ;
 }
@@ -35,6 +38,25 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::reloadDataForAllWidgets()
+{
+//    const QObjectList &childrenList(this->findChildren);
+    qDebug() << "///////////////////////////////////////////////////" ;
+
+    QList<LocalStationWidget *> allLocalStationWidgets(this->findChildren<LocalStationWidget *>());
+
+    for(const LocalStationWidget *child : allLocalStationWidgets)
+        qDebug() << child->objectName() << child->metaObject()->className();
+
+    qDebug() << "***************************************************" ;
+}
+
+void MainWindow::switchModeForAllWidgets()
+{
+    this->ui->widget2->changeMode();
+    this->ui->widget6->changeMode();
 }
 
 void MainWindow::openSettings()

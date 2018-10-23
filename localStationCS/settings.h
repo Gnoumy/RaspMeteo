@@ -174,7 +174,8 @@ private:
                                    const QComboBox      *comboBoxWithBgColor);
 
 signals:
-    void widgetModeChanged(const int &value) ;
+    void widgetModeChanged() ;
+    void positionChanged();
 };
 
 #endif // SETTINGS_H

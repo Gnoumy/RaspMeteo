@@ -662,7 +662,8 @@ void Settings::changeConfig()
     Config::setScrollingSpeed( this->ui->scrollingSpeedHorizontalSlider->value() ) ;
 
     Config::setWidgetMode( this->ui->widgetModeSpinBox->value() ) ;
-    emit widgetModeChanged(this->ui->widgetModeSpinBox->value());
+    emit widgetModeChanged();
+    emit positionChanged();
 
     // Apply to the whole project
     QApplication::setFont(QFont(this->ui->fontComboBox->currentText(),this->ui->fontSpinBox->value()));
