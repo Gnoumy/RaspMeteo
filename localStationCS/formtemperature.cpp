@@ -20,7 +20,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
-//    setFixedSize(300, 300);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
     int index = ui->stackedWidget->currentIndex();
@@ -88,7 +87,6 @@ void FormTemperature::changeMode()
     {
         ui->stackedWidget->setCurrentIndex(0);
     }
-
 }
 
 void FormTemperature::readRead(QNetworkReply *data)

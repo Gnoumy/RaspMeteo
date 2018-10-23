@@ -70,7 +70,7 @@ class PollutionWidget : public LocalStationWidget
     Q_OBJECT
 
 public:
-    explicit PollutionWidget(QWidget *parent = 0);
+    explicit PollutionWidget(QWidget *parent = nullptr);
     QNetworkAccessManager *networkManager = new QNetworkAccessManager(this);
     void reloadData() ;//= 0 ; // recupere les donnees pour actualiser le widget
     void changeFont(  ) ;//= 0 ; // changer la police (style, taille, etc...)
@@ -113,12 +113,12 @@ public:
         //    int position = 150;
 
             //Dessin de l'aiguille
-            QPoint points[3]={
-                QPoint(235,370), //gauche
-                QPoint(265,370), //droite
-                QPoint(250,220), //haut
-            };
-    };
+//            QPoint points[3]={
+//                QPoint(235,370), //gauche
+//                QPoint(265,370), //droite
+//                QPoint(250,220), //haut
+//            };
+    }
 
 private:
     Ui::PollutionWidget *ui;

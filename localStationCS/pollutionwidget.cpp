@@ -118,5 +118,13 @@ void PollutionWidget::changeFont()
 
 void PollutionWidget::changeMode()
 {
-
+    int index = ui->stackedWidget->currentIndex();
+    if(index == 0)
+    {
+        ui->stackedWidget->setCurrentIndex(1);
+    }
+    else
+    {
+        ui->stackedWidget->setCurrentIndex(0);
+    }
 }
