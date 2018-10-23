@@ -22,7 +22,9 @@
 #include <QStringList>
 #include <math.h>
 #include <QPainter>
+#include <QStackedWidget>
 #include "localstationwidget.h"
+#include "autoscrollinglabel.h"
 #include "config.h"
 
 #define PI 3.14159265

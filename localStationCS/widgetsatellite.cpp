@@ -185,14 +185,21 @@ void WidgetSatellite::FillTable()
         Satellite sat = SatelliteList.at(i);
         ui->tableWidget->setItem(i,0,
                                  new QTableWidgetItem(QString::number(sat.Get_satid())));
-        ui->tableWidget->setItem(i,1,
-                                 new QTableWidgetItem(sat.Get_satname()));
+      //  ui->tableWidget->setItem(i,1,new QTableWidgetItem(sat.Get_satname()));
+        //ui->tableWidget->setCellWidget(i,1,new QLabel(sat.Get_satname()));
+         AutoScrollingLabel *label_sat_name= new AutoScrollingLabel(this);
+         label_sat_name->setText(sat.Get_satname());
+         ui->tableWidget->setCellWidget(i,1,label_sat_name);
+
 //        ui->tableWidget->setItem(i,2,
 //                                 new QTableWidgetItem(sat.Get_intDesignator()));
         ui->tableWidget->setItem(i,2,
                                  new QTableWidgetItem(sat.Get_launchDate()));
-        ui->tableWidget->setItem(i,3,
-                                 new QTableWidgetItem(sat.Get_category()));
+        AutoScrollingLabel *label_sat_cat= new AutoScrollingLabel(this);
+        label_sat_cat->setText(sat.Get_category());
+        ui->tableWidget->setCellWidget(i,3,label_sat_cat);
+//        ui->tableWidget->setItem(i,3,
+//                                 new QTableWidgetItem(sat.Get_category()));
         ui->tableWidget->setItem(i,4,
                                  new QTableWidgetItem(QString::number(sat.Get_satlat())));
         ui->tableWidget->setItem(i,5,
@@ -200,7 +207,7 @@ void WidgetSatellite::FillTable()
         ui->tableWidget->setItem(i,6,
                                  new QTableWidgetItem(QString::number(sat.Get_satalt())));
     }
-    ui->tableWidget->resizeColumnsToContents();
+ //   ui->tableWidget->resizeColumnsToContents();
     ui->tableWidget->resizeRowsToContents();
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
  }
@@ -356,4 +363,6 @@ void WidgetSatellite::reloadData()
 }
 
 void WidgetSatellite::changeMode()
-{}
+{
+
+}
