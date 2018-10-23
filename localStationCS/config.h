@@ -96,9 +96,6 @@ protected:
     static void setTableFontColor   (const QString &value);
     static void setTableBgColor     (const QString &value);
     static void setTableFontSize    (const int &value);
-
-signals:
-    void widgetModeChanged(const int &value) ;
 };
 
 #endif // CONFIG_H

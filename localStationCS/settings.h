@@ -172,6 +172,9 @@ private:
                                    const QSpinBox       *fontSizeSpinBox,
                                    const QComboBox      *comboBoxWithFontColor,
                                    const QComboBox      *comboBoxWithBgColor);
+
+signals:
+    void widgetModeChanged(const int &value) ;
 };
 
 #endif // SETTINGS_H
