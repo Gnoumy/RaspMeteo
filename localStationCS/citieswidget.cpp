@@ -15,8 +15,7 @@
 #include <localstationwidget.h>
 
 CitiesWidget::CitiesWidget(QWidget *parent) :
-    LocalStationWidget(parent), ui(new Ui::CitiesWidget)
-{
+    LocalStationWidget(parent), ui(new Ui::CitiesWidget) {
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     ui->setupUi(this);    
     manager = new QNetworkAccessManager(this);
@@ -44,7 +43,7 @@ void CitiesWidget::resizeEvent(QResizeEvent * /* event */) {
     int largeurTableWidget = ui->tableWidget->width();
     int largeur1 = int(0.7*largeurTableWidget);
     ui->tableWidget->setColumnWidth(0, largeur1);
-    ui->tableWidget->setColumnWidth(1, largeurTableWidget-largeur1 -2);
+    ui->tableWidget->setColumnWidth(1, largeurTableWidget-largeur1 -4);
 }
 
 QStringList CitiesWidget::buildWebAdress(QString lat, QString lon) {
@@ -85,11 +84,11 @@ void CitiesWidget::afficheTableView() {
 
     ui->tableWidget->setRowCount(maxRow);
     ui->tableWidget->setColumnCount(2);
-
+    ui->tableWidget->clear();
     int largeurTableWidget = ui->tableWidget->width();
     int largeur1 = int(0.7*largeurTableWidget);
     ui->tableWidget->setColumnWidth(0, largeur1);
-    ui->tableWidget->setColumnWidth(1, largeurTableWidget-largeur1-2);
+    ui->tableWidget->setColumnWidth(1, largeurTableWidget-largeur1-4);
 
     QFont apiFont(Config::getFontFamily(), Config::getFontSize(), QFont::Normal, false );
 
@@ -112,7 +111,7 @@ void CitiesWidget::afficheTableView() {
     QString distanceSTR;
     for (int i=0; i < maxRow; i++) {
         innerArray = array[i].toArray();
-        ville = new QTableWidgetItem(innerArray[1].toString());
+        ville = new QTableWidgetItem(innerArray[1].toString());        
         ville->setFont(apiFont);
 
         distanceSTR = innerArray[7].toString();
@@ -153,6 +152,7 @@ void CitiesWidget::afficheFooter(){
     QFont footerFont(Config::getFooterFontFamily(),
                      Config::getFooterFontSize(),
                      QFont::Normal, false );
+    ui->footerLabel->clear();
     ui->footerLabel ->setFont(footerFont);
 
     QString bcfc = "QLabel { background-color : "+Config::getFooterBgColor()+
