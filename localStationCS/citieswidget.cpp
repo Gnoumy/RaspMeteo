@@ -78,7 +78,7 @@ void CitiesWidget::replyFinished(QNetworkReply* reply){
 
 void CitiesWidget::afficheTableView() {
     int nbEle = array.size();
-    int maxRow = 3;
+    int maxRow = Config::getTableNbOfLines();
     if (nbEle < maxRow)
         maxRow = nbEle;
 
@@ -152,7 +152,7 @@ void CitiesWidget::afficheFooter(){
     QFont footerFont(Config::getFooterFontFamily(),
                      Config::getFooterFontSize(),
                      QFont::Normal, false );
-    ui->footerLabel->clear();
+
     ui->footerLabel ->setFont(footerFont);
 
     QString bcfc = "QLabel { background-color : "+Config::getFooterBgColor()+
