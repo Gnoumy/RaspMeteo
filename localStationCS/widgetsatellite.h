@@ -96,7 +96,7 @@ class WidgetSatellite : public LocalStationWidget
 public:
     explicit WidgetSatellite(QWidget *parent=0);
     ~WidgetSatellite();
-
+    void changeMode();
     void SetSat_categories();
 
 private slots:
@@ -115,7 +115,7 @@ private:
     void Showpic(QImage &img);
     void DrawSatellites(QImage *img);
     void reloadData();
-    void changeMode();
+
 };
 
 #endif // QWIDGETSATELLITE_H
