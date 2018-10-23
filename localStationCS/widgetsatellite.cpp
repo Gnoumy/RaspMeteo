@@ -364,5 +364,5 @@ void WidgetSatellite::reloadData()
 
 void WidgetSatellite::changeMode()
 {
-
+    ui->stackedWidget->setCurrentIndex(Config::getWidgetMode());
 }
