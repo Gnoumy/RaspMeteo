@@ -32,20 +32,14 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         ui->lineEdit_header->setFont(header);
         ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
         ui->lineEdit_header->setText("Pollution");
-
-        ui->label_Indice->setStyleSheet("color:"+Config::getFontColor()+";background-color: "+Config::getTableBgColor());
+        ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
 
         ui->label_MinMax->setFont(footer);
-//        ui->label_MinMax->setFixedHeight(35);
-
         ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
 
         ui->label_Station->setFont(footer);
-//        ui->label_Station->setFixedHeight(35);
-
         ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
     /*********************   FIN PARAMETRES   *****************************/
-
 
     /**********************   REQUETE JSON   ******************************/
         QNetworkRequest request;
@@ -57,7 +51,6 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
     /********************   FIN REQUETE JSON   ****************************/
 }
-
 void PollutionWidget::premierePage(QNetworkReply *data)
 {
     QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
@@ -70,9 +63,21 @@ void PollutionWidget::premierePage(QNetworkReply *data)
     ui->label_Indice->setText(jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toString());
     ui->label_Station->setText(jsonDoc.object().value("data").toObject().toVariantMap()["city"].toMap()["name"].toString());
 }
-
 void PollutionWidget::reloadData()
 {
+    this->setStyleSheet("background-color: "+Config::getBgColor());
+    QFont font(Config::getFontFamily(),Config::getFontSize());
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+
+    ui->lineEdit_header->setFont(header);
+    ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
+    ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
+    ui->label_MinMax->setFont(footer);
+    ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
+    ui->label_Station->setFont(footer);
+    ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
+
     QNetworkRequest request;
     QString latitude = QString::number(Config::getLatitude());
     QString longitude = QString::number(Config::getLongitude());
@@ -81,13 +86,10 @@ void PollutionWidget::reloadData()
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
 }
-
 void PollutionWidget::changeMode()
 {
 
 }
-
-
 PollutionWidget::~PollutionWidget()
 {
     delete ui;

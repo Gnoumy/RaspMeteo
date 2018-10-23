@@ -56,7 +56,6 @@ public:
     explicit widgetlocalisation(QWidget *parent = nullptr);
     ~widgetlocalisation();
     void reloadData() ;
-    void changeFont() ;
     void changeMode();
 
 private slots:

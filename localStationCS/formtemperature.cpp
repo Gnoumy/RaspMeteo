@@ -31,6 +31,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
 
 //  ********  Parametre de la table Widget  ********
     QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+    ui->tableWidget_temp->setMinimumWidth(250);
     ui->tableWidget_temp->setFont(font);
     ui->tableWidget_temp->setRowCount(4);
     ui->tableWidget_temp->setColumnCount(4);
@@ -127,7 +128,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         pixmap_therm.fill(QColor("transparent"));
         QPainter painter_therm(&pixmap_therm);
         QPen pen_therm;
-        pen_therm.setColor(Config::getFontColor());
+        pen_therm.setColor(Config::getTableFontColor());
         painter_therm.setPen(pen_therm);
         QRectF rectangle_therm(5.0, 30.0, 30.0, 300.0);
         QRectF rectangle_temp(6.0,330.0-temp_px,29.0,temp_px);
@@ -165,7 +166,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter_therm.setPen(pen_therm);
             QBrush brush_temp (Qt::blue, Qt::SolidPattern);
-            pen_therm.setColor(Config::getFontColor());
+            pen_therm.setColor(Config::getTableFontColor());
             painter_therm.setBrush(brush_temp);
             painter_therm.drawEllipse(0,310,40,40);
             pen_therm.setColor(Qt::blue);
@@ -178,7 +179,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter_therm.setPen(pen_therm);
             QBrush brush_temp (Qt::green, Qt::SolidPattern);
-            pen_therm.setColor(Config::getFontColor());
+            pen_therm.setColor(Config::getTableFontColor());
             painter_therm.setBrush(brush_temp);
             painter_therm.drawEllipse(0,310,40,40);
             pen_therm.setColor(Qt::green);
@@ -191,7 +192,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter_therm.setPen(pen_therm);
             QBrush brush_temp (Qt::red, Qt::SolidPattern);
-            pen_therm.setColor(Config::getFontColor());
+            pen_therm.setColor(Config::getTableFontColor());
             painter_therm.setBrush(brush_temp);
             painter_therm.drawEllipse(0,310,40,40);
             pen_therm.setColor(Qt::red);
@@ -209,7 +210,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         pixmap2.fill(QColor("transparent"));
         QPainter painter2(&pixmap2);
         QPen pen2;
-        pen2.setColor(Config::getFontColor());
+        pen2.setColor(Config::getTableFontColor());
         painter2.setPen(pen2);
         QRectF rectangle2(10.0, 40.0, 30.0, 300.0);
         painter2.drawRect(rectangle2);
@@ -228,7 +229,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter2.setPen(pen2);
             QBrush brush2 (Qt::red, Qt::SolidPattern);
-            pen2.setColor(Config::getFontColor());
+            pen2.setColor(Config::getTableFontColor());
             painter2.setBrush(brush2);
             QRectF rectangle_hygro(11,341.0-hygro_px,29,1+hygro_px);
             pen2.setColor(Qt::red);
@@ -241,7 +242,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter2.setPen(pen2);
             QBrush brush2 (Qt::green, Qt::SolidPattern);
-            pen2.setColor(Config::getFontColor());
+            pen2.setColor(Config::getTableFontColor());
             painter2.setBrush(brush2);
             QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
             pen2.setColor(Qt::green);
@@ -254,7 +255,7 @@ void FormTemperature::readRead(QNetworkReply *data)
         {
             painter2.setPen(pen2);
             QBrush brush2 (Qt::blue, Qt::SolidPattern);
-            pen2.setColor(Config::getFontColor());
+            pen2.setColor(Config::getTableFontColor());
             painter2.setBrush(brush2);
             QRectF rectangle_hygro(11,340.0-hygro_px,29,hygro_px);
             pen2.setColor(Qt::blue);
