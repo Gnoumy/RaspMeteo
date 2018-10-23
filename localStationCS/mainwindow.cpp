@@ -8,6 +8,7 @@
 
 #include <QDesktopWidget>
 #include <QDebug>
+#include <QShortcut>
 
 #define NUMBER_OF_WIDGETS       8
 #define SCREEN_GEOMETRY_RATIO   0.5   // 1 pour 100% de l'ecran, 0.5 pour la moitie
@@ -24,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->horizontalLayout->setSpacing(0);
     this->ui->horizontalLayout_2->setContentsMargins(0,0,0,0);
     this->ui->horizontalLayout_2->setSpacing(0);
+
+    new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q), this, SLOT(close()));
 
     this->settingsWindow = new Settings(this) ;
     this->connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(openSettings())) ;
@@ -59,7 +62,7 @@ void MainWindow::switchModeForAllWidgets()
 void MainWindow::openSettings()
 {
     this->settingsWindow->resetSettingsWidgets();
-    this->settingsWindow->show();
+    this->settingsWindow->exec();
 }
 
 void MainWindow::initDisplay()

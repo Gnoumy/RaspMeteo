@@ -31,7 +31,9 @@ Settings::Settings(QWidget *parent) :
     // qDebug() << "this->ui->scrollingSpeedHorizontalSlider->width()" << this->ui->scrollingSpeedHorizontalSlider->width() ;
     // qDebug() << "this->ui->scrollingSpeedLabel->width()" << this->ui->scrollingSpeedLabel->width() ;
     this->initAllColorComboBoxes() ;
-    this->initAllFontComboBoxes() ;
+
+    // commented because : in the end, Gilles decided to use Qt default fonts
+//    this->initAllFontComboBoxes() ;
 
     // init doubleSpinBoxes (for now : latitude, longitude, distance)
     // "English" => decimal separator = '.'
@@ -79,6 +81,9 @@ Settings::Settings(QWidget *parent) :
 
 
     QApplication::setFont(QFont( Config::getFontFamily(), Config::getFontSize() ));
+    QPalette pal;
+    pal.setColor(QPalette::Background, Config::getBgColor());
+    QApplication::setPalette(pal);
 
     // all the connects --------------------------------------------------------------------------------------------------------
 
@@ -674,6 +679,9 @@ void Settings::changeConfig()
 
     // Apply to the whole project
     QApplication::setFont(QFont(this->ui->fontComboBox->currentText(),this->ui->fontSpinBox->value()));
+    QPalette pal;
+    pal.setColor(QPalette::Background, this->ui->bgColorComboBox->currentText());
+    QApplication::setPalette(pal);
     this->hide();
 }
 
