@@ -20,6 +20,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui(new Ui::FormTemperature)
 {
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(Config::getWidgetMode());
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
