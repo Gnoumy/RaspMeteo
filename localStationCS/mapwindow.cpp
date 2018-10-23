@@ -14,11 +14,17 @@ MapWindow::MapWindow( QWidget *parent ) : QWidget(parent), ui(new Ui::MapWindow)
     ui->setupUi(this);
 
     //Loading qml plugin for OSM maps
-    view = new QQuickView();
-    container = QWidget::createWindowContainer(view, this);
+    //view = new QQuickView();
+    //container = QWidget::createWindowContainer(view, this);
 
-    view->setSource(QUrl( QStringLiteral( "qrc:/qmlMapsOSM.qml" )));
-    object = view->rootObject();
+    container = new QQuickWidget;
+    container->setResizeMode(QQuickWidget::SizeRootObjectToView);
+
+    //view->setSource(QUrl( QStringLiteral( "qrc:/qmlMapsOSM.qml" )));
+    container->setSource(QUrl( QStringLiteral( "qrc:/qmlMapsOSM.qml" )));
+
+    //object = view->rootObject();
+    object = container->rootObject();
 
     setCoordinates( Config::getLatitude(), Config::getLongitude() );
     ui->verticalLayout->addWidget(container);
@@ -27,7 +33,7 @@ MapWindow::MapWindow( QWidget *parent ) : QWidget(parent), ui(new Ui::MapWindow)
 
 MapWindow::~MapWindow()
 {
-    delete view;
+    //delete view;
     delete container;
     delete ui;
 }
