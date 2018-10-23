@@ -22,7 +22,6 @@ FormTemperature::FormTemperature(QWidget *parent) :
     ui->setupUi(this);
     this->setStyleSheet("background-color: "+Config::getTableBgColor());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-    int index = ui->stackedWidget->currentIndex();
 
 //  ********  Parametre du lineEdit header  ********
     ui->lineEdit_header->setFont(header);

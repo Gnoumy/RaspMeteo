@@ -24,7 +24,7 @@
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_affichageDefaut_3">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -154,9 +154,6 @@
         </layout>
        </item>
       </layout>
-      <zorder>formLayoutWidget</zorder>
-      <zorder>label_Station</zorder>
-      <zorder></zorder>
      </widget>
      <widget class="QWidget" name="page_affichageGraphique_3">
       <layout class="QVBoxLayout" name="verticalLayout_10">
