@@ -8,6 +8,7 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
     ui->setupUi(this);
     this->setMouseTracking(true);    
     this->setStyleSheet("background-color: "+Config::getBgColor());
+    ui->stackedWidget->setCurrentIndex(0);
     //  ********  Parametre du lineEdit header  ********
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
     ui->lineEdit->setFont(header);
