@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QQuickView>
 #include <QObject>
+#include <QQuickWidget>
 
 namespace Ui { class MapWindow; }
 
@@ -23,8 +24,9 @@ private:
     Ui::MapWindow *ui;
     void resizeAll( );
     QQuickView *view;
-    QWidget *container;
+    //QWidget *container;
     QObject* object;
+    QQuickWidget *container;
 
 public slots:
     void setCoordinates( float, float );

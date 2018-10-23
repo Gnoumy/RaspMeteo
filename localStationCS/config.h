@@ -96,18 +96,6 @@ protected:
     static void setTableFontColor   (const QString &value);
     static void setTableBgColor     (const QString &value);
     static void setTableFontSize    (const int &value);
-
-//    static QString getOther_1();
-//    static void setOther_1(const QString &value);
-
-//    static QString getOther_2();
-//    static void setOther_2(const QString &value);
-
-//    static int getOther_3();
-//    static void setOther_3(const int &value);
-
-//    static float getOther_4();
-//    static void setOther_4(const float &value);
 };
 
 #endif // CONFIG_H

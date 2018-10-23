@@ -118,7 +118,7 @@ private slots:
 //    void changeFontComboBox(const QString &value);
 //    void changeSpinBox(const int &value);
     void reject();
-    void paintEvent(QPaintEvent *e);
+//    void paintEvent(QPaintEvent *e);
 
 private:
     Ui::Settings *ui;
@@ -172,6 +172,9 @@ private:
                                    const QSpinBox       *fontSizeSpinBox,
                                    const QComboBox      *comboBoxWithFontColor,
                                    const QComboBox      *comboBoxWithBgColor);
+
+signals:
+    void widgetModeChanged(const int &value) ;
 };
 
 #endif // SETTINGS_H
