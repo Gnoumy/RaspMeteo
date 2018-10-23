@@ -30,7 +30,7 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
     //  ********  Parametre de la table Widget  ********
 
 
-    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
+    QFont font(Config::getTableFontFamily(),Config::getFontSize());//font(police, taille)
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -57,7 +57,7 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
 
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
-
+reloadData();
 }
 
 FlightsWidget::~FlightsWidget()
@@ -75,10 +75,11 @@ void FlightsWidget::reloadData() {
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
 
-    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
+    QFont font(Config::getTableFontFamily(),Config::getFontSize());//font(police, taille)
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
       ui->m_pTableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+      ui->lineEdit->setFont(header);//taille de police du l'entete
     ui->lineEdit->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
 
 }//= 0 ; // recupere les donnees pour actualiser le widget
