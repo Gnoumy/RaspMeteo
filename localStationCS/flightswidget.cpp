@@ -2,6 +2,7 @@
 #include "ui_flightswidget.h"
 #include "localstationwidget.h"
 #include "config.h"
+#include "autoscrollinglabel.h"
 #include <QUrl>
 #include <QObject>
 #include <QtNetwork>
@@ -44,14 +45,15 @@ FlightsWidget::FlightsWidget(QWidget *parent) :
 
     ui->lineEdit->setFont(header);//taille de police du l'entete
     ui->lineEdit->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
-   // qDebug()<<"COLOR"<<"color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor();
 
+
+    //  ********  Requete API  ********
 
     //QUrl urlPlanesBox ("https://opensky-network.org/api/states/all?lamin="+latiMini+"&lomin="+longiMini+"&lamax="+latiMaxi+"&lomax="+longiMaxi+"\"");
     QUrl url ("https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
 
     QNetworkRequest request;
-   request.setUrl(url);
+    request.setUrl(url);
 
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
@@ -82,7 +84,7 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
 
     if(jsonError.error != QJsonParseError::NoError)
     {
-        qDebug()<<QStringLiteral("Parsed Json failure on FlightsWidget");
+        qDebug()<<QStringLiteral("thisParsed Json failure on FlightsWidget");
         qDebug()<<jsonError.errorString();
         return;
     }else{
@@ -96,31 +98,26 @@ void FlightsWidget::reponseUrl(QNetworkReply *data){
         for ( int i=0;i<10 && i< doc.object().toVariantMap()["states"].toList().at(i).toList().count();i++)
         {
             QTableWidgetItem *icao = new QTableWidgetItem (doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString());//icao
+
             ui-> m_pTableWidget->setItem(i,0, icao);
 
 
-            //Requete base de donnée pour obtenir les caractéristiques de l'avion
-
+            //  ********  Requete a la Base  de donnée pour obtenir le modèle de l'avion********/
             QSqlQuery query;
             QString myIcao24 = doc.object().toVariantMap()["states"].toList().at(i).toList().at(0).toString();
-            //qDebug()<< query.value(0).toString();//icao
+
             query.prepare("select icao24, manufacturername, model FROM avionmodel where icao24 = (:myIcao24)");
-            // query.bindValue(":name", name);
+
             query.bindValue(":myIcao24", myIcao24);
 
             if (query.exec())
             {
                 if (query.next())
                 {
-                    //QTableWidgetItem *ele5 = new QTableWidgetItem(query.value(1).toString());//fabricant
-                    // ui-> m_pTableWidget->setItem(i,1, ele5);
 
-                    //qDebug()<< query.value(1).toString();//fabricant
-
-                    QTableWidgetItem *modele = new QTableWidgetItem(query.value(2).toString());//modele
-                    ui-> m_pTableWidget->setItem(i,1, modele);//modèle
-
-
+                    AutoScrollingLabel *modelFly = new AutoScrollingLabel(this);
+                    modelFly->setText(query.value(2).toString());
+                    ui-> m_pTableWidget->setCellWidget(i,1, modelFly);
                     qDebug()<< query.value(2).toString();//modele
                 }
             }
