@@ -100,17 +100,10 @@ void widgetlocalisation::reloadData()
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
     ui->tableWidget->setMinimumWidth(250);
     ui->tableWidget->setFont(font);
+    ui->lineEdit->setFont(header);
     ui->tableWidget->setStyleSheet("color :"+Config::getTableFontColor()+";background-color :"+Config::getTableBgColor());
-
-    QUrl url("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lati+"&lon="+longi+"&zoom=18&addressdetails=1");
-   //QUrl url("https://api.navitia.io/v1/coverage/sandbox/stop_areas/stop_area%3ARAT%3ASA%3AGDLYO/stop_schedules?items_per_schedule=2&");
-    //url.setUserName("45205f1c-86f6-4740-9af7-a5dbe3fcf15d");
-    //url.setPassword("dieynaba92");
-    QNetworkRequest request;
-    request.setUrl(url);
-     //connect(manager, SIGNAL(authenticationRequired(QNetworkReply*, QAuthenticator*)), this, SLOT(authenticationRequired(QNetworkReply*, QAuthenticator*)));
     connect(manager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinished(QNetworkReply*)));
-    manager->get(request);
+
 }
 
 void widgetlocalisation::changeMode()

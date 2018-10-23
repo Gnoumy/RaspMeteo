@@ -55,7 +55,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
 
 void PollutionWidget::reloadData()
 {
-    QFont font(Config::getTableFontFamily(),Config::getFontSize());
+    QFont font(Config::getTableFontFamily(),Config::getFontSize()+30);
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
