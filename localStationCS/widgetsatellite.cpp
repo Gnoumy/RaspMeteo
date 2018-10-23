@@ -57,7 +57,7 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
     {
-        qDebug()<<QStringLiteral("Parsed Json failure");
+        qDebug()<<QStringLiteral("Parsed Json failure alt");
         qDebug()<<jsonError.errorString();
         return;
     }
@@ -93,7 +93,7 @@ void WidgetSatellite::Slot_SatTrack()
                 +"/"+alt;
         url+="/"+QString::number(degree)+"/";
         url+=QString::number(Sat_categories.values().at(i))+N2YOKEY;
-        qDebug()<<url;
+        //qDebug()<<url;
         request.setUrl(QUrl(url));
         QNetworkReply *pReplay = manager->get(request);
         QEventLoop eventLoop;

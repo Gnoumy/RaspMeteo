@@ -8,6 +8,8 @@
 #define RESSOURCE_FONTS_FOLDER      ":/fonts"
 #define MIN_SCROLLING_SPEED         1   // fast
 #define MAX_SCROLLING_SPEED         50  // slow
+#define MIN_TABLE_NB_OF_LINES       2
+#define MAX_TABLE_NB_OF_LINES       10
 #define MIN_WIDGET_MODE             0
 #define MAX_WIDGET_MODE             1
 #define DEFAULT_SPEED_TEXT          "Speed (Fast -> Slow) : "
@@ -601,6 +603,7 @@ void Settings::resetSettingsWidgets()
     this->ui->scrollingSpeedLabel->setText(DEFAULT_SPEED_TEXT
                 + QString::number(this->ui->scrollingSpeedHorizontalSlider->value()));
     this->ui->widgetModeSpinBox->setValue(Config::getWidgetMode());
+    this->ui->tableNbOfLinesSpinBox->setValue(Config::getTableNbOfLines());
 
 }
 
@@ -664,6 +667,10 @@ void Settings::changeConfig()
     Config::setWidgetMode( this->ui->widgetModeSpinBox->value() ) ;
     emit widgetModeChanged();
     emit positionChanged();
+
+    Config::setTableNbOfLines( this->ui->tableNbOfLinesSpinBox->value() ) ;
+
+
 
     // Apply to the whole project
     QApplication::setFont(QFont(this->ui->fontComboBox->currentText(),this->ui->fontSpinBox->value()));
@@ -767,6 +774,8 @@ void Settings::initMiscellaneous()
 
 
     this->ui->widgetModeSpinBox->setRange(MIN_WIDGET_MODE, MAX_WIDGET_MODE);
+
+    this->ui->tableNbOfLinesSpinBox->setRange(MIN_TABLE_NB_OF_LINES, MAX_TABLE_NB_OF_LINES);
 }
 
 // ameliorer ???

@@ -42,22 +42,18 @@ MainWindow::~MainWindow()
 
 void MainWindow::reloadDataForAllWidgets()
 {
-//    const QObjectList &childrenList(this->findChildren);
-    qDebug() << "///////////////////////////////////////////////////" ;
-
-    QList<LocalStationWidget *> allLocalStationWidgets(this->findChildren<LocalStationWidget *>());
+    const QList<LocalStationWidget *> &allLocalStationWidgets(this->findChildren<LocalStationWidget *>());
 
     for(LocalStationWidget *child : allLocalStationWidgets)
         child->reloadData();
-//        qDebug() << child->objectName() << child->metaObject()->className();
-
-    qDebug() << "***************************************************" ;
 }
 
 void MainWindow::switchModeForAllWidgets()
 {
-    this->ui->widget2->changeMode();
-    this->ui->widget6->changeMode();
+    const QList<LocalStationWidget *> &allLocalStationWidgets(this->findChildren<LocalStationWidget *>());
+
+    for(LocalStationWidget *child : allLocalStationWidgets)
+        child->changeMode();
 }
 
 void MainWindow::openSettings()
@@ -70,10 +66,6 @@ void MainWindow::initDisplay()
 {
     // dimensions de mon pc = 1680:1050
     resize(QDesktopWidget().availableGeometry(this).size() * SCREEN_GEOMETRY_RATIO);
-
-//    const int W = QDesktopWidget().availableGeometry(this).size().width(),
-//              H = QDesktopWidget().availableGeometry(this).size().height()  ;
-
 
 
 //    this->widgets = new LocalStationWidget*[NUMBER_OF_WIDGETS] ;
