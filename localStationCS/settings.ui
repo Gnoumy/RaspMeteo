@@ -24,7 +24,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="tabPosition">
       <attribute name="title">
@@ -235,6 +235,23 @@
          </item>
          <item>
           <widget class="QSpinBox" name="widgetModeSpinBox"/>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelTableNbOfLines">
+           <property name="text">
+            <string>Maximum number of lines in Table</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="tableNbOfLinesSpinBox"/>
          </item>
         </layout>
        </item>

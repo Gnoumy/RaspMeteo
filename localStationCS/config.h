@@ -40,6 +40,7 @@ public:
 
 // Rest of the methods : Getters/Setters    ---------------------------------------
 
+    static int      getTableNbOfLines();
     static int      getWidgetMode();
     static int      getScrollingSpeed();
 
@@ -70,6 +71,7 @@ public:
 friend class Settings ;
 protected:
 
+    static void setTableNbOfLines   (const int &value);
     static void setWidgetMode       (const int &value);
     static void setScrollingSpeed   (const int &value);
 

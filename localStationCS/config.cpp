@@ -1,6 +1,9 @@
 #include "config.h"
 #include <QSettings>
 
+#define TABLE_NB_OF_LINES           "table/maxNumberOfLines"
+#define DEFAULT_TABLE_NB_OF_LINES   2
+
 #define WIDGET_MODE             "widgetMode"
 #define DEFAULT_WIDGET_MODE     0
 
@@ -43,6 +46,24 @@
 //{
 
 //}
+
+//int Config::tableNbOfLines(0);
+int Config::getTableNbOfLines()
+{
+    QSettings qsettings ;
+    int tableNbOfLines = qsettings.value(TABLE_NB_OF_LINES).toInt() ;
+    if(tableNbOfLines==0)
+        tableNbOfLines = DEFAULT_TABLE_NB_OF_LINES ;
+    return tableNbOfLines;
+}
+void Config::setTableNbOfLines(const int &value)
+{
+    if ( value != Config::getTableNbOfLines() )
+    {
+        QSettings qsettings ;
+        qsettings.setValue(TABLE_NB_OF_LINES, value);
+    }
+}
 
 //int Config::widgetMode(0);
 int Config::getWidgetMode()
