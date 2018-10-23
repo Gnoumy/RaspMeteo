@@ -21,6 +21,8 @@ public:
 private slots:
     void openSettings();
 
+    void switchModeForAllWidgets();
+    void reloadDataForAllWidgets();
 private:
     Ui::MainWindow *ui;
     LocalStationWidget **widgets ;
