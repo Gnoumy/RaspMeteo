@@ -59,6 +59,7 @@ void Config::setWidgetMode(const int &value)
     {
         QSettings qsettings ;
         qsettings.setValue(WIDGET_MODE, value);
+        emit widgetModeChanged(value);
     }
 }
 
