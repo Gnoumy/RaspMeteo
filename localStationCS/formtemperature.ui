@@ -42,8 +42,20 @@
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
+         <property name="inputMethodHints">
+          <set>Qt::ImhTime</set>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
          <property name="sizeAdjustPolicy">
           <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerItem</enum>
          </property>
          <property name="gridStyle">
           <enum>Qt::NoPen</enum>
