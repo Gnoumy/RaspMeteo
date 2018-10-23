@@ -61,6 +61,7 @@ void PollutionWidget::reloadData()
 
     ui->lineEdit_header->setFont(header);
     ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
+    ui->lineEdit_header->setReadOnly(true);
     ui->label_Indice->setFont(font);
     ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
     ui->label_MinMax->setFont(footer);
