@@ -52,18 +52,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
     /********************   FIN REQUETE JSON   ****************************/
 }
-void PollutionWidget::premierePage(QNetworkReply *data)
-{
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
-    QJsonParseError jsonError;
-    if(jsonError.error != QJsonParseError::NoError)
-    {
-        qDebug()<<QStringLiteral("Parsed Json failure PollutionWidget");
-        return;
-    }
-    ui->label_Indice->setText(jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toString());
-    ui->label_Station->setText(jsonDoc.object().value("data").toObject().toVariantMap()["city"].toMap()["name"].toString());
-}
+
 void PollutionWidget::reloadData()
 {
     QFont font(Config::getTableFontFamily(),Config::getFontSize());
@@ -79,13 +68,20 @@ void PollutionWidget::reloadData()
     ui->label_Station->setFont(footer);
     ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
 
-    QNetworkRequest request;
-    QString latitude = QString::number(Config::getLatitude());
-    QString longitude = QString::number(Config::getLongitude());
-    QUrl url("https://api.waqi.info/feed/geo:"+latitude+";"+longitude+"/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Plessis Robinson
-    request.setUrl(url);
-    networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
+
+}
+void PollutionWidget::premierePage(QNetworkReply *data)
+{
+    QJsonDocument jsonDoc = QJsonDocument::fromJson(data->readAll());
+    QJsonParseError jsonError;
+    if(jsonError.error != QJsonParseError::NoError)
+    {
+        qDebug()<<QStringLiteral("Parsed Json failure PollutionWidget");
+        return;
+    }
+    ui->label_Indice->setText(jsonDoc.object().value("data").toObject().toVariantMap()["aqi"].toString());
+    ui->label_Station->setText(jsonDoc.object().value("data").toObject().toVariantMap()["city"].toMap()["name"].toString());
 }
 void PollutionWidget::changeMode()
 {
