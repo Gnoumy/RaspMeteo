@@ -23,7 +23,7 @@
       <widget class="QTableWidget" name="tableWidget"/>
      </item>
      <item>
-      <widget class="QLabel" name="footerLabel">
+      <widget class="AutoScrollingLabel" name="footerLabel">
        <property name="text">
         <string>TextLabel</string>
        </property>
@@ -33,6 +33,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AutoScrollingLabel</class>
+   <extends>QLabel</extends>
+   <header>autoscrollinglabel.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
