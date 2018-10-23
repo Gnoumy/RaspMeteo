@@ -24,7 +24,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
     ui->setupUi(this);
 
     /*********************  PARAMETRES WIDGET  *****************************/
-        QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+        QFont font(Config::getTableFontFamily(),Config::getFontSize());
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -66,7 +66,7 @@ void PollutionWidget::premierePage(QNetworkReply *data)
 }
 void PollutionWidget::reloadData()
 {
-    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+    QFont font(Config::getTableFontFamily(),Config::getFontSize());
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
