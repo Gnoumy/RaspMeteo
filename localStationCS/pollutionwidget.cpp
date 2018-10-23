@@ -34,14 +34,15 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         ui->lineEdit_header->setText("Pollution");
 
         ui->label_Indice->setStyleSheet("color:"+Config::getFontColor()+";background-color: "+Config::getTableBgColor());
-//        ui->stackedWidget->setStyleSheet("background-color: "+Config::getBgColor());
 
         ui->label_MinMax->setFont(footer);
-        ui->label_MinMax->setFixedHeight(35);
+//        ui->label_MinMax->setFixedHeight(35);
+
         ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
 
         ui->label_Station->setFont(footer);
-        ui->label_Station->setFixedHeight(35);
+//        ui->label_Station->setFixedHeight(35);
+
         ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
     /*********************   FIN PARAMETRES   *****************************/
 
@@ -56,8 +57,6 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
     /********************   FIN REQUETE JSON   ****************************/
 }
-
-
 
 void PollutionWidget::premierePage(QNetworkReply *data)
 {
@@ -81,7 +80,6 @@ void PollutionWidget::reloadData()
     request.setUrl(url);
     networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
-
 }
 
 void PollutionWidget::changeMode()
