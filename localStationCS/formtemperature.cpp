@@ -31,7 +31,7 @@ FormTemperature::FormTemperature(QWidget *parent) :
 
 //  ********  Parametre de la table Widget  ********
     QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
-    ui->tableWidget_temp->setMinimumWidth(240);
+    ui->tableWidget_temp->setMinimumWidth(250);
     ui->tableWidget_temp->setFont(font);
     ui->tableWidget_temp->setRowCount(4);
     ui->tableWidget_temp->setColumnCount(4);

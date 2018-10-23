@@ -32,8 +32,9 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
         ui->lineEdit_header->setFont(header);
         ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
         ui->lineEdit_header->setText("Pollution");
+        ui->label_Indice->setMinimumWidth(240);
 
-        ui->label_Indice->setStyleSheet("color:"+Config::getFontColor()+";background-color: "+Config::getTableBgColor());
+        ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
 
         ui->label_MinMax->setFont(footer);
 //        ui->label_MinMax->setFixedHeight(35);
