@@ -70,4 +70,5 @@ FORMS += \
     mapwindow.ui
 
 RESOURCES += \
-    qmlmap.qrc
+    qmlmap.qrc \
+    ressources.qrc
