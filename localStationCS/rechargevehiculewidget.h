@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "localstationwidget.h"
 #include "config.h"
+#include "autoscrollinglabel.h"
 
 #include <QNetworkReply>
 #include <QObject>
