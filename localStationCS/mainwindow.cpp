@@ -18,6 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->initDisplay();
+    this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setContentsMargins(0,0,0,0);
+    this->ui->horizontalLayout->setContentsMargins(0,0,0,0);
+    this->ui->horizontalLayout->setSpacing(0);
+    this->ui->horizontalLayout_2->setContentsMargins(0,0,0,0);
+    this->ui->horizontalLayout_2->setSpacing(0);
 
     this->settingsWindow = new Settings(this) ;
     this->connect(this->ui->actionSettings, SIGNAL(triggered(bool)), this, SLOT(openSettings())) ;
@@ -42,8 +48,8 @@ void MainWindow::initDisplay()
     // dimensions de mon pc = 1680:1050
     resize(QDesktopWidget().availableGeometry(this).size() * SCREEN_GEOMETRY_RATIO);
 
-    const int W = QDesktopWidget().availableGeometry(this).size().width(),
-              H = QDesktopWidget().availableGeometry(this).size().height()  ;
+//    const int W = QDesktopWidget().availableGeometry(this).size().width(),
+//              H = QDesktopWidget().availableGeometry(this).size().height()  ;
 
 
 
@@ -63,5 +69,16 @@ void MainWindow::initDisplay()
 //    this->widgets[1]->show();
 }
 
+
+
+void MainWindow::mousePressEvent(QMouseEvent *event) {
+    this->mouseClick_X_Coordinate = event->x();
+    this->mouseClick_Y_Coordinate = event->y();
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *event) {
+    move(event->globalX() - this->mouseClick_X_Coordinate,
+         event->globalY() - this->mouseClick_Y_Coordinate);
+}
 
 

@@ -9,7 +9,6 @@ class LocalStationWidget : public QWidget
 public:
     explicit LocalStationWidget(QWidget *parent = nullptr);
     virtual void reloadData() = 0 ; // recupere les donnees pour actualiser le widget
-    virtual void changeFont() ;//= 0 ; // changer la police (style, taille, etc...)
     virtual void changeMode() = 0 ; // changer le mode du widget (recuperer le mode avec Config::getMode())
 
 signals:

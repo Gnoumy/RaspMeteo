@@ -197,7 +197,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_7">
        <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_4">
+        <layout class="QVBoxLayout" name="verticalLayoutMiscellaneous">
          <item>
           <widget class="QLabel" name="scrollingSpeedLabel">
            <property name="text">
