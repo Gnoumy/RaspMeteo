@@ -22,7 +22,9 @@
 #include <QStringList>
 #include <math.h>
 #include <QPainter>
+#include <QStackedWidget>
 #include "localstationwidget.h"
+#include "autoscrollinglabel.h"
 #include "config.h"
 
 #define PI 3.14159265
@@ -94,7 +96,7 @@ class WidgetSatellite : public LocalStationWidget
 public:
     explicit WidgetSatellite(QWidget *parent=0);
     ~WidgetSatellite();
-
+    void changeMode();
     void SetSat_categories();
 
 private slots:
@@ -113,7 +115,7 @@ private:
     void Showpic(QImage &img);
     void DrawSatellites(QImage *img);
     void reloadData();
-    void changeMode();
+
 };
 
 #endif // QWIDGETSATELLITE_H
