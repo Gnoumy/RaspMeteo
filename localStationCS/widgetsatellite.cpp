@@ -29,10 +29,10 @@ WidgetSatellite::WidgetSatellite(QWidget *parent) :
 //    Config::setLongitude(2.27078f);
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
-//    QString urlalt =URLOPENELEVATIONEBASE+ui->label_lat->text()
-//            +","+ui->label_lng->text();
-    QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
-               +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
+    QString urlalt =URLOPENELEVATIONEBASE+QString("%1").arg(Config::getLatitude())
+            +","+QString("%1").arg(Config::getLongitude());
+//    QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
+//               +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
     request.setUrl(QUrl(urlalt));
     manager->get(request);
     //QNetworkReply *pReplayalt = manager->get(request);
@@ -52,6 +52,7 @@ WidgetSatellite::~WidgetSatellite()
 void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
 {
     QByteArray bytes = pReplayalt->readAll();
+ //   qDebug()<<bytes;
     QJsonParseError jsonError;
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
@@ -64,14 +65,14 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
     {
     QJsonObject obj =doucument.object();
     QVariantMap data = doucument.toVariant().toMap();
-   /* QVariantMap list = data["results"].toList().at(0).toMap();
+    QVariantMap list = data["results"].toList().at(0).toMap();
         //https://api.open-elevation.com/api/v1/lookup?locations=
     this->alt=list["elevation"].toString();
-    ui->label_alt->setText(alt);*/
-    QVariantMap resourceSets = data["resourceSets"].toList().at(0).toMap();
+     /*  QVariantMap resourceSets = data["resourceSets"].toList().at(0).toMap();
     QVariantMap resources = resourceSets["resources"].toList().at(0).toMap();
-    this->alt = resources["offsets"].toList().at(0).toString();
+    this->alt = resources["offsets"].toList().at(0).toString();*/
     }
+  //  qDebug()<<this->alt;
     Slot_SatTrack();
     QTimer * timer = new QTimer(this);
     timer->start(TIME_RESTART);
@@ -84,7 +85,6 @@ void WidgetSatellite::Slot_SatTrack()
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     this->setCursor(Qt::WaitCursor);
-//    Config::setDistance(300.0f);
     double degree=atan(Config::getDistance()*FACTOR_DISTANCE/MINI_SATALT)*180/PI;
     for(int i=0; i<Sat_categories.size();i++)
     {
@@ -93,6 +93,7 @@ void WidgetSatellite::Slot_SatTrack()
                 +"/"+alt;
         url+="/"+QString::number(degree)+"/";
         url+=QString::number(Sat_categories.values().at(i))+N2YOKEY;
+        qDebug()<<url;
         request.setUrl(QUrl(url));
         QNetworkReply *pReplay = manager->get(request);
         QEventLoop eventLoop;
@@ -117,7 +118,7 @@ void WidgetSatellite::SatlistTrack(QNetworkReply* pReplay)
     QJsonDocument doucument =QJsonDocument::fromJson(bytes,&jsonError);
     if(jsonError.error != QJsonParseError::NoError)
     {
-        qDebug()<<QStringLiteral("Parsed Json failure");
+        qDebug()<<QStringLiteral("Parsed Json failure Satellites");
         return;
     }
     if(doucument.isObject())
@@ -352,14 +353,35 @@ void WidgetSatellite::SetSat_categories()
 
 void WidgetSatellite::reloadData()
 {
+    this->setStyleSheet("background-color: "+Config::getBgColor());
+    //  ********  Parametre du lineEdit header  ********
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    ui->lineEdit->setFont(header);
+    ui->lineEdit->setStyleSheet("color: "+Config::getHeaderFontColor()
+                             +"; background-color: "
+                             +Config::getHeaderBgColor());
+    ui->lineEdit->setReadOnly(true);
+
+    //  ********  Parametre de la table Widget  ********
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
+    ui->tableWidget->setFont(font);
+    ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()
+                                   +"; background-color: "+
+                                   Config::getTableBgColor());
+
     QNetworkAccessManager * manager = new QNetworkAccessManager(this);
     QNetworkRequest request;
-    QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
-               +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
+    QString urlalt =URLOPENELEVATIONEBASE+QString("%1").arg(Config::getLatitude())
+            +","+QString("%1").arg(Config::getLongitude());
+//    QString urlalt =BINGBASE+QString("%1").arg(Config::getLatitude())
+//               +","+QString("%1").arg(Config::getLongitude())+BINGBKEY;
     request.setUrl(QUrl(urlalt));
     manager->get(request);
-    //QNetworkReply *pReplayalt = manager->get(request);
     connect (manager,SIGNAL(finished(QNetworkReply*)),this,SLOT(Elevation(QNetworkReply*)));
+   //  ********  image show  ********
+    QImage img;
+    img.load(":/satellites/satobservation.png");
+    Showpic(img);
 }
 
 void WidgetSatellite::changeMode()

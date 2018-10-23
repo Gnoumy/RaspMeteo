@@ -35,7 +35,7 @@
 #define HIGHTALT 20000
 #define MEDIENALT 1000
 #define N2YOKEY "/&apiKey=UWRBCN-GBFDZC-W3RCP5-3WA0"
-#define URLN2YOBASE "https://www.n2yo.com/rest/v1/satellite/above/"
+#define URLN2YOBASE "http://www.n2yo.com/rest/v1/satellite/above/"
 #define URLOPENELEVATIONEBASE "https://api.open-elevation.com/api/v1/lookup?locations="
 #define BINGBASE "http://dev.virtualearth.net/REST/v1/Elevation/SeaLevel?points="
 //http://dev.virtualearth.net/REST/v1/Elevation/List?points=35.89431,-110.72522,35.89393,-110.72578,35.89374,-110.72606,35.89337,-110.72662&key=AreNudZpwsgCVThO3D03mhq6DcWVKu2JYWqstZeoIsAbePVfU1gEczU0WrT6LYJg
