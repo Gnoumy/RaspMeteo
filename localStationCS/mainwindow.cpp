@@ -47,8 +47,9 @@ void MainWindow::reloadDataForAllWidgets()
 
     QList<LocalStationWidget *> allLocalStationWidgets(this->findChildren<LocalStationWidget *>());
 
-    for(const LocalStationWidget *child : allLocalStationWidgets)
-        qDebug() << child->objectName() << child->metaObject()->className();
+    for(LocalStationWidget *child : allLocalStationWidgets)
+        child->reloadData();
+//        qDebug() << child->objectName() << child->metaObject()->className();
 
     qDebug() << "***************************************************" ;
 }
