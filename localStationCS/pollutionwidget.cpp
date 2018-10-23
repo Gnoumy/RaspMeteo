@@ -24,14 +24,15 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
     ui->setupUi(this);
 
     /*********************  PARAMETRES WIDGET  *****************************/
-        this->setStyleSheet("background-color: "+Config::getBgColor());
-        QFont font(Config::getFontFamily(),Config::getFontSize());
+        QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
         ui->lineEdit_header->setFont(header);
         ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
         ui->lineEdit_header->setText("Pollution");
+
+        ui->label_Indice->setFont(font);
         ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
 
         ui->label_MinMax->setFont(footer);
@@ -65,19 +66,18 @@ void PollutionWidget::premierePage(QNetworkReply *data)
 }
 void PollutionWidget::reloadData()
 {
-    this->setStyleSheet("background-color: "+Config::getBgColor());
-    QFont font(Config::getFontFamily(),Config::getFontSize());
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
     ui->lineEdit_header->setFont(header);
     ui->lineEdit_header->setStyleSheet("color: "+Config::getHeaderFontColor()+";background-color: "+Config::getHeaderBgColor());
+    ui->label_Indice->setFont(font);
     ui->label_Indice->setStyleSheet("color:"+Config::getTableFontColor()+";background-color: "+Config::getTableBgColor());
     ui->label_MinMax->setFont(footer);
     ui->label_MinMax->setStyleSheet("color:"+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
     ui->label_Station->setFont(footer);
     ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
-
     QNetworkRequest request;
     QString latitude = QString::number(Config::getLatitude());
     QString longitude = QString::number(Config::getLongitude());
