@@ -90,7 +90,7 @@ void CitiesWidget::afficheTableView() {
     ui->tableWidget->setColumnWidth(0, largeur1);
     ui->tableWidget->setColumnWidth(1, largeurTableWidget-largeur1-4);
 
-    QFont apiFont(Config::getFontFamily(), Config::getFontSize(), QFont::Normal, false );
+    QFont apiFont(Config::getTableFontFamily(), Config::getTableFontSize(), QFont::Normal, false );
 
     ui->tableWidget->horizontalHeader()->hide();
     ui->tableWidget->verticalHeader()->hide();
