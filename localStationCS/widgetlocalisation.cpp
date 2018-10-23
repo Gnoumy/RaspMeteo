@@ -21,6 +21,7 @@ widgetlocalisation::widgetlocalisation(QWidget *parent) :
     ui->tableWidget->setShowGrid(false);// pour enlever les grilles dans un tableau
 
     ui->lineEdit->setFont(header);//taille de police du l'entete
+    ui->lineEdit->setReadOnly(true);
     ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
     ui->lineEdit->setAlignment(Qt::AlignHCenter);
     manager = new NetworkAccessManager(this);
