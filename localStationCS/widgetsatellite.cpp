@@ -66,7 +66,7 @@ void WidgetSatellite::Elevation(QNetworkReply* pReplayalt)
     QVariantMap data = doucument.toVariant().toMap();
    /* QVariantMap list = data["results"].toList().at(0).toMap();
         //https://api.open-elevation.com/api/v1/lookup?locations=
-    QString alt = list["elevation"].toString();
+    this->alt=list["elevation"].toString();
     ui->label_alt->setText(alt);*/
     QVariantMap resourceSets = data["resourceSets"].toList().at(0).toMap();
     QVariantMap resources = resourceSets["resources"].toList().at(0).toMap();
