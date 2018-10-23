@@ -65,7 +65,23 @@ FlightsWidget::~FlightsWidget()
     delete ui;
 }
 
-void FlightsWidget::reloadData() {}//= 0 ; // recupere les donnees pour actualiser le widget
+void FlightsWidget::reloadData() {
+
+    QUrl url ("https://opensky-network.org/api/states/all?lamin=45.8389&lomin=5.9962&lamax=47.8229&lomax=10.5226");
+
+    QNetworkRequest request;
+    request.setUrl(url);
+
+    networkManager->get(request);
+    connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(reponseUrl(QNetworkReply *)));
+
+    QFont font(Config::getFontFamily(),Config::getFontSize());//font(police, taille)
+    QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+      ui->m_pTableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+    ui->lineEdit->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+
+}//= 0 ; // recupere les donnees pour actualiser le widget
 void FlightsWidget::changeFont() {}
 
 void FlightsWidget::changeMode()

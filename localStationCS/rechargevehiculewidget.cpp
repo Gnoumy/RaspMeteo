@@ -34,15 +34,16 @@ void RechargeVehiculeWidget::reloadData()
 /**********   pour la police et fond   ************/
 void RechargeVehiculeWidget::changeFont()
 {
-    QFont font(Config::getFontFamily(),Config::getFontSize());//font(taille police corps de texte)
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());//font(taille police corps de texte)
     QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());//font(taille police bas de texte)
     QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());//font(taille police entête)
 
     ui->tableWidget->setFont(font); //appel police et police
     ui->tableWidget->setStyleSheet("color: "+Config::getTableFontColor()+"; background-color: "+Config::getTableBgColor());
+    ui->tableWidget->setMinimumWidth(500);
 
-    ui->label->setFont(header); //taille de police du l'entete
-    ui->label->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
+    ui->lineEdit->setFont(header); //taille de police du l'entete
+    ui->lineEdit->setStyleSheet("color:"+Config::getHeaderFontColor()+"; background-color: "+Config::getHeaderBgColor());
 
     ui->label_2->setFont(footer); //taille du bas
     ui->label_2->setStyleSheet("color:"+Config::getFooterFontColor()+"; background-color: "+Config::getFooterBgColor());
@@ -110,6 +111,11 @@ void RechargeVehiculeWidget::replyFinished(QNetworkReply *reply)
             QString distance1=distance.append("km");//on ajoute km à distance on aussi faire QString distance1=distance+"km";
 
             ui->tableWidget->setRowCount(i+1);  //numero de lignes
+
+//            AutoScrollingLabel *item1= new AutoScrollingLabel(this);
+//            item1->setText(addresse);
+//            ui->tableWidget->setCellWidget(i,0,item1);
+
             QTableWidgetItem *item1= new QTableWidgetItem(addresse); //item1 pour recuperer l'adresse
             ui->tableWidget->setItem(i,0,item1);//on rajoute item1 à la colonne 1, ligne i
 
