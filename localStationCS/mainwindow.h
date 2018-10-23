@@ -25,8 +25,12 @@ private:
     Ui::MainWindow *ui;
     LocalStationWidget **widgets ;
     Settings *settingsWindow ;
+    int mouseClick_X_Coordinate;
+    int mouseClick_Y_Coordinate;
 
     void initDisplay() ;
+    void mousePressEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *event);
 };
 
 #endif // MAINWINDOW_H

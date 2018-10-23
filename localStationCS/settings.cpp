@@ -5,14 +5,18 @@
 #include <QDirIterator>
 #include <QMessageBox>
 
-#define RESSOURCE_FONTS_FOLDER  ":/fonts"
-#define MIN_SCROLLING_SPEED     1   // fast
-#define MAX_SCROLLING_SPEED     50  // slow
-#define MIN_WIDGET_MODE         0
-#define MAX_WIDGET_MODE         1
+#define RESSOURCE_FONTS_FOLDER      ":/fonts"
+#define MIN_SCROLLING_SPEED         1   // fast
+#define MAX_SCROLLING_SPEED         50  // slow
+#define MIN_WIDGET_MODE             0
+#define MAX_WIDGET_MODE             1
+#define DEFAULT_SPEED_TEXT          "Speed (Fast -> Slow) : "
+#define DEFAULT_AUTO_SCROLLING_TEXT "This is an auto-scrolling label. If the text is long enough, you will see it scrolling..."
 
 
 #include <QDebug>
+#include <QHelpEvent>
+#include <QToolTip>
 
 Settings::Settings(QWidget *parent) :
     QDialog(parent),
@@ -259,22 +263,22 @@ Settings::Settings(QWidget *parent) :
                                     this->ui->tableBgColorComboBox);
 }
 
-void Settings::paintEvent(QPaintEvent *e)
-{
+//void Settings::paintEvent(QPaintEvent *e)
+//{
 
-////    this->ui->labelAutoScrolling->setText("TextLabel");
-//    int textPixelWidth = this->ui->labelAutoScrolling->fontMetrics().boundingRect(this->ui->labelAutoScrolling->text()).width() ;
-//    int labelWidth = this->ui->labelAutoScrolling->width() ;
+//////    this->ui->labelAutoScrolling->setText("TextLabel");
+////    int textPixelWidth = this->ui->labelAutoScrolling->fontMetrics().boundingRect(this->ui->labelAutoScrolling->text()).width() ;
+////    int labelWidth = this->ui->labelAutoScrolling->width() ;
 
-//    if (labelWidth < textPixelWidth)
-//    {
-//        qDebug() << "Trop grand : " << labelWidth << " < " << textPixelWidth ;
-//        this->ui->labelAutoScrolling->scroll(labelWidth, 0);
+////    if (labelWidth < textPixelWidth)
+////    {
+////        qDebug() << "Trop grand : " << labelWidth << " < " << textPixelWidth ;
+////        this->ui->labelAutoScrolling->scroll(labelWidth, 0);
 
-//    }
+////    }
 
-////    QDialog::paintEvent(e) ;
-}
+//////    QDialog::paintEvent(e) ;
+//}
 
 
 
@@ -401,7 +405,7 @@ void Settings::connectFontRelatedWidgets(QLabel *qlabel,
         // Equivalent. One with a private slot, and one with a lambda expression
         //this->connect(qfontcombobox, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
     this->connect(qfontcombobox, &QFontComboBox::currentTextChanged, this,
-        [=](const QString &value)
+        [=]
         {
             // this->fontStr = value ;
             this->updateLabel(qlabel,
@@ -415,7 +419,7 @@ void Settings::connectFontRelatedWidgets(QLabel *qlabel,
         // Equivalent. One with a private slot, and one with a lambda expression
         //this->connect(fontSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeSpinBox(int))) ;
     this->connect(fontSizeSpinBox, qOverload<int>(&QSpinBox::valueChanged), this,
-        [=](const int &value)
+        [=]
         {
             // this->fontSize = value ;
             this->updateLabel(qlabel,
@@ -430,7 +434,7 @@ void Settings::connectFontRelatedWidgets(QLabel *qlabel,
         // Equivalent. One with a private slot, and one with a lambda expression
         //this->connect(comboBoxWithFontColor, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
     this->connect(comboBoxWithFontColor, &QComboBox::currentTextChanged, this,
-        [=](const QString &value)
+        [=]
         {
             // this->fontColor = value ;
             this->updateLabel(qlabel,
@@ -444,7 +448,7 @@ void Settings::connectFontRelatedWidgets(QLabel *qlabel,
         // Equivalent. One with a private slot, and one with a lambda expression
         //this->connect(comboBoxWithBgColor, SIGNAL(currentTextChanged(QString)), this, SLOT(changeFontComboBox(QString))) ;
     this->connect(comboBoxWithBgColor, &QComboBox::currentTextChanged, this,
-        [=](const QString &value)
+        [=]
         {
 //            this->bgColor = value ;
             this->updateLabel(qlabel,
@@ -591,6 +595,13 @@ void Settings::resetSettingsWidgets()
     this->ui->lonDoubleSpinBox->setValue(Config::getLongitude());
     this->ui->distDoubleSpinBox->setValue(Config::getDistance());
 
+    // Miscellaneous ------------------------------------------------------------
+
+    this->ui->scrollingSpeedHorizontalSlider->setValue(Config::getScrollingSpeed());
+    this->ui->scrollingSpeedLabel->setText(DEFAULT_SPEED_TEXT
+                + QString::number(this->ui->scrollingSpeedHorizontalSlider->value()));
+    this->ui->widgetModeSpinBox->setValue(Config::getWidgetMode());
+
 }
 
 void Settings::changeConfig()
@@ -645,6 +656,13 @@ void Settings::changeConfig()
     Config::setLongitude( this->ui->lonDoubleSpinBox->value() ) ;
 
     Config::setDistance( this->ui->distDoubleSpinBox->value() ) ;
+
+    // Miscellaneous ------------------------------------------------------------
+
+    Config::setScrollingSpeed( this->ui->scrollingSpeedHorizontalSlider->value() ) ;
+
+    Config::setWidgetMode( this->ui->widgetModeSpinBox->value() ) ;
+    emit widgetModeChanged(this->ui->widgetModeSpinBox->value());
 
     // Apply to the whole project
     QApplication::setFont(QFont(this->ui->fontComboBox->currentText(),this->ui->fontSpinBox->value()));
@@ -726,11 +744,26 @@ void Settings::initMiscellaneous()
         qDebug() << "Warning : the class of autoScrollingLabel is not AutoScrollingLabel" ;
 
     this->ui->autoScrollingLabel->setFixedWidth(this->width()>>1);
-    this->ui->verticalLayout_4->setAlignment(this->ui->autoScrollingLabel, Qt::AlignCenter);
-//    this->ui->autoScrollingLabel->setUpLabel();
-    this->ui->autoScrollingLabel->setText("This is a long text in an auto-scrolling label.");
+    this->ui->verticalLayoutMiscellaneous->setAlignment(this->ui->autoScrollingLabel, Qt::AlignCenter);
+    this->ui->autoScrollingLabel->setText(DEFAULT_AUTO_SCROLLING_TEXT);
 
     this->ui->scrollingSpeedHorizontalSlider->setRange(MIN_SCROLLING_SPEED, MAX_SCROLLING_SPEED);
+    this->connect(this->ui->scrollingSpeedHorizontalSlider, &QSlider::valueChanged, this,
+                  [this](const int &value)
+                {
+                    this->ui->autoScrollingLabel->setTimerInterval(value);
+                    this->ui->scrollingSpeedLabel->setText(DEFAULT_SPEED_TEXT
+                                                           + QString::number(value));
+
+//                    this->ui->scrollingSpeedHorizontalSlider->setToolTip(QString::number(value));
+//                    QHelpEvent toolTipEvent(QEvent::ToolTip, this->ui->scrollingSpeedHorizontalSlider->pos(), this->ui->scrollingSpeedHorizontalSlider->pos());
+//                    QApplication::sendEvent(this->ui->scrollingSpeedHorizontalSlider, &toolTipEvent);
+
+//                  QToolTip::showText(this->ui->scrollingSpeedHorizontalSlider->pos(), QString::number(this->ui->scrollingSpeedHorizontalSlider->value()),
+//                           this->ui->scrollingSpeedHorizontalSlider,
+//                           this->ui->scrollingSpeedHorizontalSlider->rect());
+                });
+
 
     this->ui->widgetModeSpinBox->setRange(MIN_WIDGET_MODE, MAX_WIDGET_MODE);
 }
@@ -739,13 +772,11 @@ void Settings::initMiscellaneous()
 // override reject() virtual method (closing dialog event)
 void Settings::reject()
 {
-    QMessageBox::StandardButton resBtn = QMessageBox::Yes;
-    if (1) {
-        resBtn = QMessageBox::question( this, "APP_NAME",
+    QMessageBox::StandardButton resBtn = QMessageBox::question( this, "",
                                         tr("Are you sure?\n"),
-                                        QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+                                        QMessageBox::Cancel | QMessageBox::Yes,
                                         QMessageBox::Yes);
-    }
+
     if (resBtn == QMessageBox::Yes) {
         QDialog::reject();
     }
