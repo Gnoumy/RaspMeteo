@@ -24,7 +24,7 @@ PollutionWidget::PollutionWidget(QWidget *parent) :
     ui->setupUi(this);
 
     /*********************  PARAMETRES WIDGET  *****************************/
-        QFont font(Config::getTableFontFamily(),Config::getFontSize());
+        QFont font(Config::getTableFontFamily(),Config::getTableFontSize()+30);
         QFont footer(Config::getFooterFontFamily(),Config::getFooterFontSize());
         QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
 
@@ -79,12 +79,12 @@ void PollutionWidget::reloadData()
     ui->label_Station->setFont(footer);
     ui->label_Station->setStyleSheet("color: "+Config::getFooterFontColor()+";background-color: "+Config::getFooterBgColor());
 
-    QNetworkRequest request2;
+    QNetworkRequest request;
     QString latitude = QString::number(Config::getLatitude());
     QString longitude = QString::number(Config::getLongitude());
     QUrl url("https://api.waqi.info/feed/geo:"+latitude+";"+longitude+"/?token=82740759ffaf747ed45aad29febf758fffd33758"); //Plessis Robinson
-    request2.setUrl(url);
-    networkManager->get(request2);
+    request.setUrl(url);
+    networkManager->get(request);
     connect(networkManager, SIGNAL(finished(QNetworkReply *)), this, SLOT(premierePage(QNetworkReply *)));
 }
 void PollutionWidget::changeMode()

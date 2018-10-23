@@ -9,6 +9,20 @@ widgetlocalisation::widgetlocalisation(QWidget *parent) :
     ui(new Ui::widgetlocalisation)
 {
     ui->setupUi(this);
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());//font(police, taille, couleur)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    ui->tableWidget->setMinimumWidth(250);
+    ui->tableWidget->setFont(font);
+    ui->tableWidget->setStyleSheet("color :"+Config::getTableFontColor()+";background-color :"+Config::getTableBgColor());
+    ui->tableWidget->setColumnCount(1);// le nombre de colonne
+    ui->tableWidget->setRowCount(6);// le nombre de ligne
+    ui->tableWidget->horizontalHeader()->hide();//permet de ne pas afficher les numeros de ligne
+    ui->tableWidget->verticalHeader()->hide();// permet de ne pas afficher les numeros de ligne
+    ui->tableWidget->setShowGrid(false);// pour enlever les grilles dans un tableau
+
+    ui->lineEdit->setFont(header);//taille de police du l'entete
+    ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
+    ui->lineEdit->setAlignment(Qt::AlignHCenter);
     manager = new NetworkAccessManager(this);
 
     QString lati = QString::number(double(Config::getLatitude()),'g',10);
@@ -38,22 +52,6 @@ void widgetlocalisation::replyFinished(QNetworkReply *reply)
             return;
     }
     QJsonDocument myJson=QJsonDocument::fromJson(bytes);
-
-    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());//font(police, taille, couleur)
-    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
-    ui->tableWidget->setMinimumWidth(250);
-    ui->tableWidget->setFont(font);
-    ui->tableWidget->setStyleSheet("color :"+Config::getTableFontColor()+";background-color :"+Config::getTableBgColor());
-    ui->tableWidget->setColumnCount(1);// le nombre de colonne
-    ui->tableWidget->setRowCount(6);// le nombre de ligne
-    ui->tableWidget->horizontalHeader()->hide();//permet de ne pas afficher les numeros de ligne
-    ui->tableWidget->verticalHeader()->hide();// permet de ne pas afficher les numeros de ligne
-    ui->tableWidget->setShowGrid(false);// pour enlever les grilles dans un tableau
-
-    ui->lineEdit->setFont(header);//taille de police du l'entete
-    ui->lineEdit->setStyleSheet("color :"+Config::getHeaderFontColor()+";background-color :"+Config::getHeaderBgColor());
-    ui->lineEdit->setAlignment(Qt::AlignHCenter);
-
     QString vil(myJson.object().toVariantMap()["address"].toMap()["town"].toString());
     QString cod(myJson.object().toVariantMap()["address"].toMap()["postcode"].toString());
     QString sta(myJson.object().toVariantMap()["address"].toMap()["state"].toString());
@@ -96,6 +94,12 @@ void widgetlocalisation::reloadData()
 {
     QString lati = QString::number(double(Config::getLatitude()),'g',10);
     QString longi = QString::number(double(Config::getLongitude()),'g',10);
+
+    QFont font(Config::getTableFontFamily(),Config::getTableFontSize());//font(police, taille, couleur)
+    QFont header(Config::getHeaderFontFamily(),Config::getHeaderFontSize());
+    ui->tableWidget->setMinimumWidth(250);
+    ui->tableWidget->setFont(font);
+    ui->tableWidget->setStyleSheet("color :"+Config::getTableFontColor()+";background-color :"+Config::getTableBgColor());
 
     QUrl url("https://nominatim.openstreetmap.org/reverse?format=json&lat="+lati+"&lon="+longi+"&zoom=18&addressdetails=1");
    //QUrl url("https://api.navitia.io/v1/coverage/sandbox/stop_areas/stop_area%3ARAT%3ASA%3AGDLYO/stop_schedules?items_per_schedule=2&");
